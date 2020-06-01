@@ -1,6 +1,6 @@
 import React from 'react'
-import topImage from "./../les_tuman_derevia.jpg";
-import avatar from "./../1551511784_4.jpg"
+import topImage from "./les_tuman_derevia.jpg";
+import avatar from "./1551511784_4.jpg"
 
 const Profile = () => {
     return (
