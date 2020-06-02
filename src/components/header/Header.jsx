@@ -4,8 +4,11 @@ import styles from './Header.module.scss'
 
 const Header = () => {
   return (
-    <header className='header'>
-      <img src={logo} alt='logo' />
+    <header className={styles.header}>
+      <div className={styles.logoBlock}>
+        <div className={styles.logoImage}><img src={logo} alt='logo' /></div>
+        <a href='#' className={styles.logoName}>WhoIAm</a>
+      </div>
     </header>
   )
 }

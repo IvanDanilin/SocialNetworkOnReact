@@ -1,0 +1,39 @@
+.header {
+    position: fixed;
+    background: rgb(94, 0, 141);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5), 3px 3px 15px rgba(0, 0, 0, 0.8);
+    width: 100%;
+    height: 60px;
+    z-index: 5;
+    .logoBlock {
+        position: relative;
+        display: flex;
+        align-items: center;
+        margin: 0 auto;
+        height: 100%;
+        max-width: 1170px;
+        .logoImage {
+            height: 100%;
+            padding: 5px;
+            &:hover {
+                animation: rotateLogo 8s infinite linear;
+            }
+            img {
+                height: 100%;
+            }
+        }
+        .logoName {
+            font-size: 30px;
+            font-family: cursive;
+            font-weight: 700;
+            color: rgb(0, 163, 212);
+            text-shadow: 3px 3px 3px #000;
+        }
+    }
+}
+
+@keyframes rotateLogo {
+    to {
+        transform: rotate(360deg);
+    }
+}
