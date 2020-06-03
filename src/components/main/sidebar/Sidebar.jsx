@@ -1,11 +1,11 @@
 import React from 'react'
-import style from './Sidebar.module.scss'
+import s from './Sidebar.module.scss'
 
 const Sidebar = () => {
   return (
-    <div className={style.sidebar}>
-      <nav className={style.nav}>
-        <ul className={style.list}>
+    <div className={s.sidebar}>
+      <nav className={s.nav}>
+        <ul className={s.list}>
           <li><a href='#'>Profile</a></li>
           <li><a href='#'>Messages</a></li>
           <li><a href='#'>News</a></li>

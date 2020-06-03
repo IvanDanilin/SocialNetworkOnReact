@@ -1,12 +1,12 @@
 import React from "react"
-import Sidebar from "./sidebar/Sidebar"
-import Profile from "./profile/Profile"
-import Styles from "./Main.module.scss"
+import Sidebar from "./Sidebar/Sidebar"
+import Profile from "./Profile/Profile"
+import s from "./Main.module.scss"
 
 
 const Main = () => {
     return (
-        <main className={Styles.main}>
+        <main className={s.main}>
             <Sidebar />
             <Profile />
         </main>

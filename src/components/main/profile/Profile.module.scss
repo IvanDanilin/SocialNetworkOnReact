@@ -3,7 +3,6 @@
     flex-basis: 70%;
     flex-grow: 1;
     max-width: 850px;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
     margin-right: 25px;
     margin-left: 25px;
     height: min-content;
@@ -11,89 +10,5 @@
         width: 100%;
         margin-bottom: -40%;
     }
-    .contentBlock {
-        display: flex;
-        flex-direction: column;
-        position: relative;
-        min-height: 50vh;
-        .pageWrap {
-            display: flex;
-            background: mediumslateblue;
-            padding-bottom: 30px;
-            .avatar {
-                margin: -30px 30px 0;
-                img {
-                    border-radius: 10px;
-                    height: 150px;
-                    border: 2px solid #000;
-                    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
-                }
-            }
-            .pageInfoWrap {
-                margin-top: 20px;
-                font-family: sans-serif;
-                .pageName {
-                    font-size: 25px;
-                }
-                .pageInfo {
-                    margin: 15px 10px 0;
-                    .pageInfoRow {
-                        margin: 7px 0;
-                    }
-                }
-            }
-        }
-
-        .postsBlock {
-            margin-top: 35px;
-            .inputBlock {
-                padding: 20px 20px 40px;
-                background: mediumslateblue;
-                input {
-                    font-size: 17px;
-                    width: 100%;
-                    border-radius: 4px;
-                    padding-left: 10px;
-                    line-height: 35px;
-                    background: #ddd;
-                    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
-                    &:focus {
-                        background: #fff;
-                    }
-                }
-                .buttonWrap {
-                    margin-top: 10px;
-                    position: relative;
-                    width: 100%;
-                    button {
-                        margin-right: 10px;
-                        position: absolute;
-                        right: 0;
-                        font-size: 15px;
-                        line-height: 24px;
-                        padding: 0 15px;
-                        border-radius: 4px;
-                        background: navy;
-                        color: #ddd;
-                        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9);
-                        &:hover {
-                            background: mediumblue;
-                        }
-                        &:active {
-                            box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
-                            right: -2px;
-                            top: 2px;
-                        }
-                    }
-                }
-            }
-            .posts {
-                margin-top: 20px;
-                background: mediumslateblue;
-                height: 80px;
-                padding: 10px;
-                font-size: 18px;
-            }
-        }
-    }
+    
 }
