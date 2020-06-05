@@ -9,7 +9,7 @@
         padding-left: 10px;
         line-height: 35px;
         background: #ddd;
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.8);
+        box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
         &:focus {
             background: #fff;
         }
@@ -36,6 +36,7 @@
                 box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
                 right: -2px;
                 top: 2px;
+                background: darkgreen;
             }
         }
     }

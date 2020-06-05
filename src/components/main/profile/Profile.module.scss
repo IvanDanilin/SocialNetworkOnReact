@@ -1,14 +1,10 @@
 .profile {
-    //background: mediumslateblue;
-    flex-basis: 70%;
-    flex-grow: 1;
-    max-width: 850px;
-    margin-right: 25px;
-    margin-left: 25px;
     height: min-content;
-    .topImage img {
-        width: 100%;
-        margin-bottom: -40%;
+    .topImage {
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+        img {
+            width: 100%;
+            margin-bottom: -40%;
+        }
     }
-    
 }
