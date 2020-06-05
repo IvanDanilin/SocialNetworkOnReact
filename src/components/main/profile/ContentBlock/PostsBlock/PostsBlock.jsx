@@ -1,13 +1,13 @@
 import React from 'react'
-import s from './PostsBlock.module.scss'
+import styles from './PostsBlock.module.scss'
 import NewPostBlock from './NewPostBlock/NewPostBlock'
 import ExistingPostsBlock from './ExistingPostsBlock/ExistingPostsBlock'
 
-const PostsBlock = () => {
+const PostsBlock = (props) => {
     return (
-        <div className={s.postsBlock}>
+        <div className={styles.postsBlock}>
             <NewPostBlock />
-            <ExistingPostsBlock />
+            <ExistingPostsBlock posts={props.posts} />
         </div>
     )
 }

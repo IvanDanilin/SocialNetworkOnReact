@@ -1,14 +1,14 @@
 import React from 'react'
-import s from './NewPostBlock.module.scss'
+import styles from './NewPostBlock.module.scss'
 
 
 const NewPostBlock = () => {
     return (
-        <div className={s.newPostBlock}>
-            <form action="#">
-                <input type="text" placeholder="What's up?" />
-                <div className={s.buttonWrap}>
-                    <button type="submit">Send</button>
+        <div className={styles.newPostBlock}>
+            <form action='#'>
+                <input type='text' placeholder='What&#39;s up?' />
+                <div className={styles.buttonWrap}>
+                    <button type='submit'>Send</button>
                 </div>
             </form>
         </div>

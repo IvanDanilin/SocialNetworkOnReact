@@ -1,0 +1,7 @@
+.messages {
+    background: darkcyan;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    min-height: calc(100vh - 60px);
+}

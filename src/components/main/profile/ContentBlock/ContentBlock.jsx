@@ -1,14 +1,14 @@
 import React from 'react'
-import s from './ContentBlock.module.scss'
+import styles from './ContentBlock.module.scss'
 import PageWrap from './PageWrap/PageWrap'
 import PostsBlock from './PostsBlock/PostsBlock'
 
-const contentBlock = () => {
+const contentBlock = (props) => {
     return (
-        <div className={s.contentBlockWrapper}>
-            <div className={s.contentBlock}>
+        <div className={styles.contentBlockWrapper}>
+            <div className={styles.contentBlock}>
                 <PageWrap />
-                <PostsBlock />
+                <PostsBlock posts={props.posts} />
             </div>
         </div>
     )

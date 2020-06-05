@@ -1,15 +1,15 @@
 import React from 'react'
-import topImage from "./les_tuman_derevia.jpg";
-import s from "./Profile.module.scss"
+import topImage from './les_tuman_derevia.jpg';
+import styles from './Profile.module.scss'
 import ContentBlock from './ContentBlock/ContentBlock';
 
-const Profile = () => {
+const Profile = (props) => {
   return (
-    <div className={s.profile}>
-      <div className={s.topImage}>
-        <img src={topImage} alt="cover" />
+    <div className={styles.profile}>
+      <div className={styles.topImage}>
+        <img src={topImage} alt='cover' />
       </div>
-      <ContentBlock />
+      <ContentBlock posts={props.posts} />
     </div>
   )
 }

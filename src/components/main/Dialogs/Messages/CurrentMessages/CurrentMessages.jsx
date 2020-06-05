@@ -1,10 +1,10 @@
 import React from 'react'
-import './CurrentMessages.module.scss'
+import styles from './CurrentMessages.module.scss'
 
 const CurrentMessages = (props) => {
-
+    let message = props.messages.map( messageEl => <div className={styles.message}>{messageEl.message}</div>)
     return (
-        <div>sdfsd</div>
+        message
     )
 }
 

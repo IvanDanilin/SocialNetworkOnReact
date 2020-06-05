@@ -1,9 +1,12 @@
 import React from 'react'
-import s from './ExistingPost.module.scss'
+import styles from './ExistingPost.module.scss'
 
 const ExistingPost = (props) => {
     return (
-        <div className={s.post}>{props.textPost}</div>
+        <div className={styles.post}>
+            <div>{props.textPost}</div>
+            <div className={styles.likes}>{props.amountLikes} likes</div>
+        </div>
     )
 }
 
