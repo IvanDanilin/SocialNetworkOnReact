@@ -1,9 +1,15 @@
+import { rerenderEntireTree } from "../render";
+
 let state = {
   dialogsData: [
     {
-      id: 1,
+      id: 0,
       name: "Abram Kuchera",
       messagesAll: [
+        {
+          id: 0,
+          message: "Lorem ipsum dolor sit amet.",
+        },
         {
           id: 1,
           message: "Lorem ipsum dolor sit amet.",
@@ -36,9 +42,13 @@ let state = {
       ],
     },
     {
-      id: 2,
+      id: 1,
       name: "Anna Milton",
       messagesAll: [
+        {
+          id: 0,
+          message: "Lorem ipsum dolor sit amet. 3===D",
+        },
         {
           id: 1,
           message: "Lorem ipsum dolor sit amet. 3===D",
@@ -79,9 +89,13 @@ let state = {
       ],
     },
     {
-      id: 3,
+      id: 2,
       name: "Alex Mormon",
       messagesAll: [
+        {
+          id: 0,
+          message: "Lorem ipsum dolor sit amet.",
+        },
         {
           id: 1,
           message: "Lorem ipsum dolor sit amet.",
@@ -130,9 +144,13 @@ let state = {
       ],
     },
     {
-      id: 4,
+      id: 3,
       name: "Sarah Stinson",
       messagesAll: [
+        {
+          id: 0,
+          message: "Lorem.",
+        },
         {
           id: 1,
           message: "Lorem.",
@@ -163,12 +181,12 @@ let state = {
     },
   ],
   posts: [
-    { id: 1, textPost: "Hello! How are you?", amountLikes: 54 },
-    { id: 2, textPost: "Yo! My name is Ivan.", amountLikes: 64 },
-    { id: 3, textPost: "I like JS and React", amountLikes: 516 },
-    { id: 4, textPost: "Watafak, mazafaka, suka, blya!", amountLikes: 5 },
+    { id: 0, textPost: "Hello! How are you?", amountLikes: 54 },
+    { id: 1, textPost: "Yo! My name is Ivan.", amountLikes: 64 },
+    { id: 2, textPost: "I like JS and React", amountLikes: 516 },
+    { id: 3, textPost: "Watafak, mazafaka, suka, blya!", amountLikes: 5 },
     {
-      id: 5,
+      id: 4,
       textPost:
         "\
     Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
@@ -178,7 +196,7 @@ let state = {
       amountLikes: 32,
     },
     {
-      id: 6,
+      id: 5,
       textPost:
         "\
     Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
@@ -192,7 +210,7 @@ let state = {
       amountLikes: 32,
     },
     {
-      id: 7,
+      id: 6,
       textPost:
         "\
     Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
@@ -202,6 +220,31 @@ let state = {
       amountLikes: 32,
     },
   ],
+};
+
+let currentId;
+
+export const getCurrentId = (id) => {
+  currentId = id;
+};
+
+export const sendMessage = (textMessage) => {
+  const newMessageId = state.dialogsData[currentId].messagesAll.length;
+  state.dialogsData[currentId].messagesAll.push({
+    id: newMessageId,
+    message: textMessage,
+  });
+  rerenderEntireTree(state);
+};
+
+export const addPost = (text) => {
+  const newPostId = state.posts.length;
+  state.posts.push({
+    id: newPostId,
+    textPost: text,
+    amountLikes: 0,
+  });
+  rerenderEntireTree(state);
 };
 
 export default state

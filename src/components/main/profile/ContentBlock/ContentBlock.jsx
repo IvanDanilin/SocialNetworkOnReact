@@ -8,7 +8,7 @@ const contentBlock = (props) => {
         <div className={styles.contentBlockWrapper}>
             <div className={styles.contentBlock}>
                 <PageWrap />
-                <PostsBlock posts={props.posts} />
+                <PostsBlock posts={props.posts} addPost={props.addPost} />
             </div>
         </div>
     )

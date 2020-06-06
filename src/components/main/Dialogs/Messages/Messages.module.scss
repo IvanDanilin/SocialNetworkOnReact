@@ -1,7 +1,60 @@
 .messages {
+    position: relative;
     background: darkcyan;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-end;
     min-height: calc(100vh - 60px);
+    padding-bottom: 60px;
+    width: 100%;
+    .openMessages {
+    }
+    .newMessageWrap {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        max-width: 1000px;
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        margin: 0 auto;
+        .newMessage {
+        display: grid;
+        grid-template-columns: 1fr 50px;
+        bottom: 0;
+        max-width: 790px;
+        margin-left: 25px;
+        margin-right: 25px;
+        background: darkslategray;
+        textarea {
+            height: 40px;
+            margin: 10px;
+            width: 100%;
+            padding: 10px;
+            border-radius: 4px;
+            background: #eee;
+            box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+            resize: none;
+            overflow: auto;
+            width: inherit;
+            &:focus {
+                background: #fff;
+            }
+        }
+        button {
+            position: relative;
+            right: 0;
+            font-size: 15px;
+            line-height: 24px;
+            border-radius: 4px;
+            background: transparent;
+            color: rgb(89, 244, 255);
+            &:hover {
+                color: rgb(69, 205, 214);
+            }
+            &:active {
+                color: rgb(112, 255, 120);
+            }
+        }
+    }
+    }
+    
 }

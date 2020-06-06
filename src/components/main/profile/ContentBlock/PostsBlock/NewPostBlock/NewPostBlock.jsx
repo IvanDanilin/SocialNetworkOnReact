@@ -2,15 +2,27 @@ import React from 'react'
 import styles from './NewPostBlock.module.scss'
 
 
-const NewPostBlock = () => {
+
+const NewPostBlock = (props) => {
+
+    const newPostElement = React.createRef()
+
+
+    const addPost = () => {
+        const text = newPostElement.current.value
+        if (text) {
+            props.addPost(text)
+        }
+        newPostElement.current.value = null
+    }
+
+
     return (
         <div className={styles.newPostBlock}>
-            <form action='#'>
-                <input type='text' placeholder='What&#39;s up?' />
-                <div className={styles.buttonWrap}>
-                    <button type='submit'>Send</button>
-                </div>
-            </form>
+            <input type='text' placeholder='What&#39;s up?' ref={newPostElement} />
+            <div className={styles.buttonWrap}>
+                <button type='submit' onClick={addPost}>Add post</button>
+            </div>
         </div>
     )
 }

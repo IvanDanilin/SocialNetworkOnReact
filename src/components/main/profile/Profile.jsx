@@ -9,7 +9,7 @@ const Profile = (props) => {
       <div className={styles.topImage}>
         <img src={topImage} alt='cover' />
       </div>
-      <ContentBlock posts={props.posts} />
+      <ContentBlock posts={props.posts} addPost={props.addPost} />
     </div>
   )
 }
