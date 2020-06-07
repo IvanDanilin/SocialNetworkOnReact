@@ -29,3 +29,13 @@ const myPageReduser = (state, action) => {
 };
 
 export default myPageReduser;
+
+
+
+
+export const addPostActionCreator = () => ({ type: ADD_POST });
+
+export const onPostChangeActionCreator = (text) => ({
+  type: ON_POST_CHANGE,
+  textPost: text,
+});

@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './NewPostBlock.module.scss'
-import { addPostActionCreator, onPostChangeActionCreator } from '../../../../../../redux/state'
-
+import { addPostActionCreator, onPostChangeActionCreator } from '../../../../../../redux/myPageReduser'
 
 
 

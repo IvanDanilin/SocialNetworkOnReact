@@ -257,35 +257,4 @@ let store = {
   },
 };
 
-
-
-const GET_CURRENT_ID = "GET-CURRENT-ID";
-const ON_MESSAGE_CHANGE = "ON-MESSAGE-CHANGE";
-const SEND_MESSAGE = "SEND-MESSAGE";
-const ADD_POST = "ADD-POST";
-const ON_POST_CHANGE = "ON-POST-CHANGE";
-
-
-export const addPostActionCreator = () => ({ type: ADD_POST });
-
-
-
-
-export const getCurrentIdActionCreator = (id) => ({
-  type: GET_CURRENT_ID,
-  id: id,
-});
-
-export const onMessageChangeActionCreator = (text) => ({
-  type: ON_MESSAGE_CHANGE,
-  textMessage: text,
-});
-
-export const onPostChangeActionCreator = (text) => ({
-  type: ON_POST_CHANGE,
-  textPost: text,
-});
-
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
-
 export default store;

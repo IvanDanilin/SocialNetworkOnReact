@@ -36,5 +36,19 @@ const dialogsReduser = (state, action) => {
   return state;
 };
 
-
 export default dialogsReduser
+
+
+export const getCurrentIdActionCreator = (id) => ({
+    type: GET_CURRENT_ID,
+    id: id,
+  });
+  
+  export const onMessageChangeActionCreator = (text) => ({
+    type: ON_MESSAGE_CHANGE,
+    textMessage: text,
+  });
+  
+  
+  export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+

@@ -1,8 +1,7 @@
 import React from 'react'
 import styles from './DialogLink.module.scss'
 import { NavLink } from 'react-router-dom'
-import { getCurrentIdActionCreator } from '../../../../../redux/state'
-
+import { getCurrentIdActionCreator } from '../../../../../redux/dialogsReduser'
 
 
 const DialogLink = (props) => {

@@ -2,8 +2,7 @@ import React from 'react'
 import styles from './Messages.module.scss'
 import CurrentMessages from './CurrentMessages/CurrentMessages'
 import { Route } from 'react-router-dom'
-import { onMessageChangeActionCreator, sendMessageActionCreator } from '../../../../redux/state'
-
+import { onMessageChangeActionCreator, sendMessageActionCreator } from '../../../../redux/dialogsReduser'
 
 
 
