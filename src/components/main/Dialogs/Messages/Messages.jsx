@@ -8,30 +8,30 @@ import { Route } from 'react-router-dom'
 const Messages = (props) => {
 
 
-    const onMessageChange = () => {
-        const textMessage = textMessageRef.current.value
-            props.store.onMessageChange(textMessage)
-    }
-
     const textMessageRef = React.createRef()
 
+
+    const onMessageChange = () => {
+        props.dispatch({ type: 'ON-MESSAGE-CHANGE', textMessage: textMessageRef.current.value, })
+    }
+
     const sendMessage = () => {
-            props.store.sendMessage()
+        props.dispatch({ type: 'SEND-MESSAGE', })
     }
 
     return (
         <div className={styles.messages}>
 
             <div className={styles.openMessages}>
-                {props.store._state.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.store._state.dialogsData[el.id].messagesAll} />} />)}
+                {props.state.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.state.dialogsData[el.id].messagesAll} />} />)}
             </div>
 
             <div className={styles.newMessageWrap}>
                 <div></div>
                 <div className={styles.newMessage}>
-                    <textarea 
-                    onChange={onMessageChange}
-                    ref={textMessageRef} placeholder='Enter your message...' value={props.store._state.inputMessage} />
+                    <textarea
+                        onChange={onMessageChange}
+                        ref={textMessageRef} placeholder='Enter your message...' value={props.state.inputMessage} />
                     <button onClick={sendMessage}>Send</button>
                 </div>
             </div>

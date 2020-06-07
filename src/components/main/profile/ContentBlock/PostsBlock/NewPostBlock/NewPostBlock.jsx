@@ -11,7 +11,10 @@ const NewPostBlock = (props) => {
     const addPost = () => {
         const text = newPostElement.current.value
         if (text) {
-            props.store.addPost(text)
+            props.dispatch({
+                type: 'ADD-POST',
+                text: text
+            })
         }
         newPostElement.current.value = null
     }

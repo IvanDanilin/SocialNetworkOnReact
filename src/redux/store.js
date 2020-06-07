@@ -227,43 +227,57 @@ let store = {
     inputMessage: "",
     currentId: 0,
   },
-  rerenderEntireTree: () => {},
-  //Подписчик, принимает функцию рендера всего приложения из файла index.js
-  subscribe: function (observer) {
-    this.rerenderEntireTree = observer;
-  },
-  // Записывает в state и перерисовывыет любое изменение инпута нового сообщения
-  onMessageChange: function (input) {
-    this._state.inputMessage = input;
-    this.rerenderEntireTree();
-  },
-  // Получает текущий id пользователя, диалог с которым был открыт
-  getCurrentId: function (id) {
-    this._state.currentId = id;
-  },
-  // Записывает новое сообщение в state, обнуляет инпут и перерисовывает приложение
-  sendMessage: function () {
-    const newMessageId = this._state.dialogsData[this._state.currentId]
-      .messagesAll.length;
-    if (this._state.inputMessage) {
-      this._state.dialogsData[this._state.currentId].messagesAll.push({
-        id: newMessageId,
-        message: this._state.inputMessage,
-      });
-    }
 
-    this._state.inputMessage = "";
-    this.rerenderEntireTree();
+  getState() {
+    return this._state;
   },
-  // Добавляет новый пост на стену
-  addPost: function (text) {
-    const newPostId = this._state.posts.length;
-    this._state.posts.push({
-      id: newPostId,
-      textPost: text,
-      amountLikes: 0,
-    });
-    this.rerenderEntireTree();
+
+  _callSubscriber() {},
+
+  //Подписчик, принимает функцию рендера всего приложения из файла index.js
+  subscribe(observer) {
+    this._callSubscriber = observer;
+  },
+
+  dispatch(action) {
+    // { type: 'ADD-POST' }
+    switch (action.type) {
+      case "ADD-POST":
+        // Добавляет новый пост на стену
+        const newPostId = this._state.posts.length;
+        this._state.posts.push({
+          id: newPostId,
+          textPost: action.text,
+          amountLikes: 0,
+        });
+        this._callSubscriber();
+        break;
+      case "SEND-MESSAGE":
+        // Записывает новое сообщение в state, обнуляет инпут и перерисовывает приложение
+        const newMessageId = this._state.dialogsData[this._state.currentId]
+          .messagesAll.length;
+        if (this._state.inputMessage) {
+          this._state.dialogsData[this._state.currentId].messagesAll.push({
+            id: newMessageId,
+            message: this._state.inputMessage,
+          });
+        }
+        this._state.inputMessage = "";
+        this._callSubscriber();
+        break;
+      case "ON-MESSAGE-CHANGE":
+        // Записывает в state и перерисовывыет любое изменение инпута нового сообщения
+        this._state.inputMessage = action.textMessage;
+        this._callSubscriber();
+        break;
+      case "GET-CURRENT-ID":
+        // Получает текущий id пользователя, диалог с которым был открыт
+        this._state.currentId = action.id;
+        break;
+
+      default:
+        break;
+    }
   },
 };
 

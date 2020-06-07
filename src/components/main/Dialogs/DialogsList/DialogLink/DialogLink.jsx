@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom'
 const DialogLink = (props) => {
 
     const getCurrentId = () => {
-        props.store.getCurrentId(props.id)
+        props.dispatch({type: 'GET-CURRENT-ID', id: props.id})
     }
 
     return (

@@ -11,7 +11,10 @@ const rerenderEntireTree = () => {
   ReactDOM.render(
     <React.StrictMode>
       <BrowserRouter>
-        <App store={store} />
+        <App
+          state={store.getState()}
+          dispatch={store.dispatch.bind(store)}
+        />
       </BrowserRouter>
     </React.StrictMode>,
     document.getElementById("root")
@@ -21,7 +24,6 @@ const rerenderEntireTree = () => {
 rerenderEntireTree();
 
 store.subscribe(rerenderEntireTree);
-
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

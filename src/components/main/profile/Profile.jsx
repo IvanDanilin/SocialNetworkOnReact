@@ -9,7 +9,7 @@ const Profile = (props) => {
       <div className={styles.topImage}>
         <img src={topImage} alt='cover' />
       </div>
-      <ContentBlock store={props.store} />
+      <ContentBlock state={props.state} dispatch={props.dispatch} />
     </div>
   )
 }

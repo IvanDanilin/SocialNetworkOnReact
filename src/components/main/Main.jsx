@@ -10,8 +10,8 @@ import { Route } from 'react-router-dom';
 const Main = (props) => {
     return (
         <main className={styles.main}>
-            <Route path='/profile' render={() => <Profile store={props.store} />} />
-            <Route path='/dialogs' render={() => <Dialogs store={props.store} />} />
+            <Route path='/profile' render={() => <Profile state={props.state} dispatch={props.dispatch} />} />
+            <Route path='/dialogs' render={() => <Dialogs state={props.state} dispatch={props.dispatch} />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />

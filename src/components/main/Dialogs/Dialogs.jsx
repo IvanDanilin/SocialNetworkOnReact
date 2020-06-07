@@ -8,8 +8,8 @@ import Messages from './Messages/Messages'
 const Dialogs = (props) => {
     return (
         <div className={styles.dialogs}>
-            <Route exact path='/dialogs' render={() => <DialogsList store={props.store} />} />
-            <Route strict path='/dialogs/'  render={() => <Messages store={props.store} />} />
+            <Route exact path='/dialogs' render={() => <DialogsList dispatch={props.dispatch} state={props.state}  />} />
+            <Route strict path='/dialogs/'  render={() => <Messages dispatch={props.dispatch} state={props.state} />} />
         </div>
     )
 }

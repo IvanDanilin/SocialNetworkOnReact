@@ -11,7 +11,8 @@ const App = (props) => {
       <Header />
       <Sidebar />
       <Main
-        store={props.store}
+        dispatch={props.dispatch}
+        state={props.state}
       />
     </div>
   );
