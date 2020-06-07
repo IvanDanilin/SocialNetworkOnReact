@@ -1,25 +1,26 @@
 import React from 'react'
 import styles from './NewPostBlock.module.scss'
-import { addPostActionCreator } from '../../../../../../redux/state'
+import { addPostActionCreator, onPostChangeActionCreator } from '../../../../../../redux/state'
+
+
 
 
 const NewPostBlock = (props) => {
 
-    const newPostElement = React.createRef()
+    const changeNewPostText = (event) => {
+        const text = event.target.value
+        props.dispatch(onPostChangeActionCreator(text))
+    }
 
 
     const addPost = () => {
-        const text = newPostElement.current.value
-        if (text) {
-            props.dispatch(addPostActionCreator(text))
-        }
-        newPostElement.current.value = null
+            props.dispatch(addPostActionCreator())
     }
 
 
     return (
         <div className={styles.newPostBlock}>
-            <input type='text' placeholder='What&#39;s up?' ref={newPostElement} />
+            <input onChange={changeNewPostText} placeholder='What&#39;s up?' value={props.state.myPage.newPostText} />
             <div className={styles.buttonWrap}>
                 <button type='submit' onClick={addPost}>Add post</button>
             </div>

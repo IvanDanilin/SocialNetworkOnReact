@@ -10,12 +10,8 @@ import { onMessageChangeActionCreator, sendMessageActionCreator } from '../../..
 
 const Messages = (props) => {
 
-
-    const textMessageRef = React.createRef()
-
-
-    const onMessageChange = () => {
-        props.dispatch(onMessageChangeActionCreator(textMessageRef.current.value))
+    const onMessageChange = (event) => {
+        props.dispatch(onMessageChangeActionCreator(event.target.value))
     }
 
     const sendMessage = () => {
@@ -27,7 +23,7 @@ const Messages = (props) => {
         <div className={styles.messages}>
 
             <div className={styles.openMessages}>
-                {props.state.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.state.dialogsData[el.id].messagesAll} />} />)}
+                {props.state.dialogs.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.state.dialogs.dialogsData[el.id].messagesAll} />} />)}
             </div>
 
             <div className={styles.newMessageWrap}>
@@ -35,7 +31,7 @@ const Messages = (props) => {
                 <div className={styles.newMessage}>
                     <textarea
                         onChange={onMessageChange}
-                        ref={textMessageRef} placeholder='Enter your message...' value={props.state.inputMessage} />
+                        placeholder='Enter your message...' value={props.state.dialogs.inputMessage} />
                     <button onClick={sendMessage}>Send</button>
                 </div>
             </div>
