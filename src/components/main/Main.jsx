@@ -11,7 +11,7 @@ const Main = (props) => {
     return (
         <main className={styles.main}>
             <Route path='/profile' render={() => <Profile posts={props.state.posts} addPost={props.addPost} />} />
-            <Route path='/dialogs' render={() => <Dialogs dialogsData={props.state.dialogsData} sendMessage={props.sendMessage} getCurrentId={props.getCurrentId} />} />
+            <Route path='/dialogs' render={() => <Dialogs inputMessage = {props.state.inputMessage}  dialogsData={props.state.dialogsData} sendMessage={props.sendMessage} getCurrentId={props.getCurrentId} onMessageChange={props.onMessageChange} />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />

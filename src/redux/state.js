@@ -1,4 +1,4 @@
-import { rerenderEntireTree } from "../render";
+let rerenderEntireTree = () => {};
 
 let state = {
   dialogsData: [
@@ -220,21 +220,31 @@ let state = {
       amountLikes: 32,
     },
   ],
+  inputMessage: "",
 };
 
 let currentId;
+
+export const onMessageChange = (input) => {
+  state.inputMessage = input;
+  rerenderEntireTree();
+};
 
 export const getCurrentId = (id) => {
   currentId = id;
 };
 
-export const sendMessage = (textMessage) => {
+export const sendMessage = () => {
   const newMessageId = state.dialogsData[currentId].messagesAll.length;
-  state.dialogsData[currentId].messagesAll.push({
-    id: newMessageId,
-    message: textMessage,
-  });
-  rerenderEntireTree(state);
+  if (state.inputMessage) {
+    state.dialogsData[currentId].messagesAll.push({
+      id: newMessageId,
+      message: state.inputMessage,
+    });
+  }
+
+  state.inputMessage = "";
+  rerenderEntireTree();
 };
 
 export const addPost = (text) => {
@@ -244,7 +254,11 @@ export const addPost = (text) => {
     textPost: text,
     amountLikes: 0,
   });
-  rerenderEntireTree(state);
+  rerenderEntireTree();
 };
 
-export default state
+export const subscribe = (observer) => {
+  rerenderEntireTree = observer;
+};
+
+export default state;

@@ -9,7 +9,7 @@ const Dialogs = (props) => {
     return (
         <div className={styles.dialogs}>
             <Route exact path='/dialogs' render={() => <DialogsList dialogsData={props.dialogsData} getCurrentId={props.getCurrentId} />} />
-            <Route strict path='/dialogs/'  render={() => <Messages dialogsData={props.dialogsData} sendMessage={props.sendMessage} />} />
+            <Route strict path='/dialogs/'  render={() => <Messages dialogsData={props.dialogsData} sendMessage={props.sendMessage} onMessageChange={props.onMessageChange} inputMessage={props.inputMessage} />} />
         </div>
     )
 }
