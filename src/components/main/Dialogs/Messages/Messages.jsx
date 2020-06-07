@@ -10,20 +10,20 @@ const Messages = (props) => {
 
     const onMessageChange = () => {
         const textMessage = textMessageRef.current.value
-            props.onMessageChange(textMessage)
+            props.store.onMessageChange(textMessage)
     }
 
     const textMessageRef = React.createRef()
 
     const sendMessage = () => {
-            props.sendMessage()
+            props.store.sendMessage()
     }
 
     return (
         <div className={styles.messages}>
 
             <div className={styles.openMessages}>
-                {props.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.dialogsData[el.id].messagesAll} />} />)}
+                {props.store._state.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.store._state.dialogsData[el.id].messagesAll} />} />)}
             </div>
 
             <div className={styles.newMessageWrap}>
@@ -31,7 +31,7 @@ const Messages = (props) => {
                 <div className={styles.newMessage}>
                     <textarea 
                     onChange={onMessageChange}
-                    ref={textMessageRef} placeholder='Enter your message...' value={props.inputMessage} />
+                    ref={textMessageRef} placeholder='Enter your message...' value={props.store._state.inputMessage} />
                     <button onClick={sendMessage}>Send</button>
                 </div>
             </div>

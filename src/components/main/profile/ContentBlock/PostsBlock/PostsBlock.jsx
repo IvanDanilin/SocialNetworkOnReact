@@ -6,8 +6,8 @@ import ExistingPostsBlock from './ExistingPostsBlock/ExistingPostsBlock'
 const PostsBlock = (props) => {
     return (
         <div className={styles.postsBlock}>
-            <NewPostBlock addPost={props.addPost} />
-            <ExistingPostsBlock posts={props.posts} />
+            <NewPostBlock store={props.store} />
+            <ExistingPostsBlock store={props.store} />
         </div>
     )
 }

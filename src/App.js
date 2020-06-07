@@ -11,11 +11,7 @@ const App = (props) => {
       <Header />
       <Sidebar />
       <Main
-        state={props.state}
-        sendMessage={props.sendMessage}
-        getCurrentId={props.getCurrentId}
-        addPost={props.addPost}
-        onMessageChange={props.onMessageChange}
+        store={props.store}
       />
     </div>
   );

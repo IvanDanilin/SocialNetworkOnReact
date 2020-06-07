@@ -1,25 +1,25 @@
 import React from 'react'
-import s from './DialogLink.module.scss'
+import styles from './DialogLink.module.scss'
 import { NavLink } from 'react-router-dom'
 
 const DialogLink = (props) => {
 
     const getCurrentId = () => {
-        props.getCurrentId(props.id)
+        props.store.getCurrentId(props.id)
     }
 
     return (
-        <li className={s.dialogItem}>
+        <li className={styles.dialogItem}>
             <NavLink to={'/dialogs/' + props.id} onClick={getCurrentId}>
-                <div className={s.dialogLink}>
-                    <div className={s.dialogPhoto}>
+                <div className={styles.dialogLink}>
+                    <div className={styles.dialogPhoto}>
                         <img src={props.photoSrc} alt="" />
                     </div>
-                    <div className={s.dialogContent}>
-                        <div className={s.dialogName}>
+                    <div className={styles.dialogContent}>
+                        <div className={styles.dialogName}>
                             {props.dialogName}
                         </div>
-                        <div className={s.message}>
+                        <div className={styles.message}>
                             {props.lastMessage}
                         </div>
                     </div>
