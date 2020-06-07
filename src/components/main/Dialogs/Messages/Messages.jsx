@@ -2,6 +2,9 @@ import React from 'react'
 import styles from './Messages.module.scss'
 import CurrentMessages from './CurrentMessages/CurrentMessages'
 import { Route } from 'react-router-dom'
+import { onMessageChangeActionCreator, sendMessageActionCreator } from '../../../../redux/state'
+
+
 
 
 
@@ -12,11 +15,12 @@ const Messages = (props) => {
 
 
     const onMessageChange = () => {
-        props.dispatch({ type: 'ON-MESSAGE-CHANGE', textMessage: textMessageRef.current.value, })
+        props.dispatch(onMessageChangeActionCreator(textMessageRef.current.value))
     }
 
     const sendMessage = () => {
         props.dispatch({ type: 'SEND-MESSAGE', })
+        props.dispatch(sendMessageActionCreator())
     }
 
     return (

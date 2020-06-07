@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './NewPostBlock.module.scss'
-
+import { addPostActionCreator } from '../../../../../../redux/state'
 
 
 const NewPostBlock = (props) => {
@@ -11,10 +11,7 @@ const NewPostBlock = (props) => {
     const addPost = () => {
         const text = newPostElement.current.value
         if (text) {
-            props.dispatch({
-                type: 'ADD-POST',
-                text: text
-            })
+            props.dispatch(addPostActionCreator(text))
         }
         newPostElement.current.value = null
     }

@@ -1,3 +1,11 @@
+
+const ADD_POST = 'ADD-POST';
+const GET_CURRENT_ID = 'GET-CURRENT-ID';
+const ON_MESSAGE_CHANGE = 'ON-MESSAGE-CHANGE';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
+
+
 let store = {
   _state: {
     dialogsData: [
@@ -242,7 +250,7 @@ let store = {
   dispatch(action) {
     // { type: 'ADD-POST' }
     switch (action.type) {
-      case "ADD-POST":
+      case ADD_POST:
         // Добавляет новый пост на стену
         const newPostId = this._state.posts.length;
         this._state.posts.push({
@@ -252,7 +260,7 @@ let store = {
         });
         this._callSubscriber();
         break;
-      case "SEND-MESSAGE":
+      case SEND_MESSAGE:
         // Записывает новое сообщение в state, обнуляет инпут и перерисовывает приложение
         const newMessageId = this._state.dialogsData[this._state.currentId]
           .messagesAll.length;
@@ -265,12 +273,12 @@ let store = {
         this._state.inputMessage = "";
         this._callSubscriber();
         break;
-      case "ON-MESSAGE-CHANGE":
+      case ON_MESSAGE_CHANGE:
         // Записывает в state и перерисовывыет любое изменение инпута нового сообщения
         this._state.inputMessage = action.textMessage;
         this._callSubscriber();
         break;
-      case "GET-CURRENT-ID":
+      case GET_CURRENT_ID:
         // Получает текущий id пользователя, диалог с которым был открыт
         this._state.currentId = action.id;
         break;
@@ -280,5 +288,14 @@ let store = {
     }
   },
 };
+
+
+export const addPostActionCreator = (text) => ({ type: ADD_POST, text: text })
+
+export const getCurrentIdActionCreator = (id) => ({type: GET_CURRENT_ID, id: id})
+
+export const onMessageChangeActionCreator = (text) => ({ type: ON_MESSAGE_CHANGE, textMessage: text })
+export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE })
+
 
 export default store;
