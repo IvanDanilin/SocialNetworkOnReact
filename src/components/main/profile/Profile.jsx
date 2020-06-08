@@ -3,13 +3,13 @@ import topImage from './les_tuman_derevia.jpg';
 import styles from './Profile.module.scss'
 import ContentBlock from './ContentBlock/ContentBlock';
 
-const Profile = (props) => {
+const Profile = () => {
   return (
     <div className={styles.profile}>
       <div className={styles.topImage}>
         <img src={topImage} alt='cover' />
       </div>
-      <ContentBlock state={props.state} dispatch={props.dispatch} />
+      <ContentBlock />
     </div>
   )
 }

@@ -7,11 +7,11 @@ import Music from './Music/Music';
 import Settings from './Settings/Settings';
 import { Route } from 'react-router-dom';
 
-const Main = (props) => {
+const Main = () => {
     return (
         <main className={styles.main}>
-            <Route path='/profile' render={() => <Profile state={props.state} dispatch={props.dispatch} />} />
-            <Route path='/dialogs' render={() => <Dialogs state={props.state} dispatch={props.dispatch} />} />
+            <Route path='/profile' render={() => <Profile />} />
+            <Route path='/dialogs' render={() => <Dialogs />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />

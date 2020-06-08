@@ -1,13 +1,13 @@
 import React from 'react'
 import styles from './PostsBlock.module.scss'
-import NewPostBlock from './NewPostBlock/NewPostBlock'
-import ExistingPostsBlock from './ExistingPostsBlock/ExistingPostsBlock'
+import NewPostBlockContainer from './NewPostBlock/NewPostBlockContainer'
+import ExistingPostsBlockContainer from './ExistingPostsBlock/ExistingPostsBlockContainer'
 
-const PostsBlock = (props) => {
+const PostsBlock = () => {
     return (
         <div className={styles.postsBlock}>
-            <NewPostBlock dispatch={props.dispatch} state={props.state} />
-            <ExistingPostsBlock state={props.state} />
+            <NewPostBlockContainer />
+            <ExistingPostsBlockContainer />
         </div>
     )
 }
