@@ -10,74 +10,57 @@ const initialState = {
     {
       id: 4,
       textPost:
-        "\
-Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
-Earum incidunt nam saepe unde similique, eaque quisquam\
-nostrum ducimus aliquid quas illum ea amet dignissimos,\
-impedit fugit nemo tenetur nobis architecto.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum incidunt nam saepe unde similique, eaque quisquam nostrum ducimus aliquid quas illum ea amet dignissimos, impedit fugit nemo tenetur nobis architecto.",
       amountLikes: 32,
     },
     {
       id: 5,
       textPost:
-        "\
-Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
-Earum incidunt nam saepe unde similique, eaque quisquam\
-nostrum ducimus aliquid quas illum ea amet dignissimos,\
-impedit fugit nemo tenetur nobis architecto. \
-Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
-Earum incidunt nam saepe unde similique, eaque quisquam\
-nostrum ducimus aliquid quas illum ea amet dignissimos,\
-impedit fugit nemo tenetur nobis architecto.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum incidunt nam saepe unde similique, eaque quisquam nostrum ducimus aliquid quas illum ea amet dignissimos, impedit fugit nemo tenetur nobis architecto.  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum incidunt nam saepe unde similique, eaque quisquam nostrum ducimus aliquid quas illum ea amet dignissimos, impedit fugit nemo tenetur nobis architecto.",
       amountLikes: 32,
     },
     {
       id: 6,
       textPost:
-        "\
-Lorem ipsum dolor, sit amet consectetur adipisicing elit.\
-Earum incidunt nam saepe unde similique, eaque quisquam\
-nostrum ducimus aliquid quas illum ea amet dignissimos,\
-impedit fugit nemo tenetur nobis architecto.",
+        "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum incidunt nam saepe unde similique, eaque quisquam nostrum ducimus aliquid quas illum ea amet dignissimos, impedit fugit nemo tenetur nobis architecto.",
       amountLikes: 32,
     },
   ],
   newPostText: "",
-}
+};
 
 const myPageReduser = (state = initialState, action) => {
-  const stateCopy = { ...state };
   switch (action.type) {
     case ADD_POST:
       // Добавляет новый пост на стену
-      if (stateCopy.newPostText) {
-        stateCopy.existingPosts = [...state.existingPosts]
-        const newPostId = stateCopy.existingPosts.length;
-        stateCopy.existingPosts.push({
-          id: newPostId,
-          textPost: stateCopy.newPostText,
-          amountLikes: 0,
-        });
-        stateCopy.newPostText = "";
+      const currentText = state.newPostText;
+      const newPostId = state.existingPosts.length;
+      if (currentText) {
+        return {
+          ...state,
+          existingPosts: [
+            ...state.existingPosts,
+            {
+              id: newPostId,
+              textPost: currentText,
+              amountLikes: 0,
+            },
+          ],
+          newPostText: "",
+        };
       }
-      break;
+      return state;
 
     case ON_POST_CHANGE:
       // Записывает в state и перерисовывыет любое изменение инпута нового поста
-      stateCopy.newPostText = action.textPost;
-      break;
+      return { ...state, newPostText: action.textPost };
 
     default:
-      break;
+      return state;
   }
-
-  return stateCopy;
 };
 
 export default myPageReduser;
-
-
-
 
 export const addPostActionCreator = () => ({ type: ADD_POST });
 

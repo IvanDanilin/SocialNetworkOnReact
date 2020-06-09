@@ -21,7 +21,12 @@ const Messages = (props) => {
         <div className={styles.messages}>
 
             <div className={styles.openMessages}>
-                {props.dialogs.dialogsData.map(el => < Route path={`/dialogs/${el.id}`} render={() => <CurrentMessages messages={props.dialogs.dialogsData[el.id].messagesAll} />} />)}
+                {props.dialogs.dialogsData.map(el => {
+                    let id = el.id
+                    return < Route key={id} path={`/dialogs/${id}`} render={() => {
+                        return <CurrentMessages key={id} messages={props.dialogs.dialogsData[id].messagesAll} />
+                    }} />
+                })}
             </div>
 
             <div className={styles.newMessageWrap}>

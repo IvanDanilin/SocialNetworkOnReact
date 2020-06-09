@@ -6,7 +6,7 @@ import ExistingPost from './ExistingPost/ExistingPost'
 const ExistingPostsBlock = (props) => {
     return (
         <div className={styles.existingPostsBlock}>
-            {props.existingPosts.map(el => <ExistingPost id={el.id} textPost={el.textPost} amountLikes={el.amountLikes} />)}
+            {props.existingPosts.map(el => <ExistingPost key={el.id} textPost={el.textPost} amountLikes={el.amountLikes} />)}
         </div>
     )
 }
