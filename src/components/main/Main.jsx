@@ -6,7 +6,7 @@ import News from './News/News';
 import Music from './Music/Music';
 import Settings from './Settings/Settings';
 import { Route } from 'react-router-dom';
-import Users from './Users/Users';
+import UsersContainer from './Users/UsersContainer';
 
 const Main = () => {
     return (
@@ -16,7 +16,7 @@ const Main = () => {
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />
             <Route path='/settings' component={Settings} />
-            <Route path='/users' render={ () => <Users />} />
+            <Route path='/users' render={ () => <UsersContainer />} />
         </main>
     );
 };

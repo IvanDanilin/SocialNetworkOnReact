@@ -172,7 +172,6 @@ let initialState = {
   currentId: 0,
 };
 
-window.state = initialState;
 
 const dialogsReduser = (state = initialState, action) => {
   switch (action.type) {
