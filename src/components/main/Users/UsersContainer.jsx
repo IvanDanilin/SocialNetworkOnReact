@@ -1,14 +1,18 @@
 import { connect } from "react-redux"
 import Users from "./Users"
-import { followActionCreator, unfollowActionCreator, setUsersActionCreator } from "../../../redux/usersReduser"
-import photoSrc from '../Profile/ContentBlock/PageWrap/1551511784_4.jpg'
+import {
+    followActionCreator, unfollowActionCreator, setUsersActionCreator,
+    setCurrentPageActionCreator, setTotalUsersCountActionCreator
+} from "../../../redux/usersReduser"
 
 
 
 const mapStateToProps = (state) => {
     return {
         users: state.usersPage.users,
-        photoSrc: photoSrc
+        pageSize: state.usersPage.pageSize,
+        totalUsersCount: state.usersPage.totalUsersCount,
+        currentPage: state.usersPage.currentPage
     }
 }
 
@@ -22,6 +26,12 @@ const mapDispatchToProps = (dispatch) => {
         },
         setUsers: (users) => {
             dispatch(setUsersActionCreator(users))
+        },
+        setCurrentPage: (pageNumber) => {
+            dispatch(setCurrentPageActionCreator(pageNumber))
+        },
+        setTotalUsersCount: (totalCount) => {
+            dispatch(setTotalUsersCountActionCreator(totalCount))
         }
     }
 }

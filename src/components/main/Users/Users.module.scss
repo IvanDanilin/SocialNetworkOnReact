@@ -1,6 +1,27 @@
 .usersPage {
     background: rgb(134, 146, 185);
     padding: 20px 0;
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        align-content: center;
+        height: 25px;
+        span {
+            flex-basis: 20px;
+            color: #333;
+            font-size: 14px;
+            &.selectedPage {
+                font-size: 17px;
+                font-weight: 700;
+                color: #000;
+            }
+            &:hover {
+                font-size: 17px;
+                cursor: pointer;
+            }
+        }
+    }
     .userBlock {
         display: grid;
         grid-template-columns: 100px 1fr;
@@ -26,7 +47,7 @@
                     height: 70px;
                     overflow: scroll;
                     border: 2px solid #000;
-                border-radius: 7px;
+                    border-radius: 7px;
                 }
             }
 
