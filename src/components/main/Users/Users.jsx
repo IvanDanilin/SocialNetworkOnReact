@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Users.module.scss";
+import { NavLink } from "react-router-dom";
 
 const Users = (props) =>  {
     return (
@@ -23,13 +24,15 @@ const Users = (props) =>  {
                         <div key={u.id} className={styles.userBlock}>
                             <div className={styles.photoBlock}>
                                 <div className={styles.photo}>
-                                    <img
-                                        src={
-                                            u.photos.small
-                                            || "https://www.perunica.ru/uploads/posts/2019-03/1552932077_1.jpg"
-                                        }
-                                        alt=""
-                                    />
+                                    <NavLink to={'/profile/' + u.id}>
+                                        <img
+                                            src={
+                                                u.photos.small
+                                                || props.defaultAvatar
+                                            }
+                                            alt=""
+                                        />
+                                    </NavLink>
                                 </div>
 
                                 {u.followed ? (

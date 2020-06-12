@@ -1,5 +1,5 @@
 import dialogsReduser from "./dialogsReduser";
-import myPageReduser from "./myPageReduser";
+import profileReduser from "./profileReduser";
 
 let store = {
   _state: {
@@ -251,7 +251,7 @@ let store = {
   dispatch(action) {
     this._state.dialogs = dialogsReduser(this._state.dialogs, action);
 
-    this._state.myPage = myPageReduser(this._state.myPage, action);
+    this._state.myPage = profileReduser(this._state.myPage, action);
 
     this._callSubscriber();
   },

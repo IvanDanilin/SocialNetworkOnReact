@@ -11,6 +11,7 @@ import {
 	toggleIsFetching,
 } from '../../../redux/usersReduser';
 import Preloader from '../../common/Preloader/Preloader';
+import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 
 class UsersContainer extends React.Component {
 	com;
@@ -57,6 +58,7 @@ class UsersContainer extends React.Component {
 						unfollow={this.props.unfollow}
 						follow={this.props.follow}
 						onPageChanged={this.onPageChanged}
+						defaultAvatar={defaultAvatar}
 					/>
 				)}
 			</>

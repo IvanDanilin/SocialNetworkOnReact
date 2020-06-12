@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Main.module.scss';
-import Profile from './Profile/Profile';
+import ProfileContainer from './Profile/ProfileContainer';
 import Dialogs from './Dialogs/Dialogs';
 import News from './News/News';
 import Music from './Music/Music';
@@ -11,7 +11,7 @@ import UsersContainer from './Users/UsersContainer';
 const Main = () => {
     return (
         <main className={styles.main}>
-            <Route path='/profile' render={() => <Profile />} />
+            <Route path='/profile' render={() => <ProfileContainer />} />
             <Route path='/dialogs' render={() => <Dialogs />} />
             <Route path='/news' component={News} />
             <Route path='/music' component={Music} />

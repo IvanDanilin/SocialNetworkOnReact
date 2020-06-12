@@ -7,4 +7,16 @@
             margin-bottom: -40%;
         }
     }
+    .contentBlockWrapper {
+        position: relative;
+        background: rgb(72, 2, 78);
+        .contentBlock {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            .postsBlock {
+                margin-top: 35px;
+            }
+        }
+    }
 }

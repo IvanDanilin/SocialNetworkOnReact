@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './DialogsList.module.scss'
 import { NavLink } from 'react-router-dom'
-import photo from '../../Profile/ContentBlock/PageWrap/1551511784_4.jpg'
+import photo from '../../../../assets/image/myProfilePhoto.jpg'
 
 
 
