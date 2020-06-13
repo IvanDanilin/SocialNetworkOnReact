@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Axios from 'axios';
 import Users from './Users';
 import {
 	follow,
@@ -12,27 +11,25 @@ import {
 } from '../../../redux/usersReduser';
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
+import { usersAPI } from '../../../api/api';
 
 class UsersContainer extends React.Component {
-	com;
 	componentDidMount() {
 		this.props.toggleIsFetching(true);
-		Axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`
-		).then((response) => {
-			this.props.toggleIsFetching(false);
-			this.props.setUsers(response.data.items);
-			this.props.setTotalUsersCount(response.data.totalCount);
-		});
+		usersAPI
+			.getUsers(this.props.currentPage, this.props.pageSize)
+			.then((data) => {
+				this.props.toggleIsFetching(false);
+				this.props.setUsers(data.items);
+				this.props.setTotalUsersCount(data.totalCount);
+			});
 	}
-	onPageChanged = (p) => {
-		this.props.setCurrentPage(p);
+	onPageChanged = (pageNumber) => {
+		this.props.setCurrentPage(pageNumber);
 		this.props.toggleIsFetching(true);
-		Axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?page=${p}&count=${this.props.pageSize}`
-		).then((response) => {
+		usersAPI.getUsers(pageNumber, this.props.pageSize).then((data) => {
 			this.props.toggleIsFetching(false);
-			this.props.setUsers(response.data.items);
+			this.props.setUsers(data.items);
 		});
 	};
 	render() {
@@ -76,13 +73,6 @@ const mapStateToProps = (state) => {
 	};
 };
 
-// const mapDispatchToProps = (dispatch) => {
-// 	return {
-// 		follow: (userId) => {
-// 			dispatch(followActionCreator(userId));
-// 		},
-// 	};
-// };
 
 export default connect(mapStateToProps, {
 	follow,

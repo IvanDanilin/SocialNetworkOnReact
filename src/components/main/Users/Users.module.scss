@@ -58,15 +58,30 @@
                 font-size: 15px;
                 line-height: 24px;
                 border-radius: 4px;
-                background: navy;
                 color: #ddd;
                 box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9);
                 bottom: 0;
                 border: 1px solid #000;
                 min-width: 80px;
-                &:hover {
-                    background: mediumblue;
+                &.follow {
+                    background: navy;
+                    &:hover {
+                        background: mediumblue;
+                    }
+                    &:active {
+                        background: darkgreen;
+                    }
                 }
+                &.unfollow {
+                    background: #000;
+                    &:hover {
+                        background: darkred;
+                    }
+                    &:active {
+                        background: red;
+                    }
+                }
+
                 &:active {
                     box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
                     transform: translateX(2px);

@@ -2,8 +2,8 @@ const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
 	userId: 0,
-	email: 'blablab.bla',
-	login: 'samurai',
+	email: '',
+	login: '',
 	isAuth: false,
 };
 
