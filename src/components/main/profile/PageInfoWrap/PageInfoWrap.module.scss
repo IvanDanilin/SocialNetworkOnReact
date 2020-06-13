@@ -4,8 +4,12 @@
     padding-bottom: 30px;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
     width: 100%;
+    flex-wrap: nowrap;
+    @media screen and (max-width: 650px) {
+        flex-wrap: wrap;
+    }
     .avatar {
-        margin: -40px 30px 0;
+        margin: -37px 0 0 30px;
         img {
             height: 150px;
             border: 2px solid #000;
@@ -13,22 +17,28 @@
         }
     }
     .pageInfoWrap {
-        flex-grow: 1;
-        margin-top: 20px;
-        margin-right: 30px;
+        margin: 20px 30px 0;
         font-family: sans-serif;
+        width: 100%;
         .pageName {
             font-size: 25px;
             border-bottom: 1px solid #000;
             padding-bottom: 10px;
+            padding-left: 20px;
         }
         .pageInfo {
             margin-top: 10px;
             display: flex;
             justify-content: space-between;
+            flex-wrap: nowrap;
+            @media screen and (max-width: 800px) {
+                flex-wrap: wrap;
+            }
+
             .leftBlock {
                 margin: 0 10px 0 15px;
                 min-width: 100px;
+                max-width: 100%;
                 .pageInfoRow {
                     margin: 7px 0;
                     span {
@@ -37,7 +47,7 @@
                 }
             }
             .rightBlock {
-                margin-right: 15px;
+                margin: 0 10px 0 15px;
                 .contactsTitle {
                     font-size: 17px;
                     margin: 7px 0;

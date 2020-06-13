@@ -7,29 +7,45 @@
     height: 60px;
     left: 0;
     z-index: 5;
-    .logoBlock {
-        position: relative;
-        display: flex;
-        align-items: center;
+    display: flex;
+    font-family: cursive;
+    .headerContent {
+        width: 100%;
         margin: 0 auto;
-        height: 100%;
+        display: flex;
         max-width: 1100px;
-        .logoImage {
+        justify-content: space-between;
+        .logoBlock {
+            display: flex;
+            align-items: center;
             height: 100%;
-            padding: 5px;
-            &:hover {
-                animation: rotateLogo 8s infinite linear;
-            }
-            img {
+            max-width: 200px;
+            .logoImage {
                 height: 100%;
+                padding: 5px;
+                &:hover {
+                    animation: rotateLogo 8s infinite linear;
+                }
+                img {
+                    height: 100%;
+                }
+            }
+            .logoName {
+                font-size: 30px;
+                font-weight: 700;
+                color: rgb(0, 163, 212);
+                text-shadow: 3px 3px 3px #000;
             }
         }
-        .logoName {
-            font-size: 30px;
-            font-family: cursive;
-            font-weight: 700;
-            color: rgb(0, 163, 212);
+        .loginBlock {
+            margin: auto 30px;
             text-shadow: 3px 3px 3px #000;
+            color: rgb(0, 163, 212);
+            font-weight: 600;
+            font-size: 20px;
+            a {
+                color: rgb(0, 163, 212);
+            }
         }
     }
 }
