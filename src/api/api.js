@@ -35,4 +35,3 @@ export const profileAPI = {
 		return instance.get(`profile/${userId}`).then((response) => response.data);
 	},
 };
-

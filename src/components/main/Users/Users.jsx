@@ -6,18 +6,22 @@ import { usersAPI } from '../../../api/api';
 const Users = (props) => {
     
 	const follow = (id) => {
+		props.toggleIsFollowingProgress(true, id)
 		usersAPI.follow(id).then((resultCode) => {
 			if (resultCode === 0) {
 				props.follow(id);
 			}
+			props.toggleIsFollowingProgress(false, id)
 		});
 	};
 
 	const unfollow = (id) => {
+		props.toggleIsFollowingProgress(true, id)
 		usersAPI.unfollow (id).then((resultCode) => {
 			if (resultCode === 0) {
 				props.unfollow(id);
 			}
+			props.toggleIsFollowingProgress(false, id)
 		});
 	};
 
@@ -51,6 +55,7 @@ const Users = (props) => {
 
 								{u.followed ? (
 									<button
+									disabled={props.followingInProgress.some(id => id === u.id)}
 										onClick={() => {
 											unfollow(u.id);
 										}}
@@ -60,6 +65,7 @@ const Users = (props) => {
 									</button>
 								) : (
 									<button
+									disabled={props.followingInProgress.some(id => id === u.id)}
 										onClick={() => {
 											follow(u.id);
 										}}

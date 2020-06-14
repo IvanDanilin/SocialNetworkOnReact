@@ -8,6 +8,7 @@ import {
 	setCurrentPage,
 	setTotalUsersCount,
 	toggleIsFetching,
+	toggleIsFollowingProgress,
 } from '../../../redux/usersReduser';
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
@@ -55,6 +56,8 @@ class UsersContainer extends React.Component {
 						unfollow={this.props.unfollow}
 						follow={this.props.follow}
 						onPageChanged={this.onPageChanged}
+						followingInProgress={this.props.followingInProgress}
+						toggleIsFollowingProgress={this.props.toggleIsFollowingProgress}
 						defaultAvatar={defaultAvatar}
 					/>
 				)}
@@ -70,6 +73,7 @@ const mapStateToProps = (state) => {
 		totalUsersCount: state.usersPage.totalUsersCount,
 		currentPage: state.usersPage.currentPage,
 		isFetching: state.usersPage.isFetching,
+		followingInProgress: state.usersPage.followingInProgress,
 	};
 };
 
@@ -81,4 +85,5 @@ export default connect(mapStateToProps, {
 	setCurrentPage,
 	setTotalUsersCount,
 	toggleIsFetching,
+	toggleIsFollowingProgress
 })(UsersContainer);

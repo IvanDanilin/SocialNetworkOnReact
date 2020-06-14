@@ -71,6 +71,12 @@
                     &:active {
                         background: darkgreen;
                     }
+                    &:disabled {
+                        &:hover {
+                            background: navy;
+                            cursor: default;
+                        }
+                    }
                 }
                 &.unfollow {
                     background: #000;
@@ -79,6 +85,17 @@
                     }
                     &:active {
                         background: red;
+                    }
+                    &:disabled {
+                        &:hover {
+                            background: #000;
+                            cursor: default;
+                        }
+                    }
+                }
+                &:disabled {
+                    &:hover {
+                        cursor: default;
                     }
                 }
 
