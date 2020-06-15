@@ -1,22 +1,19 @@
-import { onMessageChangeActionCreator, sendMessageActionCreator } from '../../../../redux/dialogsReduser'
-import Messages from './Messages'
-import { connect } from 'react-redux'
+import { onMessageChange, sendMessage } from '../../../../redux/dialogsReduser';
+import Messages from './Messages';
+import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
 
-
+const AuthRedirectComponent = withAuthRedirect(Messages);
 
 let mapStateToProps = (state) => {
-    return {
-        dialogs: state.dialogs
-    }
-}
-let mapDispatchToProps = (dispatch) => {
-    return {
-        onMessageChange: (text) => {dispatch(onMessageChangeActionCreator(text))},
-        sendMessage: () => {dispatch(sendMessageActionCreator())},
-    }
-}
+	return {
+		dialogs: state.dialogs,
+	};
+};
 
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
+const MessagesContainer = connect(mapStateToProps, {
+	onMessageChange,
+	sendMessage,
+})(AuthRedirectComponent);
 
-
-export default MessagesContainer
+export default MessagesContainer;

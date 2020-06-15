@@ -217,14 +217,14 @@ const dialogsReduser = (state = initialState, action) => {
 
 export default dialogsReduser;
 
-export const getCurrentIdActionCreator = (id) => ({
+export const getCurrentId = (id) => ({
   type: GET_CURRENT_ID,
   id: id,
 });
 
-export const onMessageChangeActionCreator = (text) => ({
+export const onMessageChange = (text) => ({
   type: ON_MESSAGE_CHANGE,
   textMessage: text,
 });
 
-export const sendMessageActionCreator = () => ({ type: SEND_MESSAGE });
+export const sendMessage = () => ({ type: SEND_MESSAGE });

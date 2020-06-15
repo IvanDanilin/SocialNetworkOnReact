@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './DialogsList.module.scss'
-import { NavLink } from 'react-router-dom'
+import { NavLink, Redirect } from 'react-router-dom'
 import photo from '../../../../assets/image/myProfilePhoto.jpg'
 
 

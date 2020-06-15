@@ -5,8 +5,12 @@ import { getUserProfile } from '../../../redux/profileReduser';
 import topImage from './les_tuman_derevia.jpg';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import { withRouter } from 'react-router-dom';
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
+// Классовый компонент для рендера функционального компонента
 class ProfileContainer extends React.Component {
+	// Выполняется после рендера
 	componentDidMount() {
 		let userId = this.props.match.params.userId;
 		if (!userId) {
@@ -19,6 +23,7 @@ class ProfileContainer extends React.Component {
 	}
 }
 
+// Данные из state передаваемые в props компонента
 const mapStateToProps = (state) => ({
 	profile: state.profilePage.profile,
 	topImage,
@@ -26,6 +31,12 @@ const mapStateToProps = (state) => ({
 	userId: state.auth.userId,
 });
 
-const withUrlDataContainerComponent = withRouter(ProfileContainer);
-
-export default connect(mapStateToProps, {getUserProfile})(withUrlDataContainerComponent);
+export default compose(
+	// Добавляет данные из state и actions для dispatchs
+	connect(mapStateToProps, { getUserProfile }),
+	// Добавляет возможность получения параметров переданных в адресную строку
+	withRouter,
+	// Добавляет в компонент проверку аутентификации, если не авторизован
+	// выполняет редирект на страницу входа
+	withAuthRedirect
+)(ProfileContainer);

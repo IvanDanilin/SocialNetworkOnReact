@@ -12,7 +12,10 @@ const Profile = (props) => {
 			</div>
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
-					<PageInfoWrap profile={props.profile} defaultAvatar={props.defaultAvatar} />
+					<PageInfoWrap
+						profile={props.profile}
+						defaultAvatar={props.defaultAvatar}
+					/>
 					<div className={styles.postsBlock}>
 						<NewPostBlockContainer />
 						<ExistingPostsBlockContainer />

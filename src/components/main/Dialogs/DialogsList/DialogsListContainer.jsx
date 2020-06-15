@@ -1,23 +1,21 @@
-import DialogsList from './DialogsList'
-import { getCurrentIdActionCreator } from '../../../../redux/dialogsReduser'
-import { connect } from 'react-redux'
+import DialogsList from './DialogsList';
+import { getCurrentId } from '../../../../redux/dialogsReduser';
+import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 
-
-
-
+// Данные из state для передачи в props
 const mapStateToProps = (state) => {
-    return {
-        dialogsData: state.dialogs.dialogsData
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getCurrentId: (id) => {dispatch(getCurrentIdActionCreator(id))}
-    }
-}
-
-const DialogsListContainer = connect(mapStateToProps, mapDispatchToProps)(DialogsList)
+	return {
+		dialogsData: state.dialogs.dialogsData,
+	};
+};
 
 
-export default DialogsListContainer
+export default compose(
+	connect(mapStateToProps, { getCurrentId }),
+	withAuthRedirect
+)(DialogsList);
+
+
