@@ -1,10 +1,11 @@
 import React from 'react';
 import styles from './PageInfoWrap.module.scss';
 import Preloader from '../../../common/Preloader/Preloader';
+import ProfileStatus from './ProfileStatus';
 
 const PageInfoWrap = (props) => {
 	const profile = props.profile;
-	if (!props.profile) {
+	if (!profile) {
 		return <Preloader />;
 	}
 	return (
@@ -14,6 +15,7 @@ const PageInfoWrap = (props) => {
 			</div>
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>{profile.fullName}</div>
+				<ProfileStatus status={'Hello, I am Ivan'} />
 				<div className={styles.pageInfo}>
 					<div className={styles.leftBlock}>
 
