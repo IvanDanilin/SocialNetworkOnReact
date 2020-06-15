@@ -1,3 +1,5 @@
+import { profileAPI } from '../api/api';
+
 const ADD_POST = 'ADD-POST';
 const ON_POST_CHANGE = 'ON-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
@@ -5,10 +7,18 @@ const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const initialState = {
 	profile: null,
 	existingPosts: [
-		{ id: 0, textPost: 'Hello! How are you?', amountLikes: 54 },
-		{ id: 1, textPost: 'Yo! My name is Ivan.', amountLikes: 64 },
+		{ id: 0, textPost: 'Lorem ipsum dolor', amountLikes: 54 },
+		{
+			id: 1,
+			textPost: 'Lorem ipsum dolor, sit amet consectetur',
+			amountLikes: 64,
+		},
 		{ id: 2, textPost: 'I like JS and React', amountLikes: 516 },
-		{ id: 3, textPost: 'Watafak, mazafaka, suka, blya!', amountLikes: 5 },
+		{
+			id: 3,
+			textPost: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit.',
+			amountLikes: 5,
+		},
 		{
 			id: 4,
 			textPost:
@@ -74,7 +84,17 @@ export const onPostChange = (text) => ({
 	textPost: text,
 });
 
-export const setUserProfile = (profile) => ({
+const setUserProfile = (profile) => ({
 	type: SET_USER_PROFILE,
 	profile,
 });
+
+// Thunks
+
+export const getUserProfile = (userId) => {
+	return (dispatch) => {
+		profileAPI.getProfileData(userId).then((data) => {
+			dispatch(setUserProfile(data));
+		});
+	};
+};
