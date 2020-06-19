@@ -3,9 +3,11 @@ import { profileAPI } from '../api/api';
 const ADD_POST = 'ADD-POST';
 const ON_POST_CHANGE = 'ON-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 
 const initialState = {
 	profile: null,
+	status: '',
 	existingPosts: [
 		{ id: 0, textPost: 'Lorem ipsum dolor', amountLikes: 54 },
 		{
@@ -70,6 +72,9 @@ const profileReduser = (state = initialState, action) => {
 		case SET_USER_PROFILE:
 			return { ...state, profile: action.profile };
 
+		case SET_STATUS:
+			return { ...state, status: action.status };
+
 		default:
 			return state;
 	}
@@ -89,12 +94,35 @@ const setUserProfile = (profile) => ({
 	profile,
 });
 
+const setStatus = (status) => ({
+	type: SET_STATUS,
+	status,
+});
+
 // Thunks
 
 export const getUserProfile = (userId) => {
 	return (dispatch) => {
 		profileAPI.getProfileData(userId).then((data) => {
 			dispatch(setUserProfile(data));
+		});
+	};
+};
+
+export const getUserStatus = (userId) => {
+	return (dispatch) => {
+		profileAPI.getStatus(userId).then((data) => {
+			dispatch(setStatus(data));
+		});
+	};
+};
+
+export const updateUserStatus = (status) => {
+	return (dispatch) => {
+		profileAPI.updateStatus(status).then((response) => {
+			if (response.resultCode === 0) {
+				dispatch(setStatus(status));
+			}
 		});
 	};
 };

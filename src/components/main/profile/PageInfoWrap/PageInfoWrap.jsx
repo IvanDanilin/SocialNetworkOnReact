@@ -15,7 +15,7 @@ const PageInfoWrap = (props) => {
 			</div>
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>{profile.fullName}</div>
-				<ProfileStatus status={'Hello, I am Ivan'} />
+				<ProfileStatus status={props.status} updateUserStatus={props.updateUserStatus} />
 				<div className={styles.pageInfo}>
 					<div className={styles.leftBlock}>
 

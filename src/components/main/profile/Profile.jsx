@@ -15,6 +15,8 @@ const Profile = (props) => {
 					<PageInfoWrap
 						profile={props.profile}
 						defaultAvatar={props.defaultAvatar}
+						status={props.status}
+						updateUserStatus={props.updateUserStatus}
 					/>
 					<div className={styles.postsBlock}>
 						<NewPostBlockContainer />

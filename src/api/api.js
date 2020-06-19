@@ -28,10 +28,23 @@ export const authAPI = {
 	getAuthUserData() {
 		return instance.get('auth/me').then((response) => response.data);
 	},
+	authorize(data) {
+		return instance.post('auth/login', data).then((response) => response.data);
+	},
 };
 
 export const profileAPI = {
 	getProfileData(userId) {
 		return instance.get(`profile/${userId}`).then((response) => response.data);
+	},
+	getStatus(userId) {
+		return instance
+			.get(`profile/status/${userId}`)
+			.then((response) => response.data);
+	},
+	updateStatus(textStatus) {
+		return instance
+			.put('profile/status/', { status: textStatus })
+			.then((response) => response.data);
 	},
 };
