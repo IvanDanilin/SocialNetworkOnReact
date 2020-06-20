@@ -1,13 +1,7 @@
-import { addPost, onPostChange } from '../../../../redux/profileReduser';
+import { addPost } from '../../../../redux/profileReduser';
 import NewPostBlock from './NewPostBlock';
 import { connect } from 'react-redux';
 
-let mapStateToProps = (state) => {
-	return {
-		newPostText: state.profilePage.newPostText,
-	};
-};
+let mapStateToProps = () => ({});
 
-export default connect(mapStateToProps, { onPostChange, addPost })(
-	NewPostBlock
-);
+export default connect(mapStateToProps, { addPost })(NewPostBlock);

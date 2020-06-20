@@ -4,12 +4,12 @@ import { Form, Field } from 'react-final-form';
 import { authorize, getAuthUserData } from '../../../redux/authReduser';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import { Input } from '../../common/FormControls/FormControls';
+import { composeValidators, maxLength, required, minLength } from '../../../utilities/validators/validators';
 
 const LoginForm = (props) => (
 	<Form
 		initialValues={{
-			email: '',
-			password: '',
 			rememberMe: true,
 		}}
 		onSubmit={(values) => props.onSubmit(values)}
@@ -20,17 +20,26 @@ const LoginForm = (props) => (
 				<div>
 					<Field
 						name="email"
-						component="input"
-						type="text"
+						component={Input}
 						placeholder="Enter your email"
+						validate={composeValidators(
+							minLength(3),
+							maxLength(30),
+							required('Required field')
+						)}
 					/>
 				</div>
 				<div>
 					<Field
 						name="password"
-						component="input"
-						type="password"
+						component={Input}
+						inputType="password"
 						placeholder="Enter your password"
+						validate={composeValidators(
+							minLength(3),
+							maxLength(30),
+							required('Required field')
+						)}
 					/>
 				</div>
 				<div>
@@ -57,18 +66,7 @@ const LoginForm = (props) => (
 class Login extends React.Component {
 	onSubmit = (value) => {
 		this.props.authorize(value);
-		if (this.props.isAuth) {
-			console.log('1');
-			this.render();
-		}
 	};
-	componentDidMount() {
-		this.props.getAuthUserData();
-		if (this.props.isAuth) {
-			console.log('2');
-			this.render();
-		}
-	}
 	render() {
 		if (this.props.isAuth) {
 			return <Redirect to="/profile" />;

@@ -29,22 +29,24 @@ const setAuthUserData = (userId, email, login) => ({
 	data: { userId, email, login },
 });
 
-export const getAuthUserData = () => {
-	return (dispatch) => {
-		authAPI.getAuthUserData().then((data) => {
-			if (data.resultCode === 0) {
-				let { id, login, email } = data.data;
-				dispatch(setAuthUserData(id, email, login));
-			}
-		});
-	};
-};
+export const getAuthUserData = () => (dispatch) =>
+	authAPI.getAuthUserData().then((data) => {
+		console.log(data);
+		
+		if (data.resultCode === 0) {
+			let { id, login, email } = data.data;
+			dispatch(setAuthUserData(id, email, login));
+			return id;
+		} else {
+			return false;
+		}
+	});
 
 export const authorize = (authData) => {
 	return (dispatch) => {
 		authAPI.authorize(authData).then((data) => {
 			if (data.resultCode === 0) {
-				return true;
+				dispatch(getAuthUserData());
 			} else {
 				console.log('error');
 			}

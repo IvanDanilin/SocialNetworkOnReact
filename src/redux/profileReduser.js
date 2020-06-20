@@ -1,7 +1,6 @@
 import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
-const ON_POST_CHANGE = 'ON-POST-CHANGE';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 
@@ -40,34 +39,25 @@ const initialState = {
 			amountLikes: 32,
 		},
 	],
-	newPostText: '',
 };
 
 const profileReduser = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST:
 			// Добавляет новый пост на стену
-			const currentText = state.newPostText;
+			const text = action.text;
 			const newPostId = state.existingPosts.length;
-			if (currentText) {
-				return {
-					...state,
-					existingPosts: [
-						...state.existingPosts,
-						{
-							id: newPostId,
-							textPost: currentText,
-							amountLikes: 0,
-						},
-					],
-					newPostText: '',
-				};
-			}
-			return state;
-
-		case ON_POST_CHANGE:
-			// Записывает в state и перерисовывыет любое изменение инпута нового поста
-			return { ...state, newPostText: action.textPost };
+			return {
+				...state,
+				existingPosts: [
+					...state.existingPosts,
+					{
+						id: newPostId,
+						textPost: text,
+						amountLikes: 0,
+					},
+				],
+			};
 
 		case SET_USER_PROFILE:
 			return { ...state, profile: action.profile };
@@ -82,12 +72,7 @@ const profileReduser = (state = initialState, action) => {
 
 export default profileReduser;
 
-export const addPost = () => ({ type: ADD_POST });
-
-export const onPostChange = (text) => ({
-	type: ON_POST_CHANGE,
-	textPost: text,
-});
+export const addPost = (text) => ({ type: ADD_POST, text });
 
 const setUserProfile = (profile) => ({
 	type: SET_USER_PROFILE,

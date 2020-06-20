@@ -11,33 +11,25 @@ import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import { withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { getAuthUserData } from '../../../redux/authReduser';
 
 // Классовый компонент для рендера функционального компонента
 class ProfileContainer extends React.Component {
 	// Выполняется после рендера
 	componentDidMount() {
+		// ! Временное решение /////////////
 		let userId = this.props.match.params.userId;
-		if (userId) {
+		if (!userId) {
+			this.props.getAuthUserData().then((id) => {
+				if (id) {
+					this.props.getUserProfile(id);
+					this.props.getUserStatus(id);
+				}
+			});
+		} else {
 			this.props.getUserProfile(userId);
 			this.props.getUserStatus(userId);
-		} 
-		// ! Временное решение /////////////
-		else {
-			const setId = () => {
-				userId = this.props.userId;
-				if (userId) {
-					this.props.getUserProfile(userId);
-					this.props.getUserStatus(userId);
-				} else {
-					setTimeout(() => {
-						console.log('up');
-						setId();
-					}, 1);
-				}
-			};
-			setId();
 		}
-		// ! ///////////////////////////
 	}
 	render() {
 		return <Profile {...this.props} />;
@@ -49,16 +41,20 @@ const mapStateToProps = (state) => ({
 	profile: state.profilePage.profile,
 	topImage,
 	defaultAvatar,
-	userId: state.auth.userId,
 	status: state.profilePage.status,
 });
 
 export default compose(
 	// Добавляет данные из state и actions для dispatchs
-	connect(mapStateToProps, { getUserProfile, getUserStatus, updateUserStatus }),
+	connect(mapStateToProps, {
+		getUserProfile,
+		getUserStatus,
+		updateUserStatus,
+		getAuthUserData,
+	}),
 	// Добавляет возможность получения параметров переданных в адресную строку
-	withRouter
+	withRouter,
 	// Добавляет в компонент проверку аутентификации, если не авторизован
 	// выполняет редирект на страницу входа
-	//withAuthRedirect
+	withAuthRedirect
 )(ProfileContainer);
