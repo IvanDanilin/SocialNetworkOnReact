@@ -2,9 +2,11 @@ import React from 'react';
 import Profile from './Profile';
 import { connect } from 'react-redux';
 import {
-	getUserProfile,
-	getUserStatus,
+	getUserProfileToView,
+	getUserStatusToView,
 	updateUserStatus,
+	getMyStatus,
+	getMyUserProfile,
 } from '../../../redux/profileReduser';
 import topImage from './les_tuman_derevia.jpg';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
@@ -17,40 +19,47 @@ import { getAuthUserData } from '../../../redux/authReduser';
 class ProfileContainer extends React.Component {
 	// Выполняется после рендера
 	componentDidMount() {
-		// ! Временное решение /////////////
-		let userId = this.props.match.params.userId;
-		if (!userId) {
-			this.props.getAuthUserData().then((id) => {
-				if (id) {
-					this.props.getUserProfile(id);
-					this.props.getUserStatus(id);
+		const userId = this.props.match.params.userId;
+		if (userId) {
+			this.props.getUserProfileToView(userId);
+			this.props.getUserStatusToView(userId);
+		} else if (!userId) {
+			// ! Временное решение /////////////
+			this.props.getAuthUserData().then((data) => {
+				if (data.id) {
+					this.props.getMyUserProfile(data.id);
+					this.props.getMyStatus(data.id);
 				}
 			});
-		} else {
-			this.props.getUserProfile(userId);
-			this.props.getUserStatus(userId);
 		}
 	}
 	render() {
-		return <Profile {...this.props} />;
+		const userId = this.props.match.params.userId;
+		const profile = userId ? this.props.profileToView : this.props.myProfile;
+		const status = userId ? this.props.statusToView : this.props.myStatus;
+		return <Profile {...this.props} profile={profile} status={status} />;
 	}
 }
 
 // Данные из state передаваемые в props компонента
 const mapStateToProps = (state) => ({
-	profile: state.profilePage.profile,
+	profileToView: state.profilePage.profileToView,
+	myProfile: state.profilePage.myProfile,
 	topImage,
 	defaultAvatar,
-	status: state.profilePage.status,
+	statusToView: state.profilePage.statusToView,
+	myStatus: state.profilePage.myStatus,
 });
 
 export default compose(
 	// Добавляет данные из state и actions для dispatchs
 	connect(mapStateToProps, {
-		getUserProfile,
-		getUserStatus,
+		getUserProfileToView,
+		getUserStatusToView,
 		updateUserStatus,
 		getAuthUserData,
+		getMyUserProfile,
+		getMyStatus,
 	}),
 	// Добавляет возможность получения параметров переданных в адресную строку
 	withRouter,

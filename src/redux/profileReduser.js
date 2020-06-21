@@ -1,12 +1,22 @@
 import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
+const SET_USER_PROFILE_TO_VIEW = 'SET_USER_PROFILE_TO_VIEW';
+const SET_STATUS_TO_VIEW = 'SET_STATUS_TO_VIEW';
+const SET_MY_USER_PROFILE = 'SET_MY_USER_PROFILE';
+const SET_MY_STATUS = 'SET_MY_STATUS';
 
 const initialState = {
-	profile: null,
-	status: '',
+	myProfile: {
+		photos: {
+			small: null,
+			large: null,
+		},
+		contacts: '',
+	},
+	myStatus: '',
+	profileToView: null,
+	statusToView: '',
 	existingPosts: [
 		{ id: 0, textPost: 'Lorem ipsum dolor', amountLikes: 54 },
 		{
@@ -59,11 +69,17 @@ const profileReduser = (state = initialState, action) => {
 				],
 			};
 
-		case SET_USER_PROFILE:
-			return { ...state, profile: action.profile };
+		case SET_USER_PROFILE_TO_VIEW:
+			return { ...state, profileToView: action.profile };
 
-		case SET_STATUS:
-			return { ...state, status: action.status };
+		case SET_STATUS_TO_VIEW:
+			return { ...state, statusToView: action.status };
+
+		case SET_MY_USER_PROFILE:
+			return { ...state, myProfile: action.profile };
+
+		case SET_MY_STATUS:
+			return { ...state, myStatus: action.status };
 
 		default:
 			return state;
@@ -74,30 +90,56 @@ export default profileReduser;
 
 export const addPost = (text) => ({ type: ADD_POST, text });
 
-const setUserProfile = (profile) => ({
-	type: SET_USER_PROFILE,
+const setUserProfileToView = (profile) => ({
+	type: SET_USER_PROFILE_TO_VIEW,
 	profile,
 });
 
-const setStatus = (status) => ({
-	type: SET_STATUS,
+const setStatusToView = (status) => ({
+	type: SET_STATUS_TO_VIEW,
+	status,
+});
+
+const setMyUserProfile = (profile) => ({
+	type: SET_MY_USER_PROFILE,
+	profile,
+});
+
+const setMyStatus = (status) => ({
+	type: SET_MY_STATUS,
 	status,
 });
 
 // Thunks
 
-export const getUserProfile = (userId) => {
+export const getUserProfileToView = (userId) => {
 	return (dispatch) => {
 		profileAPI.getProfileData(userId).then((data) => {
-			dispatch(setUserProfile(data));
+			dispatch(setUserProfileToView(data));
 		});
 	};
 };
 
-export const getUserStatus = (userId) => {
+export const getUserStatusToView = (userId) => {
 	return (dispatch) => {
 		profileAPI.getStatus(userId).then((data) => {
-			dispatch(setStatus(data));
+			dispatch(setStatusToView(data));
+		});
+	};
+};
+
+export const getMyUserProfile = (userId) => {
+	return (dispatch) => {
+		profileAPI.getProfileData(userId).then((data) => {
+			dispatch(setMyUserProfile(data));
+		});
+	};
+};
+
+export const getMyStatus = (userId) => {
+	return (dispatch) => {
+		profileAPI.getStatus(userId).then((data) => {
+			dispatch(setMyStatus(data));
 		});
 	};
 };
@@ -106,7 +148,7 @@ export const updateUserStatus = (status) => {
 	return (dispatch) => {
 		profileAPI.updateStatus(status).then((response) => {
 			if (response.resultCode === 0) {
-				dispatch(setStatus(status));
+				dispatch(setMyStatus(status));
 			}
 		});
 	};

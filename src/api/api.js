@@ -31,6 +31,9 @@ export const authAPI = {
 	authorize(data) {
 		return instance.post('auth/login', data).then((response) => response.data);
 	},
+	signOut() {
+		return instance.delete('auth/login', ).then((response) => response.data);
+	},
 };
 
 export const profileAPI = {

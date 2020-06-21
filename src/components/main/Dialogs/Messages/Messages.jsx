@@ -15,8 +15,9 @@ const NewMessageForm = (props) => (
 		onSubmit={(value, form) => {
 			props.sendMessage(value.newMessage, props.userId);
 			setTimeout(form.reset);
+			setTimeout(form.resetFieldState('newMessage'));
 		}}
-		render={({ handleSubmit }) => (
+		render={({ handleSubmit, values }) => (
 			<form className={styles.newMessage} onSubmit={handleSubmit}>
 				<Field
 					component={Textarea}
@@ -24,10 +25,11 @@ const NewMessageForm = (props) => (
 					placeholder="Enter your message..."
 					validate={composeValidators(
 						maxLength(100),
-						required('Enter the text of your message')
+						required()
 					)}
+					
 				/>
-				<button>Send</button>
+				{values.newMessage && <button>Send</button>}
 			</form>
 		)}
 	/>

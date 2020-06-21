@@ -31,12 +31,10 @@ const setAuthUserData = (userId, email, login) => ({
 
 export const getAuthUserData = () => (dispatch) =>
 	authAPI.getAuthUserData().then((data) => {
-		console.log(data);
-		
 		if (data.resultCode === 0) {
 			let { id, login, email } = data.data;
 			dispatch(setAuthUserData(id, email, login));
-			return id;
+			return { id, login, email };
 		} else {
 			return false;
 		}
@@ -47,6 +45,19 @@ export const authorize = (authData) => {
 		authAPI.authorize(authData).then((data) => {
 			if (data.resultCode === 0) {
 				dispatch(getAuthUserData());
+			} else {
+				console.log('error');
+			}
+		});
+	};
+};
+
+export const signOut = (authData) => {
+	return (dispatch) => {
+		authAPI.signOut(authData).then((data) => {
+			if (data.resultCode === 0) {
+				dispatch(getAuthUserData());
+				window.location.reload(true)
 			} else {
 				console.log('error');
 			}
