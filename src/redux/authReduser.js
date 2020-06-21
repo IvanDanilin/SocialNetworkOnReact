@@ -3,9 +3,9 @@ import { authAPI } from '../api/api';
 const SET_USER_DATA = 'SET_USER_DATA';
 
 let initialState = {
-	userId: 0,
-	email: '',
-	login: '',
+	userId: null,
+	email: null,
+	login: null,
 	isAuth: false,
 };
 
@@ -14,8 +14,7 @@ const authReduser = (state = initialState, action) => {
 		case SET_USER_DATA:
 			return {
 				...state,
-				...action.data,
-				isAuth: true,
+				...action.payload,
 			};
 		default:
 			return state;
@@ -24,40 +23,39 @@ const authReduser = (state = initialState, action) => {
 
 export default authReduser;
 
-const setAuthUserData = (userId, email, login) => ({
+const setAuthUserData = (userId, email, login, isAuth) => ({
 	type: SET_USER_DATA,
-	data: { userId, email, login },
+	payload: { userId, email, login, isAuth },
 });
 
 export const getAuthUserData = () => (dispatch) =>
 	authAPI.getAuthUserData().then((data) => {
 		if (data.resultCode === 0) {
 			let { id, login, email } = data.data;
-			dispatch(setAuthUserData(id, email, login));
+			dispatch(setAuthUserData(id, email, login, true));
 			return { id, login, email };
 		} else {
 			return false;
 		}
 	});
 
-export const authorize = (authData) => {
+export const signIn = (authData) => {
 	return (dispatch) => {
-		authAPI.authorize(authData).then((data) => {
+		return authAPI.signIn(authData).then((data) => {
 			if (data.resultCode === 0) {
 				dispatch(getAuthUserData());
-			} else {
-				console.log('error');
+			} else if (data.resultCode !== 0) {
+				return data.messages[0]
 			}
 		});
 	};
 };
 
-export const signOut = (authData) => {
+export const signOut = () => {
 	return (dispatch) => {
-		authAPI.signOut(authData).then((data) => {
+		authAPI.signOut().then((data) => {
 			if (data.resultCode === 0) {
-				dispatch(getAuthUserData());
-				window.location.reload(true)
+				dispatch(setAuthUserData(null, null, null, false));
 			} else {
 				console.log('error');
 			}

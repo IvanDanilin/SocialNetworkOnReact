@@ -16,7 +16,6 @@ class HeaderContainer extends React.Component {
 		this.state.dropDownMenu
 			? this.setState({ dropDownMenu: false })
 			: this.setState({ dropDownMenu: true });
-		console.log(this.state);
 	}
 	render() {
 		return (

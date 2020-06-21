@@ -4,7 +4,7 @@ const FormControl = ({ input, meta, ...props }) => {
 	const Element = props.element;
 	return (
 		<>
-			<Element {...input} type={props.inputType} placeholder={props.placeholder} />
+			<Element {...input} placeholder={props.placeholder} />
 			{meta.error &&
 				(input.value.length > 5 ? (
 					<span>{meta.error}</span>

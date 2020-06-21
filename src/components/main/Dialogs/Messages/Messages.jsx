@@ -4,18 +4,13 @@ import CurrentMessages from './CurrentMessages/CurrentMessages';
 import { Route } from 'react-router-dom';
 import { Form, Field } from 'react-final-form';
 import { Textarea } from '../../../common/FormControls/FormControls';
-import {
-	composeValidators,
-	maxLength,
-	required,
-} from '../../../../utilities/validators/validators';
+import { fullValidation } from '../../../../utilities/validators/validators';
 
 const NewMessageForm = (props) => (
 	<Form
 		onSubmit={(value, form) => {
 			props.sendMessage(value.newMessage, props.userId);
 			setTimeout(form.reset);
-			setTimeout(form.resetFieldState('newMessage'));
 		}}
 		render={({ handleSubmit, values }) => (
 			<form className={styles.newMessage} onSubmit={handleSubmit}>
@@ -23,11 +18,7 @@ const NewMessageForm = (props) => (
 					component={Textarea}
 					name="newMessage"
 					placeholder="Enter your message..."
-					validate={composeValidators(
-						maxLength(100),
-						required()
-					)}
-					
+					validate={fullValidation(0, 100)}
 				/>
 				{values.newMessage && <button>Send</button>}
 			</form>

@@ -28,7 +28,7 @@ export const authAPI = {
 	getAuthUserData() {
 		return instance.get('auth/me').then((response) => response.data);
 	},
-	authorize(data) {
+	signIn(data) {
 		return instance.post('auth/login', data).then((response) => response.data);
 	},
 	signOut() {

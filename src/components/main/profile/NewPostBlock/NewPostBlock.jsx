@@ -1,11 +1,7 @@
 import React from 'react';
 import styles from './NewPostBlock.module.scss';
 import { Form, Field } from 'react-final-form';
-import {
-	required,
-	maxLength,
-	composeValidators,
-} from '../../../../utilities/validators/validators';
+import { fullValidation } from '../../../../utilities/validators/validators';
 import { Input } from '../../../common/FormControls/FormControls';
 
 const NewPostBlock = (props) => {
@@ -20,10 +16,7 @@ const NewPostBlock = (props) => {
 					<Field
 						name="newPostInput"
 						component={Input}
-						validate={composeValidators(
-							maxLength(10),
-							required('Enter the text of your message')
-						)}
+						validate={fullValidation('', 10, 'Enter the text of your message')}
 						placeholder={`What's up?`}
 					/>
 					<div className={styles.buttonWrap}>

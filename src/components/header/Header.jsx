@@ -2,15 +2,21 @@ import React from 'react';
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
 
-const DropDownMenu = (props) => (
-	<div className={styles.dropDownMenu}>
-		<ul>
-			<li>Profile</li>
-			<li>Settings</li>
-			<li onClick={props.signOut}>Sign out</li>
-		</ul>
-	</div>
-);
+const DropDownMenu = (props) => {
+	const onClick = () => {
+		props.toggleDropDownMenu();
+		props.signOut();
+	};
+	return (
+		<div className={styles.dropDownMenu}>
+			<ul>
+				<li>Profile</li>
+				<li>Settings</li>
+				<li onClick={onClick}>Sign out</li>
+			</ul>
+		</div>
+	);
+};
 
 const AuthLogin = (props) => {
 	return (
@@ -48,9 +54,16 @@ const Header = (props) => {
 						/>
 					</div>
 				) : (
-					<div className={styles.loginBlock}><NavLink to={'/login'}>Login</NavLink></div>
+					<div className={styles.loginBlock}>
+						<NavLink to={'/login'}>Login</NavLink>
+					</div>
 				)}
-				{props.dropDownMenu && <DropDownMenu signOut={props.signOut} />}
+				{props.isAuth && props.dropDownMenu && (
+					<DropDownMenu
+						signOut={props.signOut}
+						toggleDropDownMenu={props.toggleDropDownMenu}
+					/>
+				)}
 			</div>
 		</header>
 	);

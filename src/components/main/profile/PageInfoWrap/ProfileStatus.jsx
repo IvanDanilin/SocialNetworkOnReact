@@ -21,7 +21,6 @@ class ProfileStatus extends React.Component {
         }
     }
 	render() {
-		window.state = this.state;
 		return (
 			<>
 				{this.state.editMode ? (

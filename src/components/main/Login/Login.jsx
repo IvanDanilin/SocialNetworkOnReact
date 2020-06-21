@@ -1,11 +1,12 @@
 import React from 'react';
 import styles from './Login.module.scss';
 import { Form, Field } from 'react-final-form';
-import { authorize, getAuthUserData } from '../../../redux/authReduser';
+import { signIn, getAuthUserData } from '../../../redux/authReduser';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../../common/FormControls/FormControls';
-import { composeValidators, maxLength, required, minLength } from '../../../utilities/validators/validators';
+import { fullValidation } from '../../../utilities/validators/validators';
+import { FORM_ERROR } from 'final-form';
 
 const LoginForm = (props) => (
 	<Form
@@ -13,33 +14,23 @@ const LoginForm = (props) => (
 			rememberMe: true,
 		}}
 		onSubmit={(values) => props.onSubmit(values)}
-		validate={(values) => console.log(values)}
-	>
-		{({ handleSubmit, pristine, form, submitting }) => (
+		render={({ handleSubmit, pristine, form, submitting, submitError }) => (
 			<form onSubmit={handleSubmit}>
 				<div>
 					<Field
 						name="email"
 						component={Input}
 						placeholder="Enter your email"
-						validate={composeValidators(
-							minLength(3),
-							maxLength(30),
-							required('Required field')
-						)}
+						validate={fullValidation(3, 30, 'Required field')}
 					/>
 				</div>
 				<div>
 					<Field
 						name="password"
 						component={Input}
-						inputType="password"
+						type="password"
 						placeholder="Enter your password"
-						validate={composeValidators(
-							minLength(3),
-							maxLength(30),
-							required('Required field')
-						)}
+						validate={fullValidation(3, 30, 'Required field')}
 					/>
 				</div>
 				<div>
@@ -58,15 +49,20 @@ const LoginForm = (props) => (
 				>
 					Clear
 				</button>
+				{submitError && <div className={styles.error}>{submitError}</div>}
 			</form>
 		)}
-	</Form>
+	/>
 );
 
 class Login extends React.Component {
-	onSubmit = (value) => {
-		this.props.authorize(value);
-	};
+	onSubmit = (value) =>
+		this.props.signIn(value).then((error) => {
+			if (error) {
+				return { [FORM_ERROR]: error };
+			}
+		});
+
 	render() {
 		if (this.props.isAuth) {
 			return <Redirect to="/profile" />;
@@ -79,10 +75,8 @@ class Login extends React.Component {
 	}
 }
 
-const mapDispatchToProps = (state) => ({
+const mapStateToProps = (state) => ({
 	isAuth: state.auth.isAuth,
 });
 
-export default connect(mapDispatchToProps, { authorize, getAuthUserData })(
-	Login
-);
+export default connect(mapStateToProps, { signIn, getAuthUserData })(Login);
