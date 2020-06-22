@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Users from './Users';
-import { follow, unfollow, getUsers } from '../../../redux/usersReduser';
+import { follow, unfollow, getUsers } from '../../../redux/users-reducer';
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 

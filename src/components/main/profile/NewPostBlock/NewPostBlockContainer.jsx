@@ -1,4 +1,4 @@
-import { addPost } from '../../../../redux/profileReduser';
+import { addPost } from '../../../../redux/profile-reducer';
 import NewPostBlock from './NewPostBlock';
 import { connect } from 'react-redux';
 

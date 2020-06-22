@@ -1,22 +1,16 @@
 import { profileAPI } from '../api/api';
 
 const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE_TO_VIEW = 'SET_USER_PROFILE_TO_VIEW';
-const SET_STATUS_TO_VIEW = 'SET_STATUS_TO_VIEW';
+const SET_USER_PROFILE = 'SET_USER_PROFILE';
+const SET_STATUS = 'SET_STATUS';
 const SET_MY_USER_PROFILE = 'SET_MY_USER_PROFILE';
-const SET_MY_STATUS = 'SET_MY_STATUS';
+const TOGGLE_IS_MY_PROFILE = 'TOGGLE_IS_MY_PROFILE';
 
 const initialState = {
-	myProfile: {
-		photos: {
-			small: null,
-			large: null,
-		},
-		contacts: '',
-	},
-	myStatus: '',
-	profileToView: null,
-	statusToView: '',
+	myProfile: { photos: {} },
+	profile: null,
+	status: '',
+	isMyProfile: false,
 	existingPosts: [
 		{ id: 0, textPost: 'Lorem ipsum dolor', amountLikes: 54 },
 		{
@@ -51,7 +45,7 @@ const initialState = {
 	],
 };
 
-const profileReduser = (state = initialState, action) => {
+const profileReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST:
 			// Добавляет новый пост на стену
@@ -69,35 +63,30 @@ const profileReduser = (state = initialState, action) => {
 				],
 			};
 
-		case SET_USER_PROFILE_TO_VIEW:
-			return { ...state, profileToView: action.profile };
-
-		case SET_STATUS_TO_VIEW:
-			return { ...state, statusToView: action.status };
+		case SET_USER_PROFILE:
+			return { ...state, profile: action.profile };
 
 		case SET_MY_USER_PROFILE:
 			return { ...state, myProfile: action.profile };
 
-		case SET_MY_STATUS:
-			return { ...state, myStatus: action.status };
+		case TOGGLE_IS_MY_PROFILE:
+			return { ...state, isMyProfile: action.isMyProfile };
+
+		case SET_STATUS:
+			return { ...state, status: action.status };
 
 		default:
 			return state;
 	}
 };
 
-export default profileReduser;
+export default profileReducer;
 
 export const addPost = (text) => ({ type: ADD_POST, text });
 
-const setUserProfileToView = (profile) => ({
-	type: SET_USER_PROFILE_TO_VIEW,
+const setUserProfile = (profile) => ({
+	type: SET_USER_PROFILE,
 	profile,
-});
-
-const setStatusToView = (status) => ({
-	type: SET_STATUS_TO_VIEW,
-	status,
 });
 
 const setMyUserProfile = (profile) => ({
@@ -105,25 +94,22 @@ const setMyUserProfile = (profile) => ({
 	profile,
 });
 
-const setMyStatus = (status) => ({
-	type: SET_MY_STATUS,
+export const toggleIsMyProfile = (isMyProfile) => ({
+	type: TOGGLE_IS_MY_PROFILE,
+	isMyProfile,
+});
+
+const setStatus = (status) => ({
+	type: SET_STATUS,
 	status,
 });
 
 // Thunks
 
-export const getUserProfileToView = (userId) => {
+export const getUserProfile = (userId) => {
 	return (dispatch) => {
 		profileAPI.getProfileData(userId).then((data) => {
-			dispatch(setUserProfileToView(data));
-		});
-	};
-};
-
-export const getUserStatusToView = (userId) => {
-	return (dispatch) => {
-		profileAPI.getStatus(userId).then((data) => {
-			dispatch(setStatusToView(data));
+			dispatch(setUserProfile(data));
 		});
 	};
 };
@@ -136,10 +122,10 @@ export const getMyUserProfile = (userId) => {
 	};
 };
 
-export const getMyStatus = (userId) => {
+export const getUserStatus = (userId) => {
 	return (dispatch) => {
 		profileAPI.getStatus(userId).then((data) => {
-			dispatch(setMyStatus(data));
+			dispatch(setStatus(data));
 		});
 	};
 };
@@ -148,7 +134,7 @@ export const updateUserStatus = (status) => {
 	return (dispatch) => {
 		profileAPI.updateStatus(status).then((response) => {
 			if (response.resultCode === 0) {
-				dispatch(setMyStatus(status));
+				dispatch(setStatus(status));
 			}
 		});
 	};

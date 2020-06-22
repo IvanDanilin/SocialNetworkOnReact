@@ -6,7 +6,9 @@ class ProfileStatus extends React.Component {
 		status: this.props.status,
 	};
 	activateEditMode = () => {
-		this.setState({ editMode: true });
+		if (this.props.isMyProfile) {
+			this.setState({ editMode: true });
+		}
 	};
 	deactivateEditMode = () => {
 		this.setState({ editMode: false });
@@ -14,12 +16,12 @@ class ProfileStatus extends React.Component {
 	};
 	onStatusChange = (e) => {
 		this.setState({ status: e.currentTarget.value });
-    };
-    componentDidUpdate = (prevProps) => {
-        if (prevProps.status !== this.props.status) {
-            this.setState({status: this.props.status})
-        }
-    }
+	};
+	componentDidUpdate = (prevProps) => {
+		if (prevProps.status !== this.props.status) {
+			this.setState({ status: this.props.status });
+		}
+	};
 	render() {
 		return (
 			<>
@@ -35,7 +37,7 @@ class ProfileStatus extends React.Component {
 				) : (
 					<div>
 						<span onDoubleClick={this.activateEditMode}>
-							{this.props.status || 'Enter your status'}
+							{this.props.status || (this.props.isMyProfile && 'Enter your status')}
 						</span>
 					</div>
 				)}

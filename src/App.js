@@ -1,18 +1,36 @@
 import React from 'react';
-import './null.scss';
+import { connect } from 'react-redux';
+import { compose } from 'redux';
 import './App.scss';
+import Preloader from './components/common/Preloader/Preloader';
 import HeaderContainer from './components/Header/HeaderContainer';
-import Sidebar from './components/Sidebar/Sidebar';
 import Main from './components/Main/Main';
+import Sidebar from './components/Sidebar/Sidebar';
+import './null.scss';
+import { initializeApp } from './redux/app-reducer';
 
-const App = () => {
-	return (
-		<div className="app-wrapper">
-			<HeaderContainer />
-			<Sidebar />
-			<Main />
-		</div>
-	);
-};
+class App extends React.Component {
+	componentDidMount() {
+		this.props.initializeApp();
+	}
+	render() {
+		return (
+			this.props.initialized ? (
+				<div className="app-wrapper">
+					<HeaderContainer />
+					<Sidebar />
+					<Main />
+				</div>
+			)
+			: <Preloader />
+		);
+	}
+}
 
-export default App;
+const mapStateToProps = (state) => ({
+	initialized: state.app.initialized,
+});
+
+export default compose(
+	connect(mapStateToProps, { initializeApp })
+)(App);

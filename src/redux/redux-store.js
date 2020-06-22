@@ -1,24 +1,26 @@
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import dialogsReduser from './dialogsReduser';
-import profileReduser from './profileReduser';
-import usersReduser from './usersReduser';
-import authReduser from './authReduser';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import thunkMiddleware from 'redux-thunk';
+import appReducer from './app-reducer';
+import authReducer from './auth-reducer';
+import dialogsReducer from './dialogs-reducer';
+import profileReducer from './profile-reducer';
+import usersReducer from './users-reducer';
 
-// *Создание объекта с redusers, для последующей передачи их в store
-let redusers = combineReducers({
-	dialogs: dialogsReduser,
-	profilePage: profileReduser,
-	usersPage: usersReduser,
-	auth: authReduser,
+// *Создание объекта с reducers, для последующей передачи их в store
+let reducers = combineReducers({
+	dialogs: dialogsReducer,
+	profilePage: profileReducer,
+	usersPage: usersReducer,
+	auth: authReducer,
+	app: appReducer,
 });
 // store будет иметь свойство в виде объекта state, внутри которого
-// будут те же свойства, что и в redusers. Каждым из этих свойств
-// будет управлять определенный reduser
+// будут те же свойства, что и в reducers. Каждым из этих свойств
+// будет управлять определенный reducer
 
-// *Создание store с redusers и thunkMiddleware
-let store = createStore(redusers, applyMiddleware(thunkMiddleware));
-// applyMiddleware добавляет промежуточное звено между store и redusers,
+// *Создание store с reducers и thunkMiddleware
+let store = createStore(reducers, applyMiddleware(thunkMiddleware));
+// applyMiddleware добавляет промежуточное звено между store и reducers,
 // в виде thunkMiddleware. В нем содержатся функции thunk, которые
 // принимают в себя обычные actions и на их основе вызывают dispatch
 

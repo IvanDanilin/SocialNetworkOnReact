@@ -13,6 +13,7 @@ const Profile = (props) => {
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
 					<PageInfoWrap
+						isMyProfile={props.isMyProfile}
 						profile={props.profile}
 						defaultAvatar={props.defaultAvatar}
 						status={props.status}

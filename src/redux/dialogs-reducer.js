@@ -166,7 +166,7 @@ let initialState = [
 	},
 ];
 
-const dialogsReduser = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case SEND_MESSAGE:
 			const id = +action.userId;
@@ -192,7 +192,7 @@ const dialogsReduser = (state = initialState, action) => {
 	}
 };
 
-export default dialogsReduser;
+export default dialogsReducer;
 
 export const sendMessage = (textMessage, userId) => ({
 	type: SEND_MESSAGE,

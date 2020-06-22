@@ -1,5 +1,5 @@
-import dialogsReduser from "./dialogsReduser";
-import profileReduser from "./profileReduser";
+import dialogsReducer from "./dialogs-reducer";
+import profileReducer from "./profile-reducer";
 
 let store = {
   _state: {
@@ -249,9 +249,9 @@ let store = {
   },
 
   dispatch(action) {
-    this._state.dialogs = dialogsReduser(this._state.dialogs, action);
+    this._state.dialogs = dialogsReducer(this._state.dialogs, action);
 
-    this._state.myPage = profileReduser(this._state.myPage, action);
+    this._state.myPage = profileReducer(this._state.myPage, action);
 
     this._callSubscriber();
   },

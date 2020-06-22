@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Login.module.scss';
 import { Form, Field } from 'react-final-form';
-import { signIn, getAuthUserData } from '../../../redux/authReduser';
+import { signIn, getAuthUserData } from '../../../redux/auth-reducer';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../../common/FormControls/FormControls';
