@@ -1,10 +1,10 @@
 import React from 'react';
-import logo from '../../assets/image/logo.png';
-import Header from './Header';
 import { connect } from 'react-redux';
-import { signOut } from '../../redux/auth-reducer';
 import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
-import { getMyUserProfile } from '../../redux/profile-reducer';
+import logo from '../../assets/image/logo.png';
+import { signOut } from '../../redux/reducers/auth-reducer';
+import { getMyUserProfile } from '../../redux/reducers/profile-reducer';
+import Header from './Header';
 
 class HeaderContainer extends React.Component {
 	state = {
@@ -34,11 +34,11 @@ class HeaderContainer extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
+		defaultAvatar,
+		avatar: state.profilePage.myProfile.photos.small,
 		isAuth: state.auth.isAuth,
 		userId: state.auth.userId,
 		login: state.auth.login,
-		avatar: state.profilePage.myProfile.photos.small,
-		defaultAvatar: defaultAvatar,
 	};
 };
 

@@ -7,7 +7,7 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
-import { initializeApp } from './redux/app-reducer';
+import { initializeApp } from './redux/reducers/app-reducer';
 
 class App extends React.Component {
 	componentDidMount() {

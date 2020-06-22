@@ -1,12 +1,13 @@
 import React from 'react';
 import styles from './Login.module.scss';
 import { Form, Field } from 'react-final-form';
-import { signIn, getAuthUserData } from '../../../redux/auth-reducer';
+import { signIn, getAuthUserData } from '../../../redux/reducers/auth-reducer';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import { Input } from '../../common/FormControls/FormControls';
 import { fullValidation } from '../../../utilities/validators/validators';
 import { FORM_ERROR } from 'final-form';
+import { authSelectors } from '../../../redux/selectors';
 
 const LoginForm = (props) => (
 	<Form
@@ -74,7 +75,6 @@ class Login extends React.Component {
 		);
 	}
 }
-
 const mapStateToProps = (state) => ({
 	isAuth: state.auth.isAuth,
 });

@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './DialogsList.module.scss';
 import { NavLink } from 'react-router-dom';
-import photo from '../../../../assets/image/myProfilePhoto.jpg';
+import styles from './DialogsList.module.scss';
 
 const DialogsList = (props) => {
 	return (
@@ -9,15 +8,13 @@ const DialogsList = (props) => {
 			<ul>
 				{props.dialogs.map((el) => {
 					const id = el.id;
-
 					const message = el.messagesAll[el.messagesAll.length - 1].message;
-
 					return (
 						<li className={styles.dialogItem} key={id}>
 							<NavLink to={'/dialog/' + id}>
 								<div className={styles.dialogLink}>
 									<div className={styles.dialogPhoto}>
-										<img src={photo} alt="" />
+										<img src={props.photo} alt="" />
 									</div>
 									<div className={styles.dialogContent}>
 										<div className={styles.dialogName}>{el.name}</div>

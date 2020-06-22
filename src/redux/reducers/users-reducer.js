@@ -1,4 +1,4 @@
-import { usersAPI } from '../api/api';
+import { usersAPI } from '../../api/api';
 
 // Переменные для action.type
 

@@ -1,18 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Redirect, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
-import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
-import { getAuthUserData } from '../../../redux/auth-reducer';
+import { getAuthUserData } from '../../../redux/reducers/auth-reducer';
 import {
 	getUserProfile,
 	getUserStatus,
-	updateUserStatus,
 	toggleIsMyProfile,
-} from '../../../redux/profile-reducer';
+	updateUserStatus
+} from '../../../redux/reducers/profile-reducer';
 import topImage from './les_tuman_derevia.jpg';
 import Profile from './Profile';
-import { withRouter, Redirect } from 'react-router-dom';
 
 class ProfileContainer extends React.Component {
 	state = {
@@ -58,13 +57,13 @@ class ProfileContainer extends React.Component {
 
 // Данные из state передаваемые в props компонента
 const mapStateToProps = (state) => ({
-	profile: state.profilePage.profile,
-	status: state.profilePage.status,
 	topImage,
 	defaultAvatar,
+	profile: state.profilePage.profile,
+	status: state.profilePage.status,
+	isMyProfile: state.profilePage.isMyProfile,
 	isAuth: state.auth.isAuth,
 	authUserId: state.auth.userId,
-	isMyProfile: state.profilePage.isMyProfile,
 });
 
 // Actions for dispatchs
@@ -81,7 +80,4 @@ export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
 	// Добавляет возможность получения параметров из адресной строки
 	withRouter,
-	// Добавляет в компонент проверку аутентификации, если не авторизован
-	// выполняет редирект на страницу входа
-	withAuthRedirect
 )(ProfileContainer);
