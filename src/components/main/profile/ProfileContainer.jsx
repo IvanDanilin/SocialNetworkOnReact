@@ -17,9 +17,7 @@ class ProfileContainer extends React.Component {
 	state = {
 		id: +this.props.match.params.userId,
 	};
-	updateViewProfile() {
-		const userId = +this.props.match.params.userId;
-		// Получение id из адресной строки (если есть)
+	updateViewProfile(userId) {
 		if (userId !== this.props.authUserId) {
 			// Если в адресной строке есть id, устанавливаем, что это чужой профиль
 			this.props.isMyProfile && this.props.toggleIsMyProfile(false);
@@ -31,16 +29,18 @@ class ProfileContainer extends React.Component {
 		this.props.getUserStatus(userId);
 	}
 	componentDidMount() {
+		// Получение id из адресной строки
 		const userId = +this.props.match.params.userId;
 		if (userId) {
-			this.updateViewProfile();
+			this.updateViewProfile(userId);
 		}
 	}
 	componentDidUpdate() {
+		// Получение id из адресной строки
 		const userId = +this.props.match.params.userId;
 		if (userId && this.state.id !== userId) {
 			this.setState({ id: userId });
-			this.updateViewProfile();
+			this.updateViewProfile(userId);
 		}
 	}
 	render() {

@@ -22,7 +22,6 @@ const initializedSuccessfully = () => ({
 export const initializeApp = () => (dispatch) => {
     const getAuthDataPromise = dispatch(getAuthUserData())
     Promise.all([getAuthDataPromise]).then(() => {
-        console.log('init')
 		dispatch(initializedSuccessfully());
 	});
 };

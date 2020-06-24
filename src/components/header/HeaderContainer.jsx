@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
-import logo from '../../assets/image/logo.png';
+import logo from '../../assets/image/logo.svg';
 import { signOut } from '../../redux/reducers/auth-reducer';
 import { getMyUserProfile } from '../../redux/reducers/profile-reducer';
 import Header from './Header';

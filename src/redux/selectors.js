@@ -1,3 +1,4 @@
+/* 
 // Селекторы для получения данных из state
 // Используются в mapStateToProps
 
@@ -39,3 +40,4 @@ const superSelector = createSelector(
 	getUsersSelector,
 	(value1, value2) => value1 + value2
 );
+ */

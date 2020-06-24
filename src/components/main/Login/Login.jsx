@@ -7,7 +7,6 @@ import { Redirect } from 'react-router-dom';
 import { Input } from '../../common/FormControls/FormControls';
 import { fullValidation } from '../../../utilities/validators/validators';
 import { FORM_ERROR } from 'final-form';
-import { authSelectors } from '../../../redux/selectors';
 
 const LoginForm = (props) => (
 	<Form
