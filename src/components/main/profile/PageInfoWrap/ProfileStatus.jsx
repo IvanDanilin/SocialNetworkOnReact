@@ -1,49 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
-class ProfileStatus extends React.Component {
-	state = {
-		editMode: false,
-		status: this.props.status,
+const ProfileStatus = (props) => {
+	const [editMode, setEditMode] = useState(false);
+	const [status, setStatus] = useState(props.status);
+	const activateEditMode = () => {
+		setEditMode(true);
 	};
-	activateEditMode = () => {
-		if (this.props.isMyProfile) {
-			this.setState({ editMode: true });
-		}
+	const deactivateEditMode = () => {
+		setEditMode(false);
+		props.updateUserStatus(status);
 	};
-	deactivateEditMode = () => {
-		this.setState({ editMode: false });
-		this.props.updateUserStatus(this.state.status);
+	const onStatusChange = (e) => {
+		setStatus(e.currentTarget.value);
 	};
-	onStatusChange = (e) => {
-		this.setState({ status: e.currentTarget.value });
-	};
-	componentDidUpdate = (prevProps) => {
-		if (prevProps.status !== this.props.status) {
-			this.setState({ status: this.props.status });
-		}
-	};
-	render() {
-		return (
-			<>
-				{this.state.editMode ? (
-					<div>
-						<input
-							onChange={this.onStatusChange}
-							autoFocus
-							onBlur={this.deactivateEditMode}
-							value={this.state.status}
-						/>
-					</div>
-				) : (
-					<div>
-						<span onDoubleClick={this.activateEditMode}>
-							{this.props.status || (this.props.isMyProfile && 'Enter your status')}
-						</span>
-					</div>
-				)}
-			</>
-		);
-	}
-}
+	useEffect(() => {
+		setStatus(props.status);
+	}, [props.status]);
+	return (
+		<>
+			{editMode ? (
+				<div>
+					<input
+						onChange={onStatusChange}
+						autoFocus
+						onBlur={deactivateEditMode}
+						value={status}
+					/>
+				</div>
+			) : props.status || props.isMyProfile ? (
+				<div>
+					<span
+						onDoubleClick={props.isMyProfile ? activateEditMode : undefined}
+					>
+						{props.status || 'Enter your status...'}
+					</span>
+				</div>
+			) : undefined}
+		</>
+	);
+};
 
 export default ProfileStatus;
