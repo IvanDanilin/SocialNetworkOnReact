@@ -1,59 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import { getAuthUserData } from '../../../redux/reducers/auth-reducer';
 import {
-	getUserProfile,
-	getUserStatus,
-	toggleIsMyProfile,
-	updateUserStatus
+	updateUserStatus,
+	addPost,
+	getProfile,
 } from '../../../redux/reducers/profile-reducer';
-import topImage from './les_tuman_derevia.jpg';
+import topImage from '../../../assets/image/les_tuman_derevia.jpg';
 import Profile from './Profile';
+import Preloader from '../../common/Preloader/Preloader';
 
-class ProfileContainer extends React.Component {
-	state = {
-		id: +this.props.match.params.userId,
+const ProfileContainer = (props) => {
+	const userId = +props.match.params.userId
+	const [isMyProfile, setIsMyProfile] = useState(false);
+
+	const checkProfile = () => {
+		if (props.authUserId === userId) {
+			setIsMyProfile(true);
+		}
 	};
-	updateViewProfile(userId) {
-		if (userId !== this.props.authUserId) {
-			// Если в адресной строке есть id, устанавливаем, что это чужой профиль
-			this.props.isMyProfile && this.props.toggleIsMyProfile(false);
-		} else {
-			// Если в адресной строке не указан id получаем данные об авторизованном пользователе
-			!this.props.isMyProfile && this.props.toggleIsMyProfile(true);
-		}
-		this.props.getUserProfile(userId);
-		this.props.getUserStatus(userId);
-	}
-	componentDidMount() {
-		// Получение id из адресной строки
-		const userId = +this.props.match.params.userId;
-		if (userId) {
-			this.updateViewProfile(userId);
-		}
-	}
-	componentDidUpdate() {
-		// Получение id из адресной строки
-		const userId = +this.props.match.params.userId;
-		if (userId && this.state.id !== userId) {
-			this.setState({ id: userId });
-			this.updateViewProfile(userId);
-		}
-	}
-	render() {
-		const userId = +this.props.match.params.userId;
-		return userId ? (
-			<Profile {...this.props} isMyProfile={this.props.isMyProfile} />
-		) : this.props.isAuth ? (
-			<Redirect to={`/profile/${this.props.authUserId}`} />
-		) : (
-			<Redirect to="/login" />
-		);
-	}
-}
+
+	useEffect(() => {
+		checkProfile();
+		props.getProfile(userId);
+	}, [userId]);
+
+	return props.profile ? (
+		<Profile {...props} isMyProfile={isMyProfile} />
+	) : (
+		<Preloader />
+	);
+};
 
 // Данные из state передаваемые в props компонента
 const mapStateToProps = (state) => ({
@@ -61,23 +41,23 @@ const mapStateToProps = (state) => ({
 	defaultAvatar,
 	profile: state.profilePage.profile,
 	status: state.profilePage.status,
-	isMyProfile: state.profilePage.isMyProfile,
 	isAuth: state.auth.isAuth,
 	authUserId: state.auth.userId,
+	existingPosts: state.profilePage.existingPosts,
 });
 
 // Actions for dispatchs
 const mapDispatchToProps = {
-	getUserProfile,
-	getUserStatus,
 	updateUserStatus,
 	getAuthUserData,
-	toggleIsMyProfile,
+	addPost,
+	getProfile,
 };
 
 export default compose(
+	React.memo,
 	// Добавляет данные из state и actions для dispatchs
 	connect(mapStateToProps, mapDispatchToProps),
 	// Добавляет возможность получения параметров из адресной строки
-	withRouter,
+	withRouter
 )(ProfileContainer);

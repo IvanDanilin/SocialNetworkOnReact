@@ -1,9 +1,10 @@
 import React from 'react';
-import styles from './PageInfoWrap.module.scss';
-import Preloader from '../../../common/Preloader/Preloader';
+import styles from './Profile.module.scss';
+import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 
 const PageInfoWrap = (props) => {
+	console.log('render')
 	const profile = props.profile;
 	if (!profile) {
 		return <Preloader />;
@@ -116,4 +117,4 @@ const PageInfoWrap = (props) => {
 	);
 };
 
-export default PageInfoWrap;
+export default React.memo(PageInfoWrap);

@@ -1,8 +1,8 @@
 import React from 'react';
 import styles from './Profile.module.scss';
-import PageInfoWrap from './PageInfoWrap/PageInfoWrap';
-import NewPostBlockContainer from './NewPostBlock/NewPostBlockContainer';
-import ExistingPostsBlockContainer from './ExistingPostsBlock/ExistingPostsBlockContainer';
+import PageInfoWrap from './PageInfoWrap';
+import NewPostBlock from './NewPostBlock';
+import ExistingPostsBlock from './ExistingPostsBlock';
 
 const Profile = (props) => {
 	return (
@@ -20,8 +20,8 @@ const Profile = (props) => {
 						updateUserStatus={props.updateUserStatus}
 					/>
 					<div className={styles.postsBlock}>
-						<NewPostBlockContainer />
-						<ExistingPostsBlockContainer />
+						<NewPostBlock addPost={props.addPost} />
+						<ExistingPostsBlock posts={props.existingPosts} />
 					</div>
 				</div>
 			</div>
@@ -29,4 +29,4 @@ const Profile = (props) => {
 	);
 };
 
-export default Profile;
+export default React.memo(Profile);

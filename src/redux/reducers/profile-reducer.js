@@ -48,7 +48,6 @@ const initialState = {
 const profileReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case ADD_POST:
-			// Добавляет новый пост на стену
 			const text = action.text;
 			const newPostId = state.existingPosts.length;
 			return {
@@ -106,10 +105,28 @@ const setStatus = (status) => ({
 
 // Thunks
 
+export const getProfile = (userId) => (dispatch) => {
+	const getUserProfilePromise = dispatch(getUserProfile(userId));
+	const getUserStatusPromise = dispatch(getUserStatus(userId));
+	return Promise.all([getUserProfilePromise, getUserStatusPromise]).then((response) => {
+		return true;
+	});
+};
+
 export const getUserProfile = (userId) => {
 	return (dispatch) => {
+		dispatch(setUserProfile(null));
 		profileAPI.getProfileData(userId).then((data) => {
 			dispatch(setUserProfile(data));
+		});
+	};
+};
+
+export const getUserStatus = (userId) => {
+	return (dispatch) => {
+		dispatch(setStatus(null));
+		profileAPI.getStatus(userId).then((data) => {
+			dispatch(setStatus(data));
 		});
 	};
 };
@@ -118,14 +135,6 @@ export const getMyUserProfile = (userId) => {
 	return (dispatch) => {
 		profileAPI.getProfileData(userId).then((data) => {
 			dispatch(setMyUserProfile(data));
-		});
-	};
-};
-
-export const getUserStatus = (userId) => {
-	return (dispatch) => {
-		profileAPI.getStatus(userId).then((data) => {
-			dispatch(setStatus(data));
 		});
 	};
 };

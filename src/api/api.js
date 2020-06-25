@@ -32,18 +32,20 @@ export const authAPI = {
 		return instance.post('auth/login', data).then((response) => response.data);
 	},
 	signOut() {
-		return instance.delete('auth/login', ).then((response) => response.data);
+		return instance.delete('auth/login').then((response) => response.data);
 	},
 };
 
 export const profileAPI = {
 	getProfileData(userId) {
-		return instance.get(`profile/${userId}`).then((response) => response.data);
+		return instance
+			.get(`profile/${userId}`)
+			.then((response) => (response.status === 200 ? response.data : false));
 	},
 	getStatus(userId) {
 		return instance
 			.get(`profile/status/${userId}`)
-			.then((response) => response.data);
+			.then((response) => (response.status === 200 ? response.data : false));
 	},
 	updateStatus(textStatus) {
 		return instance

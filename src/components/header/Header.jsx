@@ -4,8 +4,8 @@ import { NavLink } from 'react-router-dom';
 
 const DropDownMenu = (props) => {
 	const onClick = () => {
-		props.toggleDropDownMenu();
 		props.signOut();
+		props.toggleDropDownMenu();
 	};
 	return (
 		<div className={styles.dropDownMenu}>
