@@ -2,25 +2,26 @@ import React from 'react';
 import styles from './Users.module.scss';
 import { NavLink } from 'react-router-dom';
 
-
-
 const Users = (props) => {
-    
+	// Массив длиной равной количеству страниц заполненый пустыми значениями
+	const pages = new Array(props.pagesCount).fill();
+
+	const pagination = pages.map((val, index) => {
+		const page = ++index;
+		return (
+			<span
+				className={props.currentPage === page ? styles.selectedPage : ''}
+				onClick={() => props.onPageChanged(page)}
+				key={page}
+			>
+				{page}
+			</span>
+		);
+	});
+
 	return (
 		<div className={styles.usersPage}>
-			<div className={styles.pagination}>
-				{props.pages.map((p) => {
-					return (
-						<span
-							className={props.currentPage === p ? styles.selectedPage : ''}
-                            onClick={() => props.onPageChanged(p)}
-                            key={p}
-						>
-							{p}
-						</span>
-					);
-				})}
-			</div>
+			<div className={styles.pagination}>{pagination}</div>
 
 			<div>
 				{props.users.map((u) => {
@@ -35,7 +36,9 @@ const Users = (props) => {
 
 								{u.followed ? (
 									<button
-									disabled={props.followingInProgress.some(id => id === u.id)}
+										disabled={props.followingInProgress.some(
+											(id) => id === u.id
+										)}
 										onClick={() => {
 											props.unfollow(u.id);
 										}}
@@ -45,7 +48,9 @@ const Users = (props) => {
 									</button>
 								) : (
 									<button
-									disabled={props.followingInProgress.some(id => id === u.id)}
+										disabled={props.followingInProgress.some(
+											(id) => id === u.id
+										)}
 										onClick={() => {
 											props.follow(u.id);
 										}}

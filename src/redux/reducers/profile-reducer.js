@@ -4,7 +4,6 @@ const ADD_POST = 'ADD-POST';
 const SET_USER_PROFILE = 'SET_USER_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const SET_MY_USER_PROFILE = 'SET_MY_USER_PROFILE';
-const TOGGLE_IS_MY_PROFILE = 'TOGGLE_IS_MY_PROFILE';
 
 const initialState = {
 	myProfile: { photos: {} },
@@ -68,9 +67,6 @@ const profileReducer = (state = initialState, action) => {
 		case SET_MY_USER_PROFILE:
 			return { ...state, myProfile: action.profile };
 
-		case TOGGLE_IS_MY_PROFILE:
-			return { ...state, isMyProfile: action.isMyProfile };
-
 		case SET_STATUS:
 			return { ...state, status: action.status };
 
@@ -88,14 +84,9 @@ const setUserProfile = (profile) => ({
 	profile,
 });
 
-const setMyUserProfile = (profile) => ({
+export const setMyUserProfile = (profile) => ({
 	type: SET_MY_USER_PROFILE,
 	profile,
-});
-
-export const toggleIsMyProfile = (isMyProfile) => ({
-	type: TOGGLE_IS_MY_PROFILE,
-	isMyProfile,
 });
 
 const setStatus = (status) => ({
@@ -108,9 +99,9 @@ const setStatus = (status) => ({
 export const getProfile = (userId) => (dispatch) => {
 	const getUserProfilePromise = dispatch(getUserProfile(userId));
 	const getUserStatusPromise = dispatch(getUserStatus(userId));
-	return Promise.all([getUserProfilePromise, getUserStatusPromise]).then((response) => {
-		return true;
-	});
+	return Promise.all([getUserProfilePromise, getUserStatusPromise]).then(
+		() => true
+	);
 };
 
 export const getUserProfile = (userId) => {

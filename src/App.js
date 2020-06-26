@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import './App.scss';
@@ -8,29 +8,30 @@ import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
 import { initializeApp } from './redux/reducers/app-reducer';
+import { getMyUserProfile } from './redux/reducers/profile-reducer';
 
-class App extends React.Component {
-	componentDidMount() {
-		this.props.initializeApp();
-	}
-	render() {
-		return (
-			this.props.initialized ? (
-				<div className="app-wrapper">
-					<HeaderContainer />
-					<Sidebar />
-					<Main />
-				</div>
-			)
-			: <Preloader />
-		);
-	}
-}
+const App = (props) => {
+	useEffect(() => {
+		props.initializeApp();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, []);
+	return props.initialized ? (
+		<div className="app-wrapper">
+			<HeaderContainer />
+			<Sidebar />
+			<Main />
+		</div>
+	) : (
+		<Preloader />
+	);
+};
 
 const mapStateToProps = (state) => ({
 	initialized: state.app.initialized,
+	isAuth: state.auth.isAuth,
+	authUserId: state.auth.userId,
 });
 
 export default compose(
-	connect(mapStateToProps, { initializeApp })
+	connect(mapStateToProps, { initializeApp, getMyUserProfile })
 )(App);

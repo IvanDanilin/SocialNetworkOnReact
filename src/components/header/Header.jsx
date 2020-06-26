@@ -1,24 +1,9 @@
 import React from 'react';
-import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
+import styles from './Header.module.scss';
+import DropDownMenu from './DropDownMenu';
 
-const DropDownMenu = (props) => {
-	const onClick = () => {
-		props.signOut();
-		props.toggleDropDownMenu();
-	};
-	return (
-		<div className={styles.dropDownMenu}>
-			<ul>
-				<li>Profile</li>
-				<li>Settings</li>
-				<li onClick={onClick}>Sign out</li>
-			</ul>
-		</div>
-	);
-};
-
-const AuthLogin = (props) => {
+const AuthUserInfo = (props) => {
 	return (
 		<>
 			<div className={styles.login}>{props.login}</div>
@@ -46,7 +31,7 @@ const Header = (props) => {
 				</div>
 				{props.isAuth ? (
 					<div className={styles.loginBlock} onClick={onClick}>
-						<AuthLogin
+						<AuthUserInfo
 							login={props.login}
 							avatar={props.avatar}
 							defaultAvatar={props.defaultAvatar}
@@ -62,6 +47,7 @@ const Header = (props) => {
 					<DropDownMenu
 						signOut={props.signOut}
 						toggleDropDownMenu={props.toggleDropDownMenu}
+						userId={props.userId}
 					/>
 				)}
 			</div>

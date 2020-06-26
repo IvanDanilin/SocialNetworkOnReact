@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './Profile.module.scss';
 
 const ProfileStatus = (props) => {
 	const [editMode, setEditMode] = useState(false);
@@ -19,7 +20,7 @@ const ProfileStatus = (props) => {
 	return (
 		<>
 			{editMode ? (
-				<div>
+				<div className={styles.status}>
 					<input
 						onChange={onStatusChange}
 						autoFocus
@@ -28,9 +29,19 @@ const ProfileStatus = (props) => {
 					/>
 				</div>
 			) : props.status || props.isMyProfile ? (
-				<div>
+				<div className={styles.status}>
 					<span
 						onDoubleClick={props.isMyProfile ? activateEditMode : undefined}
+						title={
+							props.isMyProfile ? 'Double click to change your status' : ''
+						}
+						className={
+							props.isMyProfile
+								? props.status
+									? styles.myStatus
+									: styles.enterStatus
+								: ''
+						}
 					>
 						{props.status || 'Enter your status...'}
 					</span>
@@ -40,4 +51,4 @@ const ProfileStatus = (props) => {
 	);
 };
 
-export default ProfileStatus;
+export default React.memo(ProfileStatus);

@@ -8,9 +8,9 @@ const NewPostBlock = (props) => (
 	<Form
 		onSubmit={(values, form) => {
 			props.addPost(values.newPostInput);
-			setTimeout(form.reset);
+			setTimeout(form.restart);
 		}}
-		render={({ handleSubmit, form }) => (
+		render={({ handleSubmit }) => (
 			<form className={styles.newPostBlock} onSubmit={handleSubmit}>
 				<Field
 					name="newPostInput"

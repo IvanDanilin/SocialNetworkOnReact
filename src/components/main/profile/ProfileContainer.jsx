@@ -1,38 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
+import topImage from '../../../assets/image/les_tuman_derevia.jpg';
 import { getAuthUserData } from '../../../redux/reducers/auth-reducer';
 import {
-	updateUserStatus,
 	addPost,
 	getProfile,
+	updateUserStatus,
 } from '../../../redux/reducers/profile-reducer';
-import topImage from '../../../assets/image/les_tuman_derevia.jpg';
-import Profile from './Profile';
 import Preloader from '../../common/Preloader/Preloader';
+import Profile from './Profile';
 
 const ProfileContainer = (props) => {
-	const userId = +props.match.params.userId
+	// Id из адресной строки
+	const userId = +props.match.params.userId;
+
+	// Индикатор профиля авторизованного пользователя
 	const [isMyProfile, setIsMyProfile] = useState(false);
 
-	const checkProfile = () => {
-		if (props.authUserId === userId) {
-			setIsMyProfile(true);
-		}
-	};
-
+	// Выполняется при первом рендере и после каждого изменения id в адресной строке
 	useEffect(() => {
-		checkProfile();
-		props.getProfile(userId);
+		// Если в адресной строке есть id
+		if (userId) {
+			// Если id авторизованного пользователя и id в адресной строке совпадает
+			// Указывает, что это профиль пользователя
+			if (props.authUserId === userId) {
+				setIsMyProfile(true);
+			}
+			// Запрос данных пользователя
+			props.getProfile(userId);
+		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [userId]);
 
-	return props.profile ? (
-		<Profile {...props} isMyProfile={isMyProfile} />
-	) : (
-		<Preloader />
-	);
+	// Если пользователь выполнил выход
+	useEffect(() => {
+		if (!props.isAuth) {
+			setIsMyProfile(false);
+		}
+	}, [props.isAuth]);
+
+	// Если в адресной строке указан id
+	if (userId) {
+		return props.profile ? (
+			// Если данные профиля получены
+			<Profile {...props} isMyProfile={isMyProfile} />
+		) : (
+			// Если идет получение данных
+			<Preloader />
+		);
+	} else {
+		// Если в адресной строке не указан id
+		return props.isAuth ? (
+			// Редирект на профиль авторизованного пользователя
+			<Redirect to={`/profile/${props.authUserId}`} />
+		) : (
+			// Если не авторизован, редирект на страницу логинизации
+			<Redirect to="/login" />
+		);
+	}
 };
 
 // Данные из state передаваемые в props компонента
@@ -56,8 +84,6 @@ const mapDispatchToProps = {
 
 export default compose(
 	React.memo,
-	// Добавляет данные из state и actions для dispatchs
 	connect(mapStateToProps, mapDispatchToProps),
-	// Добавляет возможность получения параметров из адресной строки
 	withRouter
 )(ProfileContainer);

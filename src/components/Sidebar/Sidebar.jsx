@@ -8,41 +8,33 @@ const Sidebar = (props) => {
 		<aside className={styles.sidebar}>
 			<nav className={styles.nav}>
 				<ul className={styles.list}>
-					<li>
-						{props.isAuth ? (
-							<NavLink
-								to={`/profile/${props.userId}`}
-								activeClassName={styles.active}
-							>
-								Profile
-							</NavLink>
-						) : <NavLink
-            to='/login'
-            activeClassName={styles.active}
-          >
-            Profile
-          </NavLink>}
-					</li>
-					<li>
-						<NavLink to="/dialogs" activeClassName={styles.active}>
-							Dialogs
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/news" activeClassName={styles.active}>
-							News
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/music" activeClassName={styles.active}>
-							Music
-						</NavLink>
-					</li>
-					<li>
-						<NavLink to="/settings" activeClassName={styles.active}>
-							Settings
-						</NavLink>
-					</li>
+					{props.isAuth && (
+						<>
+							<li>
+								<NavLink
+									to={`/profile/${props.userId}`}
+									activeClassName={styles.active}
+								>
+									Profile
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="/dialogs" activeClassName={styles.active}>
+									Dialogs
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="/news" activeClassName={styles.active}>
+									News
+								</NavLink>
+							</li>
+							<li>
+								<NavLink to="/music" activeClassName={styles.active}>
+									Music
+								</NavLink>
+							</li>
+						</>
+					)}
 					<li>
 						<NavLink to="/users" activeClassName={styles.active}>
 							Users

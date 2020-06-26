@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
 import logo from '../../assets/image/logo.svg';
@@ -6,31 +6,26 @@ import { signOut } from '../../redux/reducers/auth-reducer';
 import { getMyUserProfile } from '../../redux/reducers/profile-reducer';
 import Header from './Header';
 
-class HeaderContainer extends React.Component {
-	state = {
-		dropDownMenu: false,
+const HeaderContainer = (props) => {
+	// Выпадающее меню справа. false - скрыто
+	const [dropDownMenu, setDropDownMenu] = useState(false);
+	// Переключатель выпадающего меню. Принимает значения True, False
+	// Если значение не передано, переключает на противополжное
+	const toggleDropDownMenu = (value) => {
+		value
+			? setDropDownMenu(value)
+			: dropDownMenu
+			? setDropDownMenu(false)
+			: setDropDownMenu(true);
 	};
-	componentDidMount() {
-		if (this.props.isAuth) {
-			this.props.getMyUserProfile(this.props.userId);
-		}
-	}
-	toggleDropDownMenu() {
-		this.state.dropDownMenu
-			? this.setState({ dropDownMenu: false })
-			: this.setState({ dropDownMenu: true });
-	}
-	render() {
-		return (
-			<Header
-				{...this.props}
-				logo={logo}
-				toggleDropDownMenu={this.toggleDropDownMenu.bind(this)}
-				dropDownMenu={this.state.dropDownMenu}
-			/>
-		);
-	}
-}
+	return (
+		<Header
+			{...props}
+			toggleDropDownMenu={toggleDropDownMenu}
+			dropDownMenu={dropDownMenu}
+		/>
+	);
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -39,6 +34,7 @@ const mapStateToProps = (state) => {
 		isAuth: state.auth.isAuth,
 		userId: state.auth.userId,
 		login: state.auth.login,
+		logo
 	};
 };
 

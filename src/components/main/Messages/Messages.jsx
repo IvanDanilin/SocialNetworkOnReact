@@ -1,10 +1,20 @@
 import React from 'react';
+import { Field, Form } from 'react-final-form';
+import { connect } from 'react-redux';
+import { Route, withRouter } from 'react-router-dom';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import { sendMessage } from '../../../redux/reducers/dialogs-reducer';
+import { fullValidation } from '../../../utilities/validators/validators';
+import { Textarea } from '../../common/FormControls/FormControls';
 import styles from './Messages.module.scss';
-import CurrentMessages from './CurrentMessages/CurrentMessages';
-import { Route } from 'react-router-dom';
-import { Form, Field } from 'react-final-form';
-import { Textarea } from '../../../common/FormControls/FormControls';
-import { fullValidation } from '../../../../utilities/validators/validators';
+
+const CurrentMessages = (props) =>
+	props.messages.map((messageEl) => (
+		<div key={messageEl.id} className={styles.message}>
+			{messageEl.message}
+		</div>
+	));
 
 const NewMessageForm = (props) => (
 	<Form
@@ -38,7 +48,6 @@ const Messages = (props) => {
 					)}
 				/>
 			</div>
-
 			<div className={styles.newMessageWrap}>
 				<div></div>
 				<NewMessageForm sendMessage={props.sendMessage} userId={userId} />
@@ -46,4 +55,17 @@ const Messages = (props) => {
 		</div>
 	);
 };
-export default Messages;
+
+const mapStateToProps = (state) => {
+	return {
+		dialogs: state.dialogs,
+	};
+};
+
+export default compose(
+	connect(mapStateToProps, {
+		sendMessage,
+	}),
+	withRouter,
+	withAuthRedirect
+)(Messages);

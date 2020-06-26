@@ -1,26 +1,25 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
+import Dialogs from './Dialogs/Dialogs';
+import Messages from './Messages/Messages';
+import Login from './Login/Login';
 import styles from './Main.module.scss';
-
-import ProfileContainer from './Profile/ProfileContainer';
-import DialogsListContainer from './Dialogs/DialogsList/DialogsListContainer';
-import MessagesContainer from './Dialogs/Messages/MessagesContainer';
-import News from './News/News';
 import Music from './Music/Music';
+import News from './News/News';
+import ProfileContainer from './Profile/ProfileContainer';
 import Settings from './Settings/Settings';
 import UsersContainer from './Users/UsersContainer';
-import Login from './Login/Login';
 
 const Main = () => (
 	<main className={styles.main}>
-		<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-		<Route path="/dialogs" render={() => <DialogsListContainer />} />
-		<Route path="/dialog/:userId?" render={() => <MessagesContainer />} />
-		<Route path="/news?" component={News} />
+		<Route path="/profile/:userId?" component={ProfileContainer} />
+		<Route path="/dialogs" component={Dialogs} />
+		<Route path="/dialog/:userId?" component={Messages} />
+		<Route path="/news" component={News} />
 		<Route path="/music" component={Music} />
 		<Route path="/settings" component={Settings} />
-		<Route path="/users" render={() => <UsersContainer />} />
-		<Route path="/login" render={() => <Login />} />
+		<Route path="/users" component={UsersContainer} />
+		<Route path="/login" component={Login} />
 	</main>
 );
 

@@ -1,4 +1,5 @@
 import { authAPI } from '../../api/api';
+import { getMyUserProfile, setMyUserProfile } from './profile-reducer';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 
@@ -33,6 +34,7 @@ export const getAuthUserData = () => (dispatch) =>
 		if (data.resultCode === 0) {
 			let { id, login, email } = data.data;
 			dispatch(setAuthUserData(id, email, login, true));
+			dispatch(getMyUserProfile(id));
 			return { id, login, email };
 		} else {
 			return false;
@@ -45,7 +47,7 @@ export const signIn = (authData) => {
 			if (data.resultCode === 0) {
 				dispatch(getAuthUserData());
 			} else if (data.resultCode !== 0) {
-				return data.messages[0]
+				return data.messages[0];
 			}
 		});
 	};
@@ -56,6 +58,7 @@ export const signOut = () => {
 		authAPI.signOut().then((data) => {
 			if (data.resultCode === 0) {
 				dispatch(setAuthUserData(null, null, null, false));
+				setMyUserProfile(null);
 			} else {
 				console.log('error');
 			}

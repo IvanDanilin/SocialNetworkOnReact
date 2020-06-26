@@ -4,7 +4,6 @@ import Preloader from '../../common/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 
 const PageInfoWrap = (props) => {
-	console.log('render')
 	const profile = props.profile;
 	if (!profile) {
 		return <Preloader />;
@@ -16,11 +15,13 @@ const PageInfoWrap = (props) => {
 			</div>
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>{profile.fullName}</div>
-				<ProfileStatus isMyProfile={props.isMyProfile} status={props.status} updateUserStatus={props.updateUserStatus} />
+				<ProfileStatus
+					isMyProfile={props.isMyProfile}
+					status={props.status}
+					updateUserStatus={props.updateUserStatus}
+				/>
 				<div className={styles.pageInfo}>
 					<div className={styles.leftBlock}>
-
-
 						{profile.aboutMe ? (
 							<div className={styles.pageInfoRow}>
 								<span>About me:</span> {profile.aboutMe}
@@ -117,4 +118,4 @@ const PageInfoWrap = (props) => {
 	);
 };
 
-export default React.memo(PageInfoWrap);
+export default PageInfoWrap;

@@ -1,20 +1,15 @@
 import React from 'react';
-import loadingImage from '../../../assets/image/preloader.svg';
+import loadingImage from './preloader.svg';
+import styles from './Preloader.module.scss'
 
-const Preloader = (props) => {
+
+// Прелодер для отображения во время ожидания (загрузка данных и тп.)
+const Preloader = () => {
 	return (
-		<div style={{ position: ' relative' }}>
+		<div className={styles.preloader}>
 			<img
 				src={loadingImage}
-				style={{
-					position: ' absolute',
-					left: ' 0',
-					right: ' 0',
-					top: ' 0',
-					bottom: ' 0',
-					margin: ' 25vh auto',
-				}}
-				alt=""
+				alt="Loading..."
 			/>
 		</div>
 	);
