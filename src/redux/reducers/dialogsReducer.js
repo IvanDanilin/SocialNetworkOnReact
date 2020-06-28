@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-
 let initialState = [
 	{
 		id: 0,
@@ -167,8 +166,7 @@ let initialState = [
 	},
 ];
 
-
-const dialogsSlice = createSlice({
+const { reducer, actions } = createSlice({
 	name: 'dialogs',
 	initialState,
 	reducers: {
@@ -187,8 +185,6 @@ const dialogsSlice = createSlice({
 		},
 	},
 });
-
-const { reducer, actions } = dialogsSlice;
 
 export default reducer;
 

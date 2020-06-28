@@ -6,7 +6,6 @@ import styles from './Preloader.module.scss';
 const Preloader = () => {
 	return (
 		<div className={styles.preloader}>
-			Loading...
 			<img src={loadingImage} alt="Loading..." />
 		</div>
 	);

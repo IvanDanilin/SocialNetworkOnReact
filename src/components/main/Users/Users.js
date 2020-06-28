@@ -1,27 +1,16 @@
 import React from 'react';
 import styles from './Users.module.scss';
 import { NavLink } from 'react-router-dom';
+import Pagination from '../../common/Pagination/Pagination';
 
 const Users = (props) => {
-	// Массив длиной равной количеству страниц заполненый пустыми значениями
-	const pages = new Array(props.pagesCount).fill();
-
-	const pagination = pages.map((val, index) => {
-		const page = ++index;
-		return (
-			<span
-				className={props.currentPage === page ? styles.selectedPage : ''}
-				onClick={() => props.onPageChanged(page)}
-				key={page}
-			>
-				{page}
-			</span>
-		);
-	});
-
 	return (
 		<div className={styles.usersPage}>
-			<div className={styles.pagination}>{pagination}</div>
+			<Pagination
+				pagesCount={props.pagesCount}
+				currentPage={props.currentPage}
+				onPageChanged={props.onPageChanged}
+			/>
 
 			<div>
 				{props.users.map((u) => {

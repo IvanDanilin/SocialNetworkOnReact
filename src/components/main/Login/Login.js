@@ -6,24 +6,23 @@ import { getAuthUserData, signIn } from '../../../redux/reducers/authReducer';
 import styles from './Login.module.scss';
 import LoginForm from './LoginForm';
 
-class Login extends React.Component {
-	onSubmit = (value) =>
-		this.props.signIn(value).then((error) => {
-			if (error) {
-				return { [FORM_ERROR]: error };
-			}
-		});
-	render() {
-		if (this.props.isAuth) {
-			return <Redirect to={`/profile/${this.props.authUserId}`} />;
+const Login = (props) => {
+	const onSubmit = async (value) => {
+		const error = await props.signIn(value);
+		if (error) {
+			return { [FORM_ERROR]: error };
 		}
-		return (
-			<div className={styles.loginContainer}>
-				<LoginForm onSubmit={this.onSubmit} />
-			</div>
-		);
-	}
-}
+	};
+
+	return props.isAuth ? (
+		<Redirect to={`/profile/${props.authUserId}`} />
+	) : (
+		<div className={styles.loginContainer}>
+			<LoginForm onSubmit={onSubmit} />
+		</div>
+	);
+};
+
 const mapStateToProps = (state) => ({
 	isAuth: state.auth.isAuth,
 	authUserId: state.auth.userId,

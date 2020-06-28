@@ -9,7 +9,7 @@ let initialState = {
 	isAuth: false,
 };
 
-const authSlice = createSlice({
+const { actions, reducer } = createSlice({
 	name: 'auth',
 	initialState,
 	reducers: {
@@ -27,46 +27,38 @@ const authSlice = createSlice({
 	},
 });
 
-const { actions, reducer } = authSlice;
-
 const { setAuthUserData } = actions;
 
 export default reducer;
 
 // Thunks
-export const getAuthUserData = () => (dispatch) =>
-	authAPI.getAuthUserData().then((data) => {
-		if (data.resultCode === 0) {
-			let { id, login, email } = data.data;
-			dispatch(setAuthUserData(id, email, login, true));
-			dispatch(getMyUserProfile(id));
-			return { id, login, email };
-		} else {
-			return false;
-		}
-	});
-
-export const signIn = (authData) => {
-	return (dispatch) => {
-		return authAPI.signIn(authData).then((data) => {
-			if (data.resultCode === 0) {
-				dispatch(getAuthUserData());
-			} else if (data.resultCode !== 0) {
-				return data.messages[0];
-			}
-		});
-	};
+export const getAuthUserData = () => async (dispatch) => {
+	const data = await authAPI.getAuthUserData();
+	if (data.resultCode === 0) {
+		let { id, login, email } = data.data;
+		dispatch(setAuthUserData(id, email, login, true));
+		dispatch(getMyUserProfile(id));
+		return { id, login, email };
+	} else {
+		return false;
+	}
 };
 
-export const signOut = () => {
-	return (dispatch) => {
-		authAPI.signOut().then((data) => {
-			if (data.resultCode === 0) {
-				dispatch(setAuthUserData(null, null, null, false));
-				setMyUserProfile(null);
-			} else {
-				console.log('error');
-			}
-		});
-	};
+export const signIn = (authData) => async (dispatch) => {
+	const data = await authAPI.signIn(authData);
+	if (data.resultCode === 0) {
+		dispatch(getAuthUserData());
+	} else {
+		return data.messages[0];
+	}
+};
+
+export const signOut = () => async (dispatch) => {
+	const data = await authAPI.signOut();
+	if (data.resultCode === 0) {
+		dispatch(setAuthUserData(null, null, null, false));
+		setMyUserProfile(null);
+	} else {
+		console.log('logout error');
+	}
 };

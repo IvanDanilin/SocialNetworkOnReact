@@ -1,29 +1,25 @@
 import { getAuthUserData } from './authReducer';
-
-const INITIALIZED_SUCCESSFULLY = 'INITIALIZED_SUCCESSFULLY';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	initialized: false,
 };
 
-const appReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case INITIALIZED_SUCCESSFULLY:
-			return { ...state, initialized: true };
-		default:
-			return state;
-	}
-};
-
-const initializedSuccessfully = () => ({
-	type: INITIALIZED_SUCCESSFULLY,
+const { reducer, actions } = createSlice({
+	name: 'app',
+	initialState,
+	reducers: {
+		initializedSuccessfully(state, action) {
+			state.initialized = action.payload;
+		},
+	},
 });
 
-export const initializeApp = () => (dispatch) => {
-    const getAuthDataPromise = dispatch(getAuthUserData())
-    Promise.all([getAuthDataPromise]).then(() => {
-		dispatch(initializedSuccessfully());
-	});
+const { initializedSuccessfully } = actions;
+
+export const initializeApp = () => async (dispatch) => {
+	await dispatch(getAuthUserData());
+	dispatch(initializedSuccessfully(true));
 };
 
-export default appReducer;
+export default reducer;

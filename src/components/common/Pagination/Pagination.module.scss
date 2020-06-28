@@ -1,0 +1,22 @@
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    height: 25px;
+    flex-wrap: wrap;
+    span {
+        flex-basis: 20px;
+        color: #333;
+        font-size: 14px;
+        &.selectedPage {
+            font-size: 17px;
+            font-weight: 700;
+            color: #000;
+        }
+        &:hover {
+            font-size: 17px;
+            cursor: pointer;
+        }
+    }
+}

@@ -10,7 +10,8 @@ const Dialogs = (props) => {
 			<ul>
 				{props.dialogs.map((dialog) => {
 					const id = dialog.id;
-					const message = dialog.messagesAll[dialog.messagesAll.length - 1].message;
+					const message =
+						dialog.messagesAll[dialog.messagesAll.length - 1].message;
 					return (
 						<li className={styles.dialogItem} key={id}>
 							<NavLink to={'/dialog/' + id}>
@@ -32,11 +33,9 @@ const Dialogs = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => {
-	return {
-		dialogs: state.dialogs,
-		defaultAvatar,
-	};
-};
+const mapStateToProps = (state) => ({
+	dialogs: state.dialogs,
+	defaultAvatar,
+});
 
 export default connect(mapStateToProps)(Dialogs);

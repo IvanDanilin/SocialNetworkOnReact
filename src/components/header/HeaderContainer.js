@@ -27,16 +27,14 @@ const HeaderContainer = (props) => {
 	);
 };
 
-const mapStateToProps = (state) => {
-	return {
-		defaultAvatar,
-		avatar: state.profilePage.myProfile.photos.small,
-		isAuth: state.auth.isAuth,
-		userId: state.auth.userId,
-		login: state.auth.login,
-		logo
-	};
-};
+const mapStateToProps = (state) => ({
+	defaultAvatar,
+	avatar: state.profilePage.myProfile.photos.small,
+	isAuth: state.auth.isAuth,
+	userId: state.auth.userId,
+	login: state.auth.login,
+	logo,
+});
 
 export default connect(mapStateToProps, { signOut, getMyUserProfile })(
 	HeaderContainer

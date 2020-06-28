@@ -1,9 +1,6 @@
 import { usersAPI } from '../../api/api';
 import { createSlice } from '@reduxjs/toolkit';
 
-
-// Начальный state для запуска
-
 let initialState = {
 	users: [],
 	pageSize: 100,
@@ -13,7 +10,7 @@ let initialState = {
 	followingInProgress: [],
 };
 
-const usersSlice = createSlice({
+const { reducer, actions } = createSlice({
 	name: 'users',
 	initialState,
 	reducers: {
@@ -72,8 +69,6 @@ const usersSlice = createSlice({
 	},
 });
 
-const { reducer, actions } = usersSlice;
-
 export default reducer;
 
 export const {
@@ -86,52 +81,31 @@ export const {
 	unfollowSuccess,
 } = actions;
 
-// Thunks
-
+// * Thunks
 // Получение пользователей с сервера, передача их в state
-export const getUsers = (currentPage, pageSize) => {
-	// Принимает текущую страницу и размер страницы
-	return (dispatch) => {
-		dispatch(setCurrentPage(currentPage));
-		// Включает индикатор запроса на сервер
-		dispatch(toggleIsFetching(true));
-		// Передает данные в метод объекта usersAPI,
-		// который используется для отправки запроса на сервер
-		usersAPI.getUsers(currentPage, pageSize).then((data) => {
-			// Выключает индикатор запроса на сервер, после того
-			// как ответ получен
-			dispatch(toggleIsFetching(false));
-			// Передает полученных пользователей в state
-			dispatch(setUsers(data.items));
-			// Передает общее количество пользователей в state
-			dispatch(setTotalUsersCount(data.totalCount));
-		});
-	};
+export const getUsers = (currentPage, pageSize) => async (dispatch) => {
+	dispatch(toggleIsFetching(true)); // Включает индикатор запроса на сервер
+	dispatch(setCurrentPage(currentPage)); // установка текущей страницы
+	const data = await usersAPI.getUsers(currentPage, pageSize); // Запрос пользователей
+	dispatch(setUsers(data.items)); // Передает полученных пользователей в state
+	dispatch(setTotalUsersCount(data.totalCount)); // Передает общее количество пользователей в state
+	dispatch(toggleIsFetching(false)); // Выключает индикатор запроса
 };
 
-// Подписка
-export const follow = (id) => {
-	// Принимает id
-	return (dispatch) => {
-		dispatch(toggleIsFollowingProgress(true, id));
-		usersAPI.follow(id).then((resultCode) => {
-			if (resultCode === 0) {
-				dispatch(followSuccess(id));
-			}
-			dispatch(toggleIsFollowingProgress(false, id));
-		});
-	};
+export const follow = (id) => async (dispatch) => {
+	dispatch(toggleIsFollowingProgress(true, id));
+	const resultCode = await usersAPI.follow(id);
+	if (resultCode === 0) {
+		dispatch(followSuccess(id));
+	}
+	dispatch(toggleIsFollowingProgress(false, id));
 };
-// Отписка
-export const unfollow = (id) => {
-	// Принимает id
-	return (dispatch) => {
-		dispatch(toggleIsFollowingProgress(true, id));
-		usersAPI.unfollow(id).then((resultCode) => {
-			if (resultCode === 0) {
-				dispatch(unfollowSuccess(id));
-			}
-			dispatch(toggleIsFollowingProgress(false, id));
-		});
-	};
+
+export const unfollow = (id) => async (dispatch) => {
+	dispatch(toggleIsFollowingProgress(true, id));
+	const resultCode = await usersAPI.unfollow(id);
+	if (resultCode === 0) {
+		dispatch(unfollowSuccess(id));
+	}
+	dispatch(toggleIsFollowingProgress(false, id));
 };

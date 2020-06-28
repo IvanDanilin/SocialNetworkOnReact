@@ -4,24 +4,33 @@ import PageInfoWrap from './PageInfoWrap';
 import NewPostBlock from './NewPostBlock';
 import ExistingPostsBlock from './ExistingPostsBlock';
 
-const Profile = (props) => {
+const Profile = ({
+	topImage,
+	isMyProfile,
+	profile,
+	defaultAvatar,
+	status,
+	updateUserStatus,
+	addPost,
+	existingPosts,
+}) => {
 	return (
 		<div className={styles.profile}>
 			<div className={styles.topImage}>
-				<img src={props.topImage} alt="cover" />
+				<img src={topImage} alt="cover" />
 			</div>
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
 					<PageInfoWrap
-						isMyProfile={props.isMyProfile}
-						profile={props.profile}
-						defaultAvatar={props.defaultAvatar}
-						status={props.status}
-						updateUserStatus={props.updateUserStatus}
+						isMyProfile={isMyProfile}
+						profile={profile}
+						defaultAvatar={defaultAvatar}
+						status={status}
+						updateUserStatus={updateUserStatus}
 					/>
 					<div className={styles.postsBlock}>
-						<NewPostBlock addPost={props.addPost} />
-						<ExistingPostsBlock posts={props.existingPosts} />
+						<NewPostBlock addPost={addPost} />
+						<ExistingPostsBlock posts={existingPosts} />
 					</div>
 				</div>
 			</div>
