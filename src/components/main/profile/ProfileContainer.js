@@ -4,12 +4,12 @@ import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import topImage from '../../../assets/image/les_tuman_derevia.jpg';
-import { getAuthUserData } from '../../../redux/reducers/auth-reducer';
+import { getAuthUserData } from '../../../redux/reducers/authReducer';
 import {
 	addPost,
 	getProfile,
 	updateUserStatus,
-} from '../../../redux/reducers/profile-reducer';
+} from '../../../redux/reducers/profileReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
 

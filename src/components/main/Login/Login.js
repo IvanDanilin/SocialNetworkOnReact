@@ -2,7 +2,7 @@ import { FORM_ERROR } from 'final-form';
 import React from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { getAuthUserData, signIn } from '../../../redux/reducers/auth-reducer';
+import { getAuthUserData, signIn } from '../../../redux/reducers/authReducer';
 import styles from './Login.module.scss';
 import LoginForm from './LoginForm';
 

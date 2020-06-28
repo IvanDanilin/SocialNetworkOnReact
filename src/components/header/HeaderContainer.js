@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
 import logo from '../../assets/image/logo.svg';
-import { signOut } from '../../redux/reducers/auth-reducer';
-import { getMyUserProfile } from '../../redux/reducers/profile-reducer';
+import { signOut } from '../../redux/reducers/authReducer';
+import { getMyUserProfile } from '../../redux/reducers/profileReducer';
 import Header from './Header';
 
 const HeaderContainer = (props) => {

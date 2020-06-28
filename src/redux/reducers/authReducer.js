@@ -1,7 +1,6 @@
 import { authAPI } from '../../api/api';
-import { getMyUserProfile, setMyUserProfile } from './profile-reducer';
-
-const SET_USER_DATA = 'SET_USER_DATA';
+import { getMyUserProfile, setMyUserProfile } from './profileReducer';
+import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
 	userId: null,
@@ -10,25 +9,31 @@ let initialState = {
 	isAuth: false,
 };
 
-const authReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case SET_USER_DATA:
-			return {
-				...state,
-				...action.payload,
-			};
-		default:
-			return state;
-	}
-};
-
-export default authReducer;
-
-const setAuthUserData = (userId, email, login, isAuth) => ({
-	type: SET_USER_DATA,
-	payload: { userId, email, login, isAuth },
+const authSlice = createSlice({
+	name: 'auth',
+	initialState,
+	reducers: {
+		setAuthUserData: {
+			reducer: (state, action) => ({ ...state, ...action.payload }),
+			prepare: (userId, email, login, isAuth) => ({
+				payload: {
+					userId,
+					email,
+					login,
+					isAuth,
+				},
+			}),
+		},
+	},
 });
 
+const { actions, reducer } = authSlice;
+
+const { setAuthUserData } = actions;
+
+export default reducer;
+
+// Thunks
 export const getAuthUserData = () => (dispatch) =>
 	authAPI.getAuthUserData().then((data) => {
 		if (data.resultCode === 0) {

@@ -7,8 +7,8 @@ import HeaderContainer from './components/Header/HeaderContainer';
 import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
-import { initializeApp } from './redux/reducers/app-reducer';
-import { getMyUserProfile } from './redux/reducers/profile-reducer';
+import { initializeApp } from './redux/reducers/appReducer';
+import { getMyUserProfile } from './redux/reducers/profileReducer';
 
 const App = (props) => {
 	useEffect(() => {

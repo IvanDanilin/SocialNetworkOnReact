@@ -5,7 +5,7 @@ import {
 	follow,
 	unfollow,
 	getUsers,
-} from '../../../redux/reducers/users-reducer';
+} from '../../../redux/reducers/usersReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 

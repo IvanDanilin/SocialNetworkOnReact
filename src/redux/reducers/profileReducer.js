@@ -1,9 +1,5 @@
 import { profileAPI } from '../../api/api';
-
-const ADD_POST = 'ADD-POST';
-const SET_USER_PROFILE = 'SET_USER_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const SET_MY_USER_PROFILE = 'SET_MY_USER_PROFILE';
+import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
 	myProfile: { photos: {} },
@@ -44,58 +40,36 @@ const initialState = {
 	],
 };
 
-const profileReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case ADD_POST:
-			const text = action.text;
-			const newPostId = state.existingPosts.length;
-			return {
-				...state,
-				existingPosts: [
-					...state.existingPosts,
-					{
-						id: newPostId,
-						textPost: text,
-						amountLikes: 0,
-					},
-				],
-			};
-
-		case SET_USER_PROFILE:
-			return { ...state, profile: action.profile };
-
-		case SET_MY_USER_PROFILE:
-			return { ...state, myProfile: action.profile };
-
-		case SET_STATUS:
-			return { ...state, status: action.status };
-
-		default:
-			return state;
-	}
-};
-
-export default profileReducer;
-
-export const addPost = (text) => ({ type: ADD_POST, text });
-
-const setUserProfile = (profile) => ({
-	type: SET_USER_PROFILE,
-	profile,
+const profileSlice = createSlice({
+	name: 'profile',
+	initialState,
+	reducers: {
+		addPost(state, action) {
+			state.existingPosts.push({
+				id: state.existingPosts.length,
+				textPost: action.payload,
+				amountLikes: 0,
+			});
+		},
+		setUserProfile(state, action) {
+			state.profile = action.payload;
+		},
+		setMyUserProfile(state, action) {
+			state.myProfile = action.payload;
+		},
+		setStatus(state, action) {
+			state.status = action.payload;
+		},
+	},
 });
 
-export const setMyUserProfile = (profile) => ({
-	type: SET_MY_USER_PROFILE,
-	profile,
-});
+const { actions, reducer } = profileSlice;
 
-const setStatus = (status) => ({
-	type: SET_STATUS,
-	status,
-});
+export default reducer;
+
+export const { addPost, setUserProfile, setMyUserProfile, setStatus } = actions;
 
 // Thunks
-
 export const getProfile = (userId) => (dispatch) => {
 	const getUserProfilePromise = dispatch(getUserProfile(userId));
 	const getUserStatusPromise = dispatch(getUserStatus(userId));

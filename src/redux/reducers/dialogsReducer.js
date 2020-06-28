@@ -1,4 +1,5 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+import { createSlice } from '@reduxjs/toolkit';
+
 
 let initialState = [
 	{
@@ -166,36 +167,29 @@ let initialState = [
 	},
 ];
 
-const dialogsReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case SEND_MESSAGE:
-			const id = +action.userId;
-			const newMessageId = state[id].messagesAll.length;
 
-			let stateCopy = [...state];
-
-			stateCopy[id] = {
-				...state[id],
-				messagesAll: [
-					...state[id].messagesAll,
-					{
-						id: newMessageId,
-						message: action.textMessage,
-					},
-				],
-			};
-
-			return stateCopy;
-
-		default:
-			return state;
-	}
-};
-
-export default dialogsReducer;
-
-export const sendMessage = (textMessage, userId) => ({
-	type: SEND_MESSAGE,
-	textMessage,
-	userId,
+const dialogsSlice = createSlice({
+	name: 'dialogs',
+	initialState,
+	reducers: {
+		sendMessage: {
+			reducer: (state, action) => {
+				const userId = action.payload.userId;
+				const newMessageId = state[userId].messagesAll.length;
+				state[userId].messagesAll.push({
+					id: newMessageId,
+					message: action.payload.textMessage,
+				});
+			},
+			prepare: (textMessage, userId) => ({
+				payload: { textMessage, userId: +userId },
+			}),
+		},
+	},
 });
+
+const { reducer, actions } = dialogsSlice;
+
+export default reducer;
+
+export const { sendMessage } = actions;

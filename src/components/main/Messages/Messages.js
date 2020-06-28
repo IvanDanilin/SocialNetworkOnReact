@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
-import { sendMessage } from '../../../redux/reducers/dialogs-reducer';
+import { sendMessage } from '../../../redux/reducers/dialogsReducer';
 import { fullValidation } from '../../../utilities/validators/validators';
 import { Textarea } from '../../common/FormControls/FormControls';
 import styles from './Messages.module.scss';
