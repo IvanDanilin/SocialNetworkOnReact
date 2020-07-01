@@ -35,20 +35,22 @@ const state = {
 	],
 };
 
-test('length of posts should be incremented', () => {
-	// test data
-	const action = addPost('Hi, how are you?');
-	// action
-	const newState = profileReducer(state, action);
-	// expection
-	expect(newState.existingPosts.length).toBe(8);
-});
+describe('profileReducer', () => {
+	test('length of posts should be incremented', () => {
+		// test data
+		const action = addPost('Hi, how are you?');
+		// action
+		const newState = profileReducer(state, action);
+		// expection
+		expect(newState.existingPosts.length).toBe(8);
+	});
 
-test('text of new post should be correct', () => {
-	// test data
-	const action = addPost('Hi, how are you?');
-	// action
-	const newState = profileReducer(state, action);
-	// expection
-	expect(newState.existingPosts[7].textPost).toBe('Hi, how are you?');
+	test('text of new post should be correct', () => {
+		// test data
+		const action = addPost('Hi, how are you?');
+		// action
+		const newState = profileReducer(state, action);
+		// expection
+		expect(newState.existingPosts[7].textPost).toBe('Hi, how are you?');
+	});
 });

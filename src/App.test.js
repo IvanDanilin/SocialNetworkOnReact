@@ -1,18 +1,15 @@
 import React from 'react';
-import { render } from '@testing-library/react';
 import App from './App';
-import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './redux/redux-store';
+import { render } from '@testing-library/react';
 
-test('renders learn react link', () => {
-	const { getByText } = render(
-		<BrowserRouter>
-			<Provider store={store}>
-				<App />
-			</Provider>
-		</BrowserRouter>
-	);
-	const linkElement = getByText(/learn react/i);
-	expect(linkElement).toBeInTheDocument();
+describe('App component', () => {
+	test('render App', () => {
+		const { container } = render(<App />);
+		expect(container).toBeInTheDocument();
+	});
+	test('App show preloder', () => {
+		const { container } = render(<App />);
+		const preloader = container.getElementsByClassName('preloader')[0];
+		expect(preloader).toBeInTheDocument();
+	});
 });

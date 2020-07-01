@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import './App.scss';
 import Preloader from './components/common/Preloader/Preloader';
@@ -9,14 +9,16 @@ import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
 import { initializeApp } from './redux/reducers/appReducer';
 import { getMyUserProfile } from './redux/reducers/profileReducer';
+import { BrowserRouter } from 'react-router-dom';
+import store from './redux/store';
 
-const App = (props) => {
+const AppPure = (props) => {
 	useEffect(() => {
 		props.initializeApp();
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 	return props.initialized ? (
-		<div className="app-wrapper">
+		<div className='app-wrapper'>
 			<HeaderContainer />
 			<Sidebar />
 			<Main />
@@ -32,6 +34,16 @@ const mapStateToProps = (state) => ({
 	authUserId: state.auth.userId,
 });
 
-export default compose(
+const AppWithComose = compose(
 	connect(mapStateToProps, { initializeApp, getMyUserProfile })
-)(App);
+)(AppPure);
+
+const App = () => (
+	<BrowserRouter>
+		<Provider store={store}>
+			<AppWithComose />
+		</Provider>
+	</BrowserRouter>
+);
+
+export default App;
