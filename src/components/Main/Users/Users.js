@@ -7,11 +7,11 @@ const Users = (props) => {
 	return (
 		<div className={styles.usersPage}>
 			<Pagination
-				pagesCount={props.pagesCount}
+				pageSize={props.pageSize}
 				currentPage={props.currentPage}
 				onPageChanged={props.onPageChanged}
+				totalItemsCount={props.totalUsersCount}
 			/>
-
 			<div>
 				{props.users.map((u) => {
 					return (
@@ -19,7 +19,7 @@ const Users = (props) => {
 							<div className={styles.photoBlock}>
 								<div className={styles.photo}>
 									<NavLink to={'/profile/' + u.id}>
-										<img src={u.photos.small || props.defaultAvatar} alt="" />
+										<img src={u.photos.small || props.defaultAvatar} alt='' />
 									</NavLink>
 								</div>
 

@@ -9,34 +9,42 @@ import {
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 
-const UsersContainer = (props) => {
+const UsersContainer = ({
+	getUsers,
+	currentPage,
+	pageSize,
+	totalUsersCount,
+	isFetching,
+	users,
+	followingInProgress,
+	follow,
+	unfollow,
+}) => {
 	// Получение списка пользователей при рендере
 	useEffect(() => {
-		props.getUsers(props.currentPage, props.pageSize);
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+		getUsers(currentPage, pageSize);
+	}, [getUsers, currentPage, pageSize]);
 
 	// Получение списка пользователей при выборе страницы
 	const onPageChanged = (pageNumber) => {
-		props.getUsers(pageNumber, props.pageSize);
+		getUsers(pageNumber, pageSize);
 	};
-	// Кольчество страниц
-	let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize);
 
 	return (
 		<>
-			{props.isFetching ? (
+			{isFetching ? (
 				<Preloader />
 			) : (
 				<Users
-					pagesCount={pagesCount}
-					currentPage={props.currentPage}
+					totalUsersCount={totalUsersCount}
+					pageSize={pageSize}
+					currentPage={currentPage}
 					onPageChanged={onPageChanged}
-					users={props.users}
+					users={users}
 					defaultAvatar={defaultAvatar}
-					followingInProgress={props.followingInProgress}
-					follow={props.follow}
-					unfollow={props.unfollow}
+					followingInProgress={followingInProgress}
+					follow={follow}
+					unfollow={unfollow}
 				/>
 			)}
 		</>

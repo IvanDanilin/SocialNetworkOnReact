@@ -1,6 +1,6 @@
 import React from 'react';
 import ProfileStatus from './ProfileStatus';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 
 const someStatus = 'some status';
 const enterStatusTitle = 'Double click to change your status';
@@ -29,7 +29,7 @@ describe('ProfileStatus component', () => {
 	});
 
 	it('render my profile with status text', () => {
-		const { getByText, container } = render(
+		const { getByText } = render(
 			<ProfileStatus status={someStatus} isMyProfile={true} />
 		);
 		const statusElement = getByText(someStatus);

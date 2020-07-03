@@ -14,8 +14,18 @@ import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
 
 const ProfileContainer = (props) => {
-	// Id из адресной строки
-	const userId = +props.match.params.userId;
+	
+	const {
+		match: {
+			params: { userId },
+		},
+		authUserId,
+		getProfile,
+		isAuth,
+		profile,
+	} = props;
+
+	const userIdInAddressBar = +userId;
 
 	// Индикатор профиля авторизованного пользователя
 	const [isMyProfile, setIsMyProfile] = useState(false);
@@ -23,28 +33,27 @@ const ProfileContainer = (props) => {
 	// Выполняется при первом рендере и после каждого изменения id в адресной строке
 	useEffect(() => {
 		// Если в адресной строке есть id
-		if (userId) {
+		if (userIdInAddressBar) {
 			// Если id авторизованного пользователя и id в адресной строке совпадает
 			// Указывает, что это профиль пользователя
-			if (props.authUserId === userId) {
+			if (authUserId === userIdInAddressBar) {
 				setIsMyProfile(true);
 			}
 			// Запрос данных пользователя
-			props.getProfile(userId);
+			getProfile(userIdInAddressBar);
 		}
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [userId]);
+	}, [userIdInAddressBar, authUserId, getProfile]);
 
 	// Если пользователь выполнил выход
 	useEffect(() => {
-		if (!props.isAuth) {
+		if (!isAuth) {
 			setIsMyProfile(false);
 		}
-	}, [props.isAuth]);
+	}, [isAuth]);
 
 	// Если в адресной строке указан id
-	if (userId) {
-		return props.profile ? (
+	if (userIdInAddressBar) {
+		return profile ? (
 			// Если данные профиля получены
 			<Profile {...props} isMyProfile={isMyProfile} />
 		) : (
@@ -53,12 +62,12 @@ const ProfileContainer = (props) => {
 		);
 	} else {
 		// Если в адресной строке не указан id
-		return props.isAuth ? (
+		return isAuth ? (
 			// Редирект на профиль авторизованного пользователя
-			<Redirect to={`/profile/${props.authUserId}`} />
+			<Redirect to={`/profile/${authUserId}`} />
 		) : (
 			// Если не авторизован, редирект на страницу логинизации
-			<Redirect to="/login" />
+			<Redirect to='/login' />
 		);
 	}
 };

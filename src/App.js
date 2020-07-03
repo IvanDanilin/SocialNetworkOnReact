@@ -8,16 +8,16 @@ import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
 import { initializeApp } from './redux/reducers/appReducer';
-import { getMyUserProfile } from './redux/reducers/profileReducer';
 import { BrowserRouter } from 'react-router-dom';
 import store from './redux/store';
 
-const AppPure = (props) => {
+export const AppPure = ({initializeApp, initialized}) => {
+
 	useEffect(() => {
-		props.initializeApp();
-	// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
-	return props.initialized ? (
+		initializeApp();
+	}, [initializeApp]);
+
+	return initialized ? (
 		<div className='app-wrapper'>
 			<HeaderContainer />
 			<Sidebar />
@@ -29,13 +29,11 @@ const AppPure = (props) => {
 };
 
 const mapStateToProps = (state) => ({
-	initialized: state.app.initialized,
-	isAuth: state.auth.isAuth,
-	authUserId: state.auth.userId,
+	initialized: state.app.initialized
 });
 
-const AppWithComose = compose(
-	connect(mapStateToProps, { initializeApp, getMyUserProfile })
+export const AppWithComose = compose(
+	connect(mapStateToProps, { initializeApp })
 )(AppPure);
 
 const App = () => (

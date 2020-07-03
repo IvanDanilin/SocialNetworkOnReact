@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.scss';
 
-const ProfileStatus = (props) => {
+const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 	const [editMode, setEditMode] = useState(false);
-	const [status, setStatus] = useState(props.status);
+	const [statusInState, setStatusInState] = useState(status);
 	const activateEditMode = () => {
 		setEditMode(true);
 	};
 	const deactivateEditMode = () => {
 		setEditMode(false);
-		props.updateUserStatus(status);
+		updateUserStatus(statusInState);
 	};
 	const onStatusChange = (e) => {
-		setStatus(e.currentTarget.value);
+		setStatusInState(e.currentTarget.value);
 	};
 	useEffect(() => {
-		setStatus(props.status);
-	}, [props.status]);
+		setStatusInState(status);
+	}, [status]);
 	return (
 		<>
 			{editMode ? (
@@ -25,25 +25,19 @@ const ProfileStatus = (props) => {
 						onChange={onStatusChange}
 						autoFocus
 						onBlur={deactivateEditMode}
-						value={status}
+						value={statusInState}
 					/>
 				</div>
-			) : props.status || props.isMyProfile ? (
+			) : status || isMyProfile ? (
 				<div className={styles.status}>
 					<span
-						onDoubleClick={props.isMyProfile ? activateEditMode : undefined}
-						title={
-							props.isMyProfile ? 'Double click to change your status' : ''
-						}
+						onDoubleClick={isMyProfile ? activateEditMode : undefined}
+						title={isMyProfile ? 'Double click to change your status' : ''}
 						className={
-							props.isMyProfile
-								? props.status
-									? styles.myStatus
-									: styles.enterStatus
-								: ''
+							isMyProfile ? (status ? styles.myStatus : styles.enterStatus) : ''
 						}
 					>
-						{props.status || 'Enter your status...'}
+						{status || 'Enter your status...'}
 					</span>
 				</div>
 			) : undefined}
