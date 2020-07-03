@@ -2,7 +2,7 @@
   "files": {
     "static/js/0.a0c023d2.chunk.js": "/SocialNetworkOnReact/static/js/0.a0c023d2.chunk.js",
     "static/js/0.a0c023d2.chunk.js.map": "/SocialNetworkOnReact/static/js/0.a0c023d2.chunk.js.map",
-    "main.css": "/SocialNetworkOnReact/static/css/main.66776161.chunk.css",
+    "main.css": "/SocialNetworkOnReact/static/css/main.8c85520f.chunk.css",
     "main.js": "/SocialNetworkOnReact/static/js/main.1fcca668.chunk.js",
     "main.js.map": "/SocialNetworkOnReact/static/js/main.1fcca668.chunk.js.map",
     "runtime-main.js": "/SocialNetworkOnReact/static/js/runtime-main.60112b35.js",
@@ -34,7 +34,7 @@
     "static/js/11.1b1434b3.chunk.js": "/SocialNetworkOnReact/static/js/11.1b1434b3.chunk.js",
     "static/js/11.1b1434b3.chunk.js.map": "/SocialNetworkOnReact/static/js/11.1b1434b3.chunk.js.map",
     "index.html": "/SocialNetworkOnReact/index.html",
-    "precache-manifest.825a59a62171706d7d4fd0390bd0a6e3.js": "/SocialNetworkOnReact/precache-manifest.825a59a62171706d7d4fd0390bd0a6e3.js",
+    "precache-manifest.14351a2377b55adc70fa965e66e7713a.js": "/SocialNetworkOnReact/precache-manifest.14351a2377b55adc70fa965e66e7713a.js",
     "service-worker.js": "/SocialNetworkOnReact/service-worker.js",
     "static/css/10.bf68ba73.chunk.css.map": "/SocialNetworkOnReact/static/css/10.bf68ba73.chunk.css.map",
     "static/css/11.9a1811b0.chunk.css.map": "/SocialNetworkOnReact/static/css/11.9a1811b0.chunk.css.map",
@@ -44,7 +44,7 @@
     "static/css/7.b31b49fe.chunk.css.map": "/SocialNetworkOnReact/static/css/7.b31b49fe.chunk.css.map",
     "static/css/8.89a56aaa.chunk.css.map": "/SocialNetworkOnReact/static/css/8.89a56aaa.chunk.css.map",
     "static/css/9.9bbd003c.chunk.css.map": "/SocialNetworkOnReact/static/css/9.9bbd003c.chunk.css.map",
-    "static/css/main.66776161.chunk.css.map": "/SocialNetworkOnReact/static/css/main.66776161.chunk.css.map",
+    "static/css/main.8c85520f.chunk.css.map": "/SocialNetworkOnReact/static/css/main.8c85520f.chunk.css.map",
     "static/js/3.842e7a80.chunk.js.LICENSE.txt": "/SocialNetworkOnReact/static/js/3.842e7a80.chunk.js.LICENSE.txt",
     "static/media/defaultAvatar.jpg": "/SocialNetworkOnReact/static/media/defaultAvatar.7729c5e2.jpg",
     "static/media/les_tuman_derevia.jpg": "/SocialNetworkOnReact/static/media/les_tuman_derevia.712fe5c8.jpg",
@@ -54,7 +54,7 @@
   "entrypoints": [
     "static/js/runtime-main.60112b35.js",
     "static/js/3.842e7a80.chunk.js",
-    "static/css/main.66776161.chunk.css",
+    "static/css/main.8c85520f.chunk.css",
     "static/js/main.1fcca668.chunk.js"
   ]
 }
