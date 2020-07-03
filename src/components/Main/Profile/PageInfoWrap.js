@@ -12,6 +12,40 @@ const ContactsItems = ({ item, titleItem }) =>
 		''
 	);
 
+const Contacts = ({
+	facebook,
+	website,
+	vk,
+	twitter,
+	instagram,
+	github,
+	mainLink,
+	youtube,
+}) => {
+	return facebook ||
+		website ||
+		vk ||
+		twitter ||
+		instagram ||
+		github ||
+		mainLink ||
+		youtube ? (
+		<div className={styles.rightBlock}>
+			<div className={styles.contactsTitle}>Contacts:</div>
+			<ContactsItems item={facebook} titleItem={'Facebook:'} />
+			<ContactsItems item={website} titleItem={'Website:'} />
+			<ContactsItems item={vk} titleItem={'Vk:'} />
+			<ContactsItems item={twitter} titleItem={'Twitter:'} />
+			<ContactsItems item={instagram} titleItem={'Instagram:'} />
+			<ContactsItems item={github} titleItem={'GitHub:'} />
+			<ContactsItems item={mainLink} titleItem={'Main Link:'} />
+			<ContactsItems item={youtube} titleItem={'YouTube:'} />
+		</div>
+	) : (
+		''
+	);
+};
+
 const PageInfoWrap = ({
 	profile,
 	defaultAvatar,
@@ -31,21 +65,11 @@ const PageInfoWrap = ({
 		lookingForAJob,
 		lookingForAJobDescription,
 	} = profile;
-	const {
-		facebook,
-		website,
-		vk,
-		twitter,
-		instagram,
-		github,
-		mainLink,
-		youtube,
-	} = contacts;
 
 	return (
 		<div className={styles.pageWrap}>
 			<div className={styles.avatar}>
-				<img src={photos.large || defaultAvatar} alt="avatar" />
+				<img src={photos.large || defaultAvatar} alt='avatar' />
 			</div>
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>{fullName}</div>
@@ -74,29 +98,7 @@ const PageInfoWrap = ({
 							''
 						)}
 					</div>
-					{facebook ||
-					website ||
-					vk ||
-					twitter ||
-					instagram ||
-					github ||
-					mainLink ||
-					youtube ? (
-						<div className={styles.rightBlock}>
-							<div className={styles.contactsTitle}>Contacts:</div>
-							{ContactsItems(facebook, 'Facebook:')}
-							<ContactsItems item={facebook} titleItem={'Facebook:'} />
-							<ContactsItems item={website} titleItem={'Website:'} />
-							<ContactsItems item={vk} titleItem={'Vk:'} />
-							<ContactsItems item={twitter} titleItem={'Twitter:'} />
-							<ContactsItems item={instagram} titleItem={'Instagram:'} />
-							<ContactsItems item={github} titleItem={'GitHub:'} />
-							<ContactsItems item={mainLink} titleItem={'Main Link:'} />
-							<ContactsItems item={youtube} titleItem={'YouTube:'} />
-						</div>
-					) : (
-						''
-					)}
+					<Contacts contacts={contacts} />
 				</div>
 			</div>
 		</div>

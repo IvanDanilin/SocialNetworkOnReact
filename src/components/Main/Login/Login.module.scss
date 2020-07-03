@@ -1,35 +1,59 @@
 .loginContainer {
-    background: rgb(17, 121, 121);
-    padding: 50px 0;
-    div {
-        margin: 0 auto;
-    }
-    input {
-        padding: 5px;
-        background: rgb(223, 223, 223);
-        border: 1px solid #000;
+	background: rgb(17, 121, 121);
+	padding: 30px 0;
+	.greeting {
+		margin: 0 auto 20px;
+		max-width: 300px;
+        line-height: 20px;
+        p:first-child {
+            text-align: center;
+            margin-bottom: 5px;
+        }
+		mark {
+            margin: 5px;
+			display: block;
+			text-align: center;
+		}
+	}
+	form {
+		margin: 0 auto;
+        max-width: max-content;
+		.textInputWrap {
+			min-height: 45px;
+			input {
+				max-width: 175px;
+                padding: 5px;
+                display: block;
+				&::placeholder {
+					color: #444;
+				}
+				&:focus {
+					background: #fff;
+					&::placeholder {
+						color: #777;
+					}
+				}
+			}
+		}
+	}
+	input {
+		background: rgb(247, 247, 247);
+		border: 1px solid #000;
         border-radius: 5px;
-        &::placeholder {
-            color: #333;
-        }
-        &:focus {
-            background: #fff;
-            &::placeholder {
-                color: #777;
-            }
-        }
-    }
-    button {
-        padding: 5px;
-        background: rgb(78, 19, 133);
-        border-radius: 5px;
-        color: rgb(211, 211, 211);
-        &:hover {
-            background: rgb(108, 25, 185);
-        }
-    }
-    .error {
-        color: red;
-        text-shadow: 1px 1px 2px #000;
-    }
+	}
+	button {
+		margin: 7px 1px;
+		padding: 5px;
+		background: rgb(78, 19, 133);
+		border-radius: 5px;
+		color: rgb(211, 211, 211);
+		min-width: 70px;
+		&:hover {
+			background: rgb(108, 25, 185);
+		}
+	}
+	.error {
+		color: red;
+		text-shadow: 1px 1px 2px #000;
+	}
 }

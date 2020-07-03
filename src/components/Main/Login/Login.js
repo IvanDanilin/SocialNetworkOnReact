@@ -5,7 +5,6 @@ import { Redirect } from 'react-router-dom';
 import { getAuthUserData, signIn } from '../../../redux/reducers/authReducer';
 import styles from './Login.module.scss';
 import LoginForm from './LoginForm';
-import Preloader from '../../common/Preloader/Preloader';
 
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);
@@ -22,6 +21,18 @@ const Login = (props) => {
 		<Redirect to={`/profile/${props.authUserId}`} />
 	) : (
 		<div className={styles.loginContainer}>
+			<div className={styles.greeting}>
+				<p>
+					Welcome! For future use, enter 
+					the following data for authorization:
+				</p>
+				<p>
+					Email: <mark>free@samuraijs.com</mark>
+				</p>
+				<p>
+					Password: <mark>free</mark>
+				</p>
+			</div>
 			<LoginForm onSubmit={onSubmit} loading={loading} />
 		</div>
 	);

@@ -10,8 +10,6 @@ const LoginForm = (props) => (
 		initialValues={{
 			rememberMe: true,
 			passwordShown: false,
-			email: 'free@samuraijs.com',
-			password: 'free'
 		}}
 		onSubmit={({ email, password, rememberMe }) =>
 			props.onSubmit({ email, password, rememberMe })
@@ -26,7 +24,7 @@ const LoginForm = (props) => (
 		}) => (
 			<form onSubmit={handleSubmit}>
 				{props.loading && <Preloader />}
-				<div>
+				<div className={styles.textInputWrap}>
 					<Field
 						name='email'
 						component={Input}
@@ -34,7 +32,7 @@ const LoginForm = (props) => (
 						validate={fullValidation(3, 30, 'Required field')}
 					/>
 				</div>
-				<div>
+				<div className={styles.textInputWrap}>
 					<Field
 						name='password'
 						component={Input}
