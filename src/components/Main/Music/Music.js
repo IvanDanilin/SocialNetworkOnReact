@@ -1,5 +1,6 @@
 import React from 'react'
 import s from './Music.module.scss'
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect'
 
 const Music = () => {
     return (
@@ -9,4 +10,5 @@ const Music = () => {
     )
 }
 
-export default Music
+
+export default withAuthRedirect(Music)

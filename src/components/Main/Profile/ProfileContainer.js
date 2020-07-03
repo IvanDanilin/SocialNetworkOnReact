@@ -14,7 +14,6 @@ import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
 
 const ProfileContainer = (props) => {
-	
 	const {
 		match: {
 			params: { userId },

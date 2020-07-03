@@ -8,11 +8,10 @@ import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
 import { initializeApp } from './redux/reducers/appReducer';
-import { BrowserRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
 
-export const AppPure = ({initializeApp, initialized}) => {
-
+export const AppPure = ({ initializeApp, initialized, isAuth }) => {
 	useEffect(() => {
 		initializeApp();
 	}, [initializeApp]);
@@ -21,7 +20,7 @@ export const AppPure = ({initializeApp, initialized}) => {
 		<div className='app-wrapper'>
 			<HeaderContainer />
 			<Sidebar />
-			<Main />
+			<Main isAuth={isAuth} />
 		</div>
 	) : (
 		<Preloader />
@@ -29,7 +28,8 @@ export const AppPure = ({initializeApp, initialized}) => {
 };
 
 const mapStateToProps = (state) => ({
-	initialized: state.app.initialized
+	initialized: state.app.initialized,
+	isAuth: state.auth.isAuth,
 });
 
 export const AppWithComose = compose(
@@ -37,11 +37,11 @@ export const AppWithComose = compose(
 )(AppPure);
 
 const App = () => (
-	<BrowserRouter>
+	<HashRouter>
 		<Provider store={store}>
 			<AppWithComose />
 		</Provider>
-	</BrowserRouter>
+	</HashRouter>
 );
 
 export default App;

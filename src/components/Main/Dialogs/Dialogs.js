@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import styles from './Dialogs.module.scss';
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import { compose } from 'redux';
 
 const Dialogs = (props) => {
 	return (
@@ -17,7 +19,7 @@ const Dialogs = (props) => {
 							<NavLink to={'/dialog/' + id}>
 								<div className={styles.dialogLink}>
 									<div className={styles.dialogPhoto}>
-										<img src={props.defaultAvatar} alt="" />
+										<img src={props.defaultAvatar} alt='' />
 									</div>
 									<div className={styles.dialogContent}>
 										<div className={styles.dialogName}>{dialog.name}</div>
@@ -38,4 +40,4 @@ const mapStateToProps = (state) => ({
 	defaultAvatar,
 });
 
-export default connect(mapStateToProps)(Dialogs);
+export default compose(connect(mapStateToProps), withAuthRedirect)(Dialogs);
