@@ -60,12 +60,22 @@ const { actions, reducer } = createSlice({
 		setStatus(state, action) {
 			state.status = action.payload;
 		},
+		updatePhoto(state, action) {
+			state.profile.photos = action.payload.data.photos;
+			state.myProfile.photos = action.payload.data.photos;
+		},
 	},
 });
 
 export default reducer;
 
-export const { addPost, setUserProfile, setMyUserProfile, setStatus } = actions;
+export const {
+	addPost,
+	setUserProfile,
+	setMyUserProfile,
+	setStatus,
+	updatePhoto,
+} = actions;
 
 // Thunks
 export const getProfile = (userId) => async (dispatch) => {
@@ -97,5 +107,12 @@ export const updateUserStatus = (status) => async (dispatch) => {
 	const response = await profileAPI.updateStatus(status);
 	if (response.resultCode === 0) {
 		dispatch(setStatus(status));
+	}
+};
+
+export const changeMyPhoto = (file) => async (dispatch) => {
+	const response = await profileAPI.changeMyPhoto(file);
+	if (response.data.resultCode === 0) {
+		dispatch(updatePhoto(response.data));
 	}
 };

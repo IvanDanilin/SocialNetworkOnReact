@@ -6,7 +6,7 @@ import { signOut } from '../../redux/reducers/authReducer';
 import { getMyUserProfile } from '../../redux/reducers/profileReducer';
 import Header from './Header';
 
-const HeaderContainer = (props) => {
+const HeaderContainer = (props) => {	
 	// Выпадающее меню справа. false - скрыто
 	const [dropDownMenu, setDropDownMenu] = useState(false);
 	// Переключатель выпадающего меню. Принимает значения True, False

@@ -52,4 +52,13 @@ export const profileAPI = {
 			.put('profile/status/', { status: textStatus })
 			.then((response) => response.data);
 	},
+	changeMyPhoto(file) {
+		const formData = new FormData();
+		formData.append('image', file);
+		return instance
+			.put('profile/photo', formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+			.then((response) => response);
+	},
 };

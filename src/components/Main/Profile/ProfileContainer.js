@@ -9,6 +9,7 @@ import {
 	addPost,
 	getProfile,
 	updateUserStatus,
+	changeMyPhoto,
 } from '../../../redux/reducers/profileReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
@@ -88,10 +89,10 @@ const mapDispatchToProps = {
 	getAuthUserData,
 	addPost,
 	getProfile,
+	changeMyPhoto
 };
 
 export default compose(
-	React.memo,
 	connect(mapStateToProps, mapDispatchToProps),
 	withRouter
 )(ProfileContainer);

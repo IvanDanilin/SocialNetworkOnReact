@@ -52,6 +52,7 @@ const PageInfoWrap = ({
 	isMyProfile,
 	status,
 	updateUserStatus,
+	changeMyPhoto,
 }) => {
 	if (!profile) {
 		return <Preloader />;
@@ -66,10 +67,17 @@ const PageInfoWrap = ({
 		lookingForAJobDescription,
 	} = profile;
 
+	const onMyPhotoSelected = (e) => {
+		if (e.target.files.length) {
+			changeMyPhoto(e.target.files[0]);
+		}
+	};
+
 	return (
 		<div className={styles.pageWrap}>
 			<div className={styles.avatar}>
 				<img src={photos.large || defaultAvatar} alt='avatar' />
+				{isMyProfile && <input type='file' onChange={onMyPhotoSelected} />}
 			</div>
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>{fullName}</div>

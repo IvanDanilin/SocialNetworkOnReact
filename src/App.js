@@ -8,7 +8,7 @@ import Main from './components/Main/Main';
 import Sidebar from './components/Sidebar/Sidebar';
 import './null.scss';
 import { initializeApp } from './redux/reducers/appReducer';
-import { HashRouter, Redirect } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
 
 export const AppPure = ({ initializeApp, initialized }) => {

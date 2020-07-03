@@ -17,7 +17,7 @@ const AuthUserInfo = (props) => {
 		<>
 			<div className={login}>{props.login}</div>
 			<div className={avatar}>
-				<img src={props.avatar || props.defaultAvatar} alt="" />
+				<img src={ props.avatar || props.defaultAvatar} alt='' />
 			</div>
 		</>
 	);
@@ -33,7 +33,7 @@ const Header = ({
 	isAuth,
 	signOut,
 	userId,
-}) => {
+}) => {	
 	const onClick = () => {
 		toggleDropDownMenu();
 	};
@@ -42,7 +42,7 @@ const Header = ({
 			<div className={headerContent}>
 				<div className={logoBlock}>
 					<div className={logoImage}>
-						<img src={logo} alt="logo" />
+						<img src={logo} alt='logo' />
 					</div>
 					<NavLink to={`/profile/${userId}`} className={logoName}>
 						WhoIAm
