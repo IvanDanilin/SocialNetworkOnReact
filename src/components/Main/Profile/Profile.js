@@ -13,11 +13,12 @@ const Profile = ({
 	updateUserStatus,
 	addPost,
 	existingPosts,
+	isAuth
 }) => {
 	return (
 		<div className={styles.profile}>
 			<div className={styles.topImage}>
-				<img src={topImage} alt="cover" />
+				<img src={topImage} alt='cover' />
 			</div>
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
@@ -29,7 +30,7 @@ const Profile = ({
 						updateUserStatus={updateUserStatus}
 					/>
 					<div className={styles.postsBlock}>
-						<NewPostBlock addPost={addPost} />
+						{isAuth ? <NewPostBlock addPost={addPost} /> : ''}
 						<ExistingPostsBlock posts={existingPosts} />
 					</div>
 				</div>

@@ -11,7 +11,7 @@ import { initializeApp } from './redux/reducers/appReducer';
 import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
 
-export const AppPure = ({ initializeApp, initialized, isAuth }) => {
+export const AppPure = ({ initializeApp, initialized }) => {
 	useEffect(() => {
 		initializeApp();
 	}, [initializeApp]);
@@ -20,7 +20,7 @@ export const AppPure = ({ initializeApp, initialized, isAuth }) => {
 		<div className='app-wrapper'>
 			<HeaderContainer />
 			<Sidebar />
-			<Main isAuth={isAuth} />
+			<Main />
 		</div>
 	) : (
 		<Preloader />
@@ -29,7 +29,6 @@ export const AppPure = ({ initializeApp, initialized, isAuth }) => {
 
 const mapStateToProps = (state) => ({
 	initialized: state.app.initialized,
-	isAuth: state.auth.isAuth,
 });
 
 export const AppWithComose = compose(

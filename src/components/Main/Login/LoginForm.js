@@ -10,6 +10,8 @@ const LoginForm = (props) => (
 		initialValues={{
 			rememberMe: true,
 			passwordShown: false,
+			email: 'free@samuraijs.com',
+			password: 'free'
 		}}
 		onSubmit={({ email, password, rememberMe }) =>
 			props.onSubmit({ email, password, rememberMe })

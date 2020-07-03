@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Redirect } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import styles from './Main.module.scss';
 import Preloader from '../common/Preloader/Preloader';
 const ProfileContainer = React.lazy(() => import('./Profile/ProfileContainer'));
@@ -11,7 +11,7 @@ const News = React.lazy(() => import('./News/News'));
 const Settings = React.lazy(() => import('./Settings/Settings'));
 const UsersContainer = React.lazy(() => import('./Users/UsersContainer'));
 
-const Main = ({ isAuth }) => (
+const Main = () => (
 	<main className={styles.main}>
 		<React.Suspense fallback={<Preloader />}>
 			<Route path='/profile/:userId?' component={ProfileContainer} />
