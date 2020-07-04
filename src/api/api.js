@@ -61,4 +61,9 @@ export const profileAPI = {
 			})
 			.then((response) => response);
 	},
+	sendUserData(payload) {
+		return instance
+			.put('profile/', payload)
+			.then((response) => response.data);
+	},
 };

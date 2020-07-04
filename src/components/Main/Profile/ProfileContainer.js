@@ -10,6 +10,7 @@ import {
 	getProfile,
 	updateUserStatus,
 	changeMyPhoto,
+	changeUserData,
 } from '../../../redux/reducers/profileReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
@@ -55,7 +56,7 @@ const ProfileContainer = (props) => {
 	if (userIdInAddressBar) {
 		return profile ? (
 			// Если данные профиля получены
-			<Profile {...props} isMyProfile={isMyProfile} />
+			<Profile {...props} userId={authUserId} isMyProfile={isMyProfile} />
 		) : (
 			// Если идет получение данных
 			<Preloader />
@@ -89,7 +90,8 @@ const mapDispatchToProps = {
 	getAuthUserData,
 	addPost,
 	getProfile,
-	changeMyPhoto
+	changeMyPhoto,
+	changeUserData
 };
 
 export default compose(

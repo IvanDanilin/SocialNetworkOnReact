@@ -116,3 +116,44 @@ export const changeMyPhoto = (file) => async (dispatch) => {
 		dispatch(updatePhoto(response.data));
 	}
 };
+
+export const changeUserData = (payload) => async (dispatch) => {
+	const {
+		userId,
+		lookingForAJob,
+		lookingForAJobDescription,
+		fullName,
+		github,
+		vk,
+		facebook,
+		instagram,
+		twitter,
+		website,
+		youtube,
+		mainLink,
+		aboutMe
+	} = payload;
+
+	const newPayload = {
+		aboutMe,
+		lookingForAJob,
+		lookingForAJobDescription,
+		fullName,
+		contacts: {
+			github,
+			vk,
+			facebook,
+			instagram,
+			twitter,
+			website,
+			youtube,
+			mainLink,
+		},
+	};
+
+	const response = await profileAPI.sendUserData(newPayload);
+	if (response.resultCode === 0) {
+		dispatch(getUserProfile(userId));
+		dispatch(getMyUserProfile(userId));
+	}
+};

@@ -1,6 +1,6 @@
-const required = (message) => (value) => (value ? undefined : message);
+export const required = (message) => (value) => (value ? undefined : message);
 
-const maxLength = (max) => (value) =>
+export const maxLength = (max) => (value) =>
 	value && value.length > max ? `Max length is ${max} symbols` : undefined;
 
 const minLength = (min) => (value) =>

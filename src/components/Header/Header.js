@@ -15,7 +15,7 @@ import DropDownMenu from './DropDownMenu';
 const AuthUserInfo = (props) => {
 	return (
 		<>
-			<div className={login}>{props.login}</div>
+			<div className={login}>{props.fullName}</div>
 			<div className={avatar}>
 				<img src={ props.avatar || props.defaultAvatar} alt='' />
 			</div>
@@ -26,7 +26,7 @@ const AuthUserInfo = (props) => {
 const Header = ({
 	toggleDropDownMenu,
 	logo,
-	login,
+	fullName,
 	avatar,
 	defaultAvatar,
 	dropDownMenu,
@@ -51,7 +51,7 @@ const Header = ({
 				{isAuth ? (
 					<div className={loginBlock} onClick={onClick}>
 						<AuthUserInfo
-							login={login}
+							fullName={fullName}
 							avatar={avatar}
 							defaultAvatar={defaultAvatar}
 							dropDownMenu={dropDownMenu}

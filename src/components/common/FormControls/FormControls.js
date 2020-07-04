@@ -8,7 +8,12 @@ const FormControl = ({ input, meta, ...props }) => {
 	return (
 		<>
 			{/* Создание поля ввода и передача в него данных */}
-			<Element {...input} placeholder={props.placeholder} />
+			<Element
+				{...input}
+				placeholder={props.placeholder}
+				autoFocus={props.autoFocus}
+				maxLength={props.maxLength}
+			/>
 			{/* Вывод на основании ошибок валидации */}
 			{meta.error &&
 				// Если есть ошибка и введено больше 5 символов, выводит ошибку
@@ -24,8 +29,8 @@ const FormControl = ({ input, meta, ...props }) => {
 
 // Компоненты для создания конкретных полей ввода
 export const Input = (props) => {
-	return <FormControl element="input" {...props} />;
+	return <FormControl element='input' {...props} />;
 };
 export const Textarea = (props) => (
-	<FormControl element="textarea" {...props} />
+	<FormControl element='textarea' {...props} />
 );

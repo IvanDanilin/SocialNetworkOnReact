@@ -1,31 +1,36 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styles from './Profile.module.scss';
+import { Form, Field } from 'react-final-form';
 
 const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 	const [editMode, setEditMode] = useState(false);
-	const [statusInState, setStatusInState] = useState(status);
 	const activateEditMode = () => {
 		setEditMode(true);
 	};
-	const deactivateEditMode = () => {
-		setEditMode(false);
-		updateUserStatus(statusInState);
-	};
-	const onStatusChange = (e) => {
-		setStatusInState(e.currentTarget.value);
-	};
-	useEffect(() => {
-		setStatusInState(status);
-	}, [status]);
 	return (
 		<>
 			{editMode ? (
 				<div className={styles.status}>
-					<input
-						onChange={onStatusChange}
-						autoFocus
-						onBlur={deactivateEditMode}
-						value={statusInState}
+					<Form
+						initialValues={{
+							status: status,
+						}}
+						onSubmit={({ status }, form) => {
+							if (status !== form.getState().initialValues.status) {
+								updateUserStatus(status);
+							}
+							setEditMode(false);
+						}}
+						render={({ handleSubmit }) => (
+							<Field
+								onBlur={handleSubmit}
+								autoFocus
+								component='input'
+								name='status'
+								maxLength='300'
+								parse={(value) => value}
+							/>
+						)}
 					/>
 				</div>
 			) : status || isMyProfile ? (

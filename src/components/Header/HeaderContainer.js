@@ -32,7 +32,7 @@ const mapStateToProps = (state) => ({
 	avatar: state.profilePage.myProfile.photos.small,
 	isAuth: state.auth.isAuth,
 	userId: state.auth.userId,
-	login: state.auth.login,
+	fullName: state.profilePage.myProfile.fullName,
 	logo,
 });
 
