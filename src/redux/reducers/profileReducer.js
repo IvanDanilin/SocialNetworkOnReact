@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { profileAPI } from '../../api/api';
+import { FORM_ERROR } from 'final-form';
 
 const initialState = {
 	myProfile: { photos: {} },
@@ -117,43 +118,58 @@ export const changeMyPhoto = (file) => async (dispatch) => {
 	}
 };
 
-export const changeUserData = (payload) => async (dispatch) => {
-	const {
-		userId,
-		lookingForAJob,
-		lookingForAJobDescription,
-		fullName,
-		github,
-		vk,
-		facebook,
-		instagram,
-		twitter,
-		website,
-		youtube,
-		mainLink,
-		aboutMe
-	} = payload;
-
-	const newPayload = {
-		aboutMe,
-		lookingForAJob,
-		lookingForAJobDescription,
-		fullName,
-		contacts: {
-			github,
-			vk,
-			facebook,
-			instagram,
-			twitter,
-			website,
-			youtube,
-			mainLink,
-		},
-	};
-
-	const response = await profileAPI.sendUserData(newPayload);
+export const changeUserData = (payload) => async (dispatch, getState) => {
+	const userId = getState().auth.userId;
+	const response = await profileAPI.sendUserData(payload);
 	if (response.resultCode === 0) {
 		dispatch(getUserProfile(userId));
 		dispatch(getMyUserProfile(userId));
+		// Обрабтка ошибок
+	} else {
+		// Объект для передачи ошибок в форму
+		const errors = {};
+		// Перебор массива ошибок (приходит с сервера)
+		response.messages.forEach((error) => {
+			// * Если в тексте ошибки есть Contacts
+			if (error.includes('Contacts->')) {
+				// Если в объекте errors еще не создан объект contacts
+				if (!errors.contacts) {
+					// Создание объекта для ошибок контактов
+					errors.contacts = {};
+				}
+				// Вырезаем из текста ошибки название контакта
+				let contactName = error.split('>')[1].split(')')[0];
+				// Меняем первую букву названия на строчную
+				contactName = contactName.toLowerCase()[0] + contactName.substring(1);
+				// Вырезаем текст ошибки
+				const errorText = error.split('(')[0];
+				// Добавляем ошибку в объект ошибок
+				errors.contacts[contactName] = errorText;
+				// * Если ошибка не связана с контактами, проверяем связь
+				// * с другими полями формы
+			} else if (error.includes('Looking') || error.includes('About')) {
+				// Вырезаем название формы
+				let fildName = error.split('(')[1].split(')')[0];
+				// Первая буква строчная
+				fildName = fildName.toLowerCase()[0] + fildName.substring(1);
+				// Вырезаем текст ошибки
+				const errorText = error.split('(')[0];
+				// Добавляем в объект ошибок
+				errors[fildName] = errorText;
+				// * Если связь с полями формы была не найдена, добавляем ошибку
+				// * в ошибку формы
+			} else {
+				// Если ошибка формы еще не создана
+				if (!errors[FORM_ERROR]) {
+					// Создаем ее и добавляем в нее ошибку
+					errors[FORM_ERROR] = error;
+					// Если создана
+				} else {
+					// Добавляем к ней ошибки через запятую 
+					errors[FORM_ERROR] = errors[FORM_ERROR] + ', ' + error;
+				}
+			}
+		});
+		return errors;
 	}
 };

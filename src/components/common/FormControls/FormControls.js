@@ -15,13 +15,13 @@ const FormControl = ({ input, meta, ...props }) => {
 				maxLength={props.maxLength}
 			/>
 			{/* Вывод на основании ошибок валидации */}
-			{meta.error &&
+			{(meta.submitError || meta.error) &&
 				// Если есть ошибка и введено больше 5 символов, выводит ошибку
 				(input.value.length > 5 ? (
-					<span>{meta.error}</span>
+					<span>{meta.submitError || meta.error}</span>
 				) : (
 					// Если есть ошибка, но символов меньше 5, выводит ошибку когда поле было затронуто
-					meta.touched && <span>{meta.error}</span>
+					meta.touched && <span>{meta.submitError || meta.error}</span>
 				))}
 		</>
 	);

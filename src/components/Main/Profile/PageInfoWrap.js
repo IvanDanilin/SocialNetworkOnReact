@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styles from './Profile.module.scss';
 import ProfileStatus from './ProfileStatus';
 import { Form, Field } from 'react-final-form';
-import { required } from '../../../utilities/validators/validators';
-import { Textarea } from '../../common/FormControls/FormControls';
+import { Textarea, Input } from '../../common/FormControls/FormControls';
 
 const Contacts = ({ contacts, pageEditMode }) => {
 	let itemExist = false;
@@ -14,18 +13,16 @@ const Contacts = ({ contacts, pageEditMode }) => {
 				<div key={contact[0]} className={styles.contactsItem}>
 					<span>{`${contact[0]}: `}</span>
 					{pageEditMode ? (
-						<Field component='input' name={contact[0]} />
+						<Field component={Input} name={`contacts.${contact[0]}`} />
 					) : (
 						contact[1]
 					)}
 				</div>
 			);
 		} else {
-			return null
+			return null;
 		}
 	});
-
-	
 
 	return itemExist || pageEditMode ? (
 		<div className={styles.contactsBlock}>
@@ -46,12 +43,10 @@ const AboutMe = ({
 	return (
 		<div className={styles.aboutMeBlock}>
 			{pageEditMode ? (
-				<Field
-					component={Textarea}
-					name='aboutMe'
-					placeholder='About me'
-					validate={required('Required field')}
-				/>
+				<div className={styles.pageInfoRow}>
+					<span>About me:</span>
+					<Field component={Textarea} name='aboutMe' placeholder='About me' />
+				</div>
 			) : aboutMe ? (
 				<div className={styles.pageInfoRow}>
 					<span>About me:</span> {aboutMe}
@@ -78,7 +73,6 @@ const AboutMe = ({
 					component={Textarea}
 					name='lookingForAJobDescription'
 					placeholder='Description'
-					validate={required('Required field')}
 				/>
 			) : lookingForAJobDescription ? (
 				<div className={styles.pageInfoRow}>{lookingForAJobDescription}</div>
@@ -97,6 +91,7 @@ const PersonalInfoWrap = ({
 	lookingForAJob,
 	lookingForAJobDescription,
 	contacts,
+	submitError,
 }) => {
 	return (
 		<div className={styles.personalInfoWrap}>
@@ -139,6 +134,7 @@ const PersonalInfoWrap = ({
 					>
 						Cancel
 					</button>
+					{submitError && <div className={styles.error}>{submitError}</div>}
 				</>
 			)}
 		</div>
@@ -155,6 +151,7 @@ const PageInfoWrap = ({
 	changeMyPhoto,
 	pageEditMode,
 	setPageEditMode,
+	submitError,
 }) => {
 	// Данные профиля
 	const {
@@ -202,6 +199,7 @@ const PageInfoWrap = ({
 					lookingForAJob={lookingForAJob}
 					lookingForAJobDescription={lookingForAJobDescription}
 					contacts={contacts}
+					submitError={submitError}
 				/>
 			</div>
 		</div>
@@ -222,22 +220,25 @@ const PageInfoWrapWithEditMode = (props) => {
 	return pageEditMode ? (
 		<Form
 			initialValues={{
-				userId: props.userId,
-				lookingForAJob,
-				lookingForAJobDescription,
+				contacts,
 				fullName,
 				aboutMe,
-				...contacts,
+				lookingForAJob,
+				lookingForAJobDescription,
 			}}
-			onSubmit={(payload) => {
-				props.changeUserData(payload);
+			onSubmit={async (payload) => {
+				const error = await props.changeUserData(payload);
+				if (error) {
+					return error;
+				}
 			}}
-			render={({ handleSubmit }) => (
+			render={({ handleSubmit, submitError }) => (
 				<form onSubmit={handleSubmit}>
 					<PageInfoWrap
 						{...props}
 						pageEditMode={pageEditMode}
 						setPageEditMode={setPageEditMode}
+						submitError={submitError}
 					/>
 				</form>
 			)}
