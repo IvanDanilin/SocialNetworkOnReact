@@ -5,6 +5,7 @@ import {
 	follow,
 	unfollow,
 	getUsers,
+	setUsers,
 } from '../../../redux/reducers/usersReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
@@ -14,27 +15,27 @@ const UsersContainer = ({
 	currentPage,
 	pageSize,
 	totalUsersCount,
-	isFetching,
 	users,
 	followingInProgress,
 	follow,
 	unfollow,
+	setUsers,
 }) => {
 	// Получение списка пользователей при рендере
 	useEffect(() => {
 		getUsers(currentPage, pageSize);
-	}, [getUsers, currentPage, pageSize]);
+		return () => {
+			setUsers(null);
+		};
+	}, [getUsers, currentPage, pageSize, setUsers]);
 
 	// Получение списка пользователей при выборе страницы
 	const onPageChanged = (pageNumber) => {
 		getUsers(pageNumber, pageSize);
 	};
-
 	return (
 		<>
-			{isFetching ? (
-				<Preloader />
-			) : (
+			{users ? (
 				<Users
 					totalUsersCount={totalUsersCount}
 					pageSize={pageSize}
@@ -46,6 +47,8 @@ const UsersContainer = ({
 					follow={follow}
 					unfollow={unfollow}
 				/>
+			) : (
+				<Preloader />
 			)}
 		</>
 	);
@@ -58,7 +61,6 @@ const mapStateToProps = (state) => {
 		followingInProgress: state.usersPage.followingInProgress,
 		pageSize: state.usersPage.pageSize,
 		totalUsersCount: state.usersPage.totalUsersCount,
-		isFetching: state.usersPage.isFetching,
 	};
 };
 
@@ -66,4 +68,5 @@ export default connect(mapStateToProps, {
 	follow,
 	unfollow,
 	getUsers,
+	setUsers,
 })(UsersContainer);

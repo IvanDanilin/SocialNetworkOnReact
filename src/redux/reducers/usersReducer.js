@@ -2,11 +2,10 @@ import { usersAPI } from '../../api/api';
 import { createSlice } from '@reduxjs/toolkit';
 
 let initialState = {
-	users: [],
+	users: null,
 	pageSize: 100,
 	totalUsersCount: 0,
 	currentPage: 1,
-	isFetching: true,
 	followingInProgress: [],
 };
 
@@ -16,7 +15,7 @@ const { reducer, actions } = createSlice({
 	reducers: {
 		// *Принимает юзеров для отрисовки
 		setUsers: (state, action) => {
-			state.users = [...action.payload];
+			state.users = action.payload;
 		},
 		// *Уснановка выбранной страницы
 		setCurrentPage(state, action) {
@@ -25,10 +24,6 @@ const { reducer, actions } = createSlice({
 		// *Количество всех пользователей
 		setTotalUsersCount(state, action) {
 			state.totalUsersCount = action.payload;
-		},
-		// *Переключатель запроса на сервер во время получения пользователей
-		toggleIsFetching(state, action) {
-			state.isFetching = action.payload;
 		},
 		// *Переключатель запроса при нажатии на кнопку follow/onfollow
 		toggleIsFollowingProgress: {
@@ -75,7 +70,6 @@ export const {
 	setUsers,
 	setCurrentPage,
 	setTotalUsersCount,
-	toggleIsFetching,
 	toggleIsFollowingProgress,
 	followSuccess,
 	unfollowSuccess,
@@ -84,12 +78,11 @@ export const {
 // * Thunks
 // Получение пользователей с сервера, передача их в state
 export const getUsers = (currentPage, pageSize) => async (dispatch) => {
-	dispatch(toggleIsFetching(true)); // Включает индикатор запроса на сервер
+	dispatch(setUsers(null)); // Обнуление юзеров
 	dispatch(setCurrentPage(currentPage)); // установка текущей страницы
 	const data = await usersAPI.getUsers(currentPage, pageSize); // Запрос пользователей
 	dispatch(setUsers(data.items)); // Передает полученных пользователей в state
 	dispatch(setTotalUsersCount(data.totalCount)); // Передает общее количество пользователей в state
-	dispatch(toggleIsFetching(false)); // Выключает индикатор запроса
 };
 
 export const follow = (id) => async (dispatch) => {

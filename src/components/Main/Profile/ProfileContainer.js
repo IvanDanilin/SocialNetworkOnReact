@@ -11,9 +11,12 @@ import {
 	updateUserStatus,
 	changeMyPhoto,
 	changeUserData,
+	setUserProfile,
+	setErrorDownloadProfile,
 } from '../../../redux/reducers/profileReducer';
 import Preloader from '../../common/Preloader/Preloader';
 import Profile from './Profile';
+import SomeError from '../../common/Errors/Error';
 
 const ProfileContainer = (props) => {
 	const {
@@ -24,6 +27,9 @@ const ProfileContainer = (props) => {
 		getProfile,
 		isAuth,
 		profile,
+		errorDownloadProfile,
+		setErrorDownloadProfile,
+		setUserProfile,
 	} = props;
 
 	const userIdInAddressBar = +userId;
@@ -42,8 +48,18 @@ const ProfileContainer = (props) => {
 			}
 			// Запрос данных пользователя
 			getProfile(userIdInAddressBar);
+			return () => {
+				setErrorDownloadProfile(false);
+				setUserProfile(null);
+			};
 		}
-	}, [userIdInAddressBar, authUserId, getProfile]);
+	}, [
+		userIdInAddressBar,
+		authUserId,
+		getProfile,
+		setUserProfile,
+		setErrorDownloadProfile,
+	]);
 
 	// Если пользователь выполнил выход
 	useEffect(() => {
@@ -54,12 +70,16 @@ const ProfileContainer = (props) => {
 
 	// Если в адресной строке указан id
 	if (userIdInAddressBar) {
-		return profile ? (
-			// Если данные профиля получены
-			<Profile {...props} userId={authUserId} isMyProfile={isMyProfile} />
-		) : (
-			// Если идет получение данных
-			<Preloader />
+		return (
+			<>
+				{errorDownloadProfile && <SomeError />}
+				{profile ? (
+					<Profile {...props} userId={authUserId} isMyProfile={isMyProfile} />
+				) : (
+					// Если идет получение данных
+					<Preloader />
+				)}
+			</>
 		);
 	} else {
 		// Если в адресной строке не указан id
@@ -82,6 +102,8 @@ const mapStateToProps = (state) => ({
 	isAuth: state.auth.isAuth,
 	authUserId: state.auth.userId,
 	existingPosts: state.profilePage.existingPosts,
+	errorDownloadProfile: state.profilePage.errorDownloadProfile,
+	isFetchingProfile: state.profilePage.isFetchingProfile,
 });
 
 // Actions for dispatchs
@@ -91,7 +113,9 @@ const mapDispatchToProps = {
 	addPost,
 	getProfile,
 	changeMyPhoto,
-	changeUserData
+	changeUserData,
+	setUserProfile,
+	setErrorDownloadProfile,
 };
 
 export default compose(

@@ -36,16 +36,24 @@ export const authAPI = {
 	},
 };
 
+export const securityAPI = {
+	getCaptcha() {
+		return instance
+			.get('security/get-captcha-url')
+			.then((response) => response.data.url);
+	},
+};
+
 export const profileAPI = {
 	getProfileData(userId) {
 		return instance
 			.get(`profile/${userId}`)
-			.then((response) => (response.status === 200 ? response.data : false));
+			.then((response) => (response.status === 200 ? response.data : false))
 	},
 	getStatus(userId) {
 		return instance
 			.get(`profile/status/${userId}`)
-			.then((response) => (response.status === 200 ? response.data : false));
+			.then((response) => (response.status === 200 ? response.data : false))
 	},
 	updateStatus(textStatus) {
 		return instance
@@ -62,8 +70,6 @@ export const profileAPI = {
 			.then((response) => response);
 	},
 	sendUserData(payload) {
-		return instance
-			.put('profile/', payload)
-			.then((response) => response.data);
+		return instance.put('profile/', payload).then((response) => response.data);
 	},
 };

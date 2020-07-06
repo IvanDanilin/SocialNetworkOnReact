@@ -3,6 +3,7 @@ import { profileAPI } from '../../api/api';
 import { FORM_ERROR } from 'final-form';
 
 const initialState = {
+	errorDownloadProfile: false,
 	myProfile: { photos: {} },
 	profile: null,
 	status: '',
@@ -65,6 +66,9 @@ const { actions, reducer } = createSlice({
 			state.profile.photos = action.payload.data.photos;
 			state.myProfile.photos = action.payload.data.photos;
 		},
+		setErrorDownloadProfile(state, action) {
+			state.errorDownloadProfile = action.payload;
+		},
 	},
 });
 
@@ -76,27 +80,35 @@ export const {
 	setMyUserProfile,
 	setStatus,
 	updatePhoto,
+	setErrorDownloadProfile,
 } = actions;
 
 // Thunks
 export const getProfile = (userId) => async (dispatch) => {
-	await Promise.all([
-		dispatch(getUserProfile(userId)),
-		dispatch(getUserStatus(userId)),
-	]);
-	return true;
+	try {
+		await Promise.all([
+			dispatch(getUserProfile(userId)),
+			dispatch(getUserStatus(userId)),
+		]);
+	} catch (error) {
+		dispatch(setErrorDownloadProfile(true));
+	}
 };
 
 export const getUserProfile = (userId) => async (dispatch) => {
 	dispatch(setUserProfile(null));
 	const data = await profileAPI.getProfileData(userId);
-	dispatch(setUserProfile(data));
+	if (data) {
+		dispatch(setUserProfile(data));
+	}
 };
 
 export const getUserStatus = (userId) => async (dispatch) => {
 	dispatch(setStatus(null));
 	const data = await profileAPI.getStatus(userId);
-	dispatch(setStatus(data));
+	if (data) {
+		dispatch(setStatus(data));
+	}
 };
 
 export const getMyUserProfile = (userId) => async (dispatch) => {
@@ -124,7 +136,7 @@ export const changeUserData = (payload) => async (dispatch, getState) => {
 	if (response.resultCode === 0) {
 		dispatch(getUserProfile(userId));
 		dispatch(getMyUserProfile(userId));
-		// Обрабтка ошибок
+		// Обработка ошибок
 	} else {
 		// Объект для передачи ошибок в форму
 		const errors = {};
@@ -165,7 +177,7 @@ export const changeUserData = (payload) => async (dispatch, getState) => {
 					errors[FORM_ERROR] = error;
 					// Если создана
 				} else {
-					// Добавляем к ней ошибки через запятую 
+					// Добавляем к ней ошибки через запятую
 					errors[FORM_ERROR] = errors[FORM_ERROR] + ', ' + error;
 				}
 			}

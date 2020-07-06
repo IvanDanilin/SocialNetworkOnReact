@@ -6,23 +6,26 @@ import { Textarea, Input } from '../../common/FormControls/FormControls';
 
 const Contacts = ({ contacts, pageEditMode }) => {
 	let itemExist = false;
-	const items = Object.entries(contacts).map((contact) => {
-		if (contact[1] || pageEditMode) {
-			itemExist = true;
-			return (
-				<div key={contact[0]} className={styles.contactsItem}>
-					<span>{`${contact[0]}: `}</span>
-					{pageEditMode ? (
-						<Field component={Input} name={`contacts.${contact[0]}`} />
-					) : (
-						contact[1]
-					)}
-				</div>
-			);
-		} else {
-			return null;
-		}
-	});
+	let items;
+	if (contacts) {
+		items = Object.entries(contacts).map((contact) => {
+			if (contact[1] || pageEditMode) {
+				itemExist = true;
+				return (
+					<div key={contact[0]} className={styles.contactsItem}>
+						<span>{`${contact[0]}: `}</span>
+						{pageEditMode ? (
+							<Field component={Input} name={`contacts.${contact[0]}`} />
+						) : (
+							contact[1]
+						)}
+					</div>
+				);
+			} else {
+				return null;
+			}
+		});
+	}
 
 	return itemExist || pageEditMode ? (
 		<div className={styles.contactsBlock}>
@@ -143,7 +146,6 @@ const PersonalInfoWrap = ({
 
 // Общий блок информации о пользователе
 const PageInfoWrap = ({
-	profile,
 	defaultAvatar,
 	isMyProfile,
 	status,
@@ -152,17 +154,15 @@ const PageInfoWrap = ({
 	pageEditMode,
 	setPageEditMode,
 	submitError,
-}) => {
-	// Данные профиля
-	const {
+	profile: {
 		contacts,
 		photos,
 		fullName,
 		aboutMe,
 		lookingForAJob,
 		lookingForAJobDescription,
-	} = profile;
-
+	},
+}) => {
 	// Функция для отправки фото профиля на сервер
 	const onMyPhotoSelected = (e) => {
 		if (e.target.files.length) {
@@ -173,7 +173,10 @@ const PageInfoWrap = ({
 	return (
 		<div className={styles.pageWrap}>
 			<div className={styles.avatar}>
-				<img src={photos.large || defaultAvatar} alt='avatar' />
+				<img
+					src={photos ? photos.large || defaultAvatar : defaultAvatar}
+					alt='avatar'
+				/>
 				{isMyProfile && <input type='file' onChange={onMyPhotoSelected} />}
 			</div>
 
@@ -209,6 +212,7 @@ const PageInfoWrap = ({
 const PageInfoWrapWithEditMode = (props) => {
 	// Переключатель режима редактирования информации пользователя
 	const [pageEditMode, setPageEditMode] = useState(false);
+
 	const {
 		contacts,
 		fullName,

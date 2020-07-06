@@ -1,6 +1,9 @@
 import React from 'react';
 import { Field, Form } from 'react-final-form';
-import { fullValidation } from '../../../utilities/validators/validators';
+import {
+	fullValidation,
+	required,
+} from '../../../utilities/validators/validators';
 import { Input } from '../../common/FormControls/FormControls';
 import styles from './Login.module.scss';
 import Preloader from '../../common/Preloader/Preloader';
@@ -11,8 +14,8 @@ const LoginForm = (props) => (
 			rememberMe: true,
 			passwordShown: false,
 		}}
-		onSubmit={({ email, password, rememberMe }) =>
-			props.onSubmit({ email, password, rememberMe })
+		onSubmit={({ email, password, rememberMe, captcha }) =>
+			props.onSubmit({ email, password, rememberMe, captcha })
 		}
 		render={({
 			handleSubmit,
@@ -53,17 +56,37 @@ const LoginForm = (props) => (
 						Remember me
 					</label>
 				</div>
-				<button type='submit' disabled={submitting}>
-					Log in
-				</button>
-				<button
-					type='button'
-					disabled={pristine || submitting}
-					onClick={form.reset}
-				>
-					Clear
-				</button>
-				{submitError && <div className={styles.error}>{submitError}</div>}
+				{props.captchaUrl && (
+					<div className={styles.captcha}>
+						<div className={styles.captchaImg}>
+							<button type='button' onClick={props.getCaptcha}>
+								<img src={props.refreshImg} alt='' />
+							</button>
+							<img src={props.captchaUrl} alt='Captcha' />
+						</div>
+						<div className={styles.textInputWrap}>
+							<Field
+								component={Input}
+								name='captcha'
+								validate={required('Requred field')}
+								placeholder='Type the characters above'
+							/>
+						</div>
+					</div>
+				)}
+				<div className={styles.buttons}>
+					<button type='submit' disabled={submitting}>
+						Log in
+					</button>
+					<button
+						type='button'
+						disabled={pristine || submitting}
+						onClick={form.reset}
+					>
+						Clear
+					</button>
+				</div>
+				<div className={styles.error}>{submitError && submitError}</div>
 			</form>
 		)}
 	/>

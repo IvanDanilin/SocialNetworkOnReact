@@ -1,4 +1,4 @@
-import { authAPI } from '../../api/api';
+import { authAPI, securityAPI } from '../../api/api';
 import { getMyUserProfile, setMyUserProfile } from './profileReducer';
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -7,6 +7,7 @@ let initialState = {
 	email: null,
 	login: null,
 	isAuth: false,
+	captchaUrl: null,
 };
 
 const { actions, reducer } = createSlice({
@@ -24,10 +25,13 @@ const { actions, reducer } = createSlice({
 				},
 			}),
 		},
+		setCaptcha(state, action) {
+			state.captchaUrl = action.payload;
+		},
 	},
 });
 
-const { setAuthUserData } = actions;
+const { setAuthUserData, setCaptcha } = actions;
 
 export default reducer;
 
@@ -43,11 +47,19 @@ export const getAuthUserData = () => async (dispatch) => {
 		return false;
 	}
 };
+export const getCaptcha = () => async (dispatch) => {
+	const captchaUrl = await securityAPI.getCaptcha();
+	dispatch(setCaptcha(captchaUrl));
+};
 
 export const signIn = (authData) => async (dispatch) => {
 	const data = await authAPI.signIn(authData);
 	if (data.resultCode === 0) {
 		dispatch(getAuthUserData());
+		dispatch(setCaptcha(null));
+	} else if (data.resultCode === 10) {
+		dispatch(getCaptcha());
+		return data.messages[0];
 	} else {
 		return data.messages[0];
 	}
