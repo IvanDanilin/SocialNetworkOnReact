@@ -120,5 +120,6 @@ const mapDispatchToProps = {
 
 export default compose(
 	connect(mapStateToProps, mapDispatchToProps),
-	withRouter
+	withRouter,
+	React.memo
 )(ProfileContainer);

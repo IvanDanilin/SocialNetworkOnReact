@@ -1,4 +1,3 @@
-import { FORM_ERROR } from 'final-form';
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
@@ -13,12 +12,13 @@ import refreshImg from '../../../assets/image/refresh.svg';
 
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);
-	const onSubmit = async (values) => {
+	const onSubmit = async (values, actions) => {
+		actions.setStatus()
 		setLoading(true);
 		const error = await props.signIn(values);
 		setLoading(false);
 		if (error) {
-			return { [FORM_ERROR]: error };
+			actions.setStatus(error);
 		}
 	};
 

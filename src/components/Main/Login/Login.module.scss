@@ -18,25 +18,13 @@
 	form {
 		margin: 0 auto;
 		max-width: max-content;
-		.textInputWrap {
-			min-height: 45px;
+		.inputWrap {
+			label {
+				margin-left: 5px;
+			}
 			input {
 				max-width: 175px;
-				padding: 5px;
-				display: block;
-				&::placeholder {
-					color: #444;
-				}
-				&:focus {
-					background: #fff;
-					&::placeholder {
-						color: #777;
-					}
-				}
-			}
-			span {
-				color: red;
-				text-shadow: 1px 1px 2px #000;
+				margin-bottom: 10px ;
 			}
 		}
 		.captcha {
@@ -58,12 +46,9 @@
 			}
 		}
 	}
-	input {
-		background: rgb(247, 247, 247);
-		border: 1px solid #000;
-		border-radius: 5px;
-	}
 	.buttons {
+		margin: 0 auto;
+		max-width: max-content;
 		button {
 			margin: 7px 1px;
 			padding: 5px;
