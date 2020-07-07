@@ -107,10 +107,10 @@
 								min-width: 100px;
 								max-width: 100%;
 								.pageInfoRow {
-                                    margin: 7px 0;
-                                    span {
-                                        font-weight: 700;
-                                    }
+									margin: 7px 0;
+									span {
+										font-weight: 700;
+									}
 								}
 							}
 							.contactsBlock {
@@ -135,6 +135,19 @@
 								}
 							}
 						}
+						.errorsWrap {
+							min-height: 50px;
+							.errors {
+								color: #ddd;
+								line-height: 17px;
+								padding: 5px;
+								background: rgb(165, 0, 0);
+								box-shadow: 2px 2px 5px rgba(0, 0, 0, 1);
+							}
+							.blinkError {
+								background: rgb(177, 0, 0);
+							}
+						}
 					}
 				}
 			}
@@ -147,14 +160,8 @@
 					input {
 						font-size: 17px;
 						width: 100%;
-						border-radius: 4px;
 						padding-left: 10px;
 						line-height: 35px;
-						background: #ddd;
-						box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
-						&:focus {
-							background: #fff;
-						}
 					}
 					.buttonWrap {
 						margin-top: 10px;

@@ -1,11 +1,10 @@
 .defaultForm {
 	.defaultElement {
-		max-width: 175px;
-		padding: 5px;
 		display: block;
 		background: rgb(247, 247, 247);
 		border: 2px solid #000;
 		border-radius: 5px;
+		box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
 		&::placeholder {
 			color: #444;
 		}

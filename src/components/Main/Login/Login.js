@@ -13,9 +13,18 @@ import refreshImg from '../../../assets/image/refresh.svg';
 const Login = (props) => {
 	const [loading, setLoading] = useState(false);
 	const onSubmit = async (values, actions) => {
-		actions.setStatus()
+		actions.setStatus();
 		setLoading(true);
 		const error = await props.signIn(values);
+		actions.resetForm({
+			values: {
+				rememberMe: true,
+				passwordShown: false,
+				email: values.email,
+				password: values.password,
+				captcha: '',
+			},
+		});
 		setLoading(false);
 		if (error) {
 			actions.setStatus(error);

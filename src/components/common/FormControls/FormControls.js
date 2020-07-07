@@ -9,7 +9,6 @@ const FormControl = ({ error, touched, serverError, ...props }) => {
 	const Element = props.element;
 
 	const [errorStyle, setErrorStyle] = useState(false);
-	console.log(props);
 
 	useEffect(() => {
 		if (error && touched) {

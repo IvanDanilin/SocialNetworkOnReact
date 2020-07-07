@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { profileAPI } from '../../api/api';
-import { FORM_ERROR } from 'final-form';
 
 const initialState = {
 	errorDownloadProfile: false,
@@ -139,7 +138,7 @@ export const changeUserData = (payload) => async (dispatch, getState) => {
 		// Обработка ошибок
 	} else {
 		// Объект для передачи ошибок в форму
-		const errors = {};
+		const errors = { any: [] };
 		// Перебор массива ошибок (приходит с сервера)
 		response.messages.forEach((error) => {
 			// * Если в тексте ошибки есть Contacts
@@ -159,7 +158,11 @@ export const changeUserData = (payload) => async (dispatch, getState) => {
 				errors.contacts[contactName] = errorText;
 				// * Если ошибка не связана с контактами, проверяем связь
 				// * с другими полями формы
-			} else if (error.includes('Looking') || error.includes('About')) {
+			} else if (
+				error.includes('Looking') ||
+				error.includes('About') ||
+				error.includes('FullName')
+			) {
 				// Вырезаем название формы
 				let fildName = error.split('(')[1].split(')')[0];
 				// Первая буква строчная
@@ -170,17 +173,9 @@ export const changeUserData = (payload) => async (dispatch, getState) => {
 				errors[fildName] = errorText;
 				// * Если связь с полями формы была не найдена, добавляем ошибку
 				// * в ошибку формы
-			} else {
-				// Если ошибка формы еще не создана
-				if (!errors[FORM_ERROR]) {
-					// Создаем ее и добавляем в нее ошибку
-					errors[FORM_ERROR] = error;
-					// Если создана
-				} else {
-					// Добавляем к ней ошибки через запятую
-					errors[FORM_ERROR] = errors[FORM_ERROR] + ', ' + error;
-				}
 			}
+			// Добавляем ошибки в общий массив
+			errors.any.push(error);
 		});
 		return errors;
 	}

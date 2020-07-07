@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Profile.module.scss';
 import ProfileStatus from './ProfileStatus';
-import { Form, Field } from 'react-final-form';
 import { Textarea, Input } from '../../common/FormControls/FormControls';
+import { Formik, Field } from 'formik';
+import cn from 'classnames';
 
-const Contacts = ({ contacts, pageEditMode }) => {
+const Contacts = ({ contacts, pageEditMode, touched, errors, values }) => {
 	let itemExist = false;
 	let items;
 	if (contacts) {
@@ -15,14 +16,22 @@ const Contacts = ({ contacts, pageEditMode }) => {
 					<div key={contact[0]} className={styles.contactsItem}>
 						<span>{`${contact[0]}: `}</span>
 						{pageEditMode ? (
-							<Field component={Input} name={`contacts.${contact[0]}`} />
+							<Field
+								as={Input}
+								name={`contacts.${contact[0]}`}
+								value={values.contacts[contact[0]] || ''}
+								error={errors && errors.contacts && errors.contacts[contact[0]]}
+								touched={
+									touched && touched.contacts && touched.contacts[contact[0]]
+								}
+							/>
 						) : (
 							contact[1]
 						)}
 					</div>
 				);
 			} else {
-				return null;
+				return '';
 			}
 		});
 	}
@@ -42,17 +51,25 @@ const AboutMe = ({
 	lookingForAJob,
 	lookingForAJobDescription,
 	pageEditMode,
+	touched,
+	errors,
 }) => {
 	return (
 		<div className={styles.aboutMeBlock}>
-			{pageEditMode ? (
+			{aboutMe || pageEditMode ? (
 				<div className={styles.pageInfoRow}>
 					<span>About me:</span>
-					<Field component={Textarea} name='aboutMe' placeholder='About me' />
-				</div>
-			) : aboutMe ? (
-				<div className={styles.pageInfoRow}>
-					<span>About me:</span> {aboutMe}
+					{pageEditMode ? (
+						<Field
+							as={Textarea}
+							name='aboutMe'
+							placeholder='About me'
+							error={errors.aboutMe}
+							touched={touched.aboutMe}
+						/>
+					) : (
+						aboutMe
+					)}
 				</div>
 			) : (
 				''
@@ -60,11 +77,7 @@ const AboutMe = ({
 			<div className={styles.pageInfoRow}>
 				<span>Looking for a job: </span>
 				{pageEditMode ? (
-					<Field
-						component={'input'}
-						type={'checkbox'}
-						name={'lookingForAJob'}
-					/>
+					<Field type={'checkbox'} name={'lookingForAJob'} />
 				) : lookingForAJob ? (
 					'Yes'
 				) : (
@@ -73,9 +86,11 @@ const AboutMe = ({
 			</div>
 			{pageEditMode ? (
 				<Field
-					component={Textarea}
+					as={Textarea}
 					name='lookingForAJobDescription'
 					placeholder='Description'
+					error={errors.lookingForAJobDescription}
+					touched={touched.lookingForAJobDescription}
 				/>
 			) : lookingForAJobDescription ? (
 				<div className={styles.pageInfoRow}>{lookingForAJobDescription}</div>
@@ -94,8 +109,39 @@ const PersonalInfoWrap = ({
 	lookingForAJob,
 	lookingForAJobDescription,
 	contacts,
-	submitError,
+	touched,
+	errors,
+	values,
 }) => {
+	const [errorIndex, setErrorIndex] = useState(0);
+	const [blinkError, setBlinkError] = useState(false);
+
+	useEffect(() => {
+		let mainTimeout;
+		let blinkTumeout;
+		if (errors && errors.any && errors.any.length > 1) {
+			mainTimeout = setTimeout(() => {
+				if (errors && errors.any && errorIndex < errors.any.length - 1) {
+					setErrorIndex(errorIndex + 1);
+					setBlinkError(true);
+					blinkTumeout = setTimeout(() => {
+						setBlinkError(false);
+					}, 500);
+				} else {
+					setErrorIndex(0);
+					setBlinkError(true);
+					blinkTumeout = setTimeout(() => {
+						setBlinkError(false);
+					}, 500);
+				}
+			}, 2000);
+		}
+		return () => {
+			clearTimeout(mainTimeout);
+			clearTimeout(blinkTumeout);
+		};
+	}, [errors, errorIndex]);
+
 	return (
 		<div className={styles.personalInfoWrap}>
 			<div className={styles.topBorder}>
@@ -116,12 +162,17 @@ const PersonalInfoWrap = ({
 					aboutMe={aboutMe}
 					lookingForAJob={lookingForAJob}
 					lookingForAJobDescription={lookingForAJobDescription}
+					errors={errors}
+					touched={touched}
 				/>
 
 				<Contacts
 					pageEditMode={pageEditMode}
 					contacts={contacts}
 					isMyProfile={isMyProfile}
+					errors={errors}
+					touched={touched}
+					values={values}
 				/>
 			</div>
 
@@ -137,7 +188,19 @@ const PersonalInfoWrap = ({
 					>
 						Cancel
 					</button>
-					{submitError && <div className={styles.error}>{submitError}</div>}
+					<div className={styles.errorsWrap}>
+						{errors.any ? (
+							<div
+								className={cn(styles.errors, {
+									[styles.blinkError]: blinkError,
+								})}
+							>
+								{errors.any[errorIndex]}
+							</div>
+						) : (
+							''
+						)}
+					</div>
 				</>
 			)}
 		</div>
@@ -153,7 +216,9 @@ const PageInfoWrap = ({
 	changeMyPhoto,
 	pageEditMode,
 	setPageEditMode,
-	submitError,
+	touched,
+	errors,
+	values,
 	profile: {
 		contacts,
 		photos,
@@ -183,7 +248,13 @@ const PageInfoWrap = ({
 			<div className={styles.pageInfoWrap}>
 				<div className={styles.pageName}>
 					{pageEditMode ? (
-						<Field component='input' name='fullName' />
+						<Field
+							as={Input}
+							name='fullName'
+							placeholder={'Your name'}
+							error={errors.fullName}
+							touched={touched.fullName}
+						/>
 					) : (
 						fullName
 					)}
@@ -202,7 +273,9 @@ const PageInfoWrap = ({
 					lookingForAJob={lookingForAJob}
 					lookingForAJobDescription={lookingForAJobDescription}
 					contacts={contacts}
-					submitError={submitError}
+					errors={errors}
+					touched={touched}
+					values={values}
 				/>
 			</div>
 		</div>
@@ -222,7 +295,7 @@ const PageInfoWrapWithEditMode = (props) => {
 	} = props.profile;
 
 	return pageEditMode ? (
-		<Form
+		<Formik
 			initialValues={{
 				contacts,
 				fullName,
@@ -230,23 +303,30 @@ const PageInfoWrapWithEditMode = (props) => {
 				lookingForAJob,
 				lookingForAJobDescription,
 			}}
-			onSubmit={async (payload) => {
-				const error = await props.changeUserData(payload);
+			onSubmit={async (values, actions) => {
+				const error = await props.changeUserData(values);
 				if (error) {
-					return error;
+					actions.setErrors(error);
 				}
 			}}
-			render={({ handleSubmit, submitError }) => (
-				<form onSubmit={handleSubmit}>
-					<PageInfoWrap
-						{...props}
-						pageEditMode={pageEditMode}
-						setPageEditMode={setPageEditMode}
-						submitError={submitError}
-					/>
-				</form>
-			)}
-		/>
+		>
+			{({ handleSubmit, errors, touched, values }) => {
+				console.log(errors);
+
+				return (
+					<form onSubmit={handleSubmit}>
+						<PageInfoWrap
+							{...props}
+							pageEditMode={pageEditMode}
+							setPageEditMode={setPageEditMode}
+							errors={errors}
+							touched={touched}
+							values={values}
+						/>
+					</form>
+				);
+			}}
+		</Formik>
 	) : (
 		<PageInfoWrap
 			setPageEditMode={setPageEditMode}
