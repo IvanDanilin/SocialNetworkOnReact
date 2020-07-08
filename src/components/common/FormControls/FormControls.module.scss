@@ -1,25 +1,18 @@
-.defaultForm {
-	.defaultElement {
-		display: block;
-		background: rgb(247, 247, 247);
-		border: 2px solid #000;
-		border-radius: 5px;
-		box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+.defaultElement {
+	background: rgb(247, 247, 247);
+	border: 2px solid #000;
+	border-radius: 5px;
+	box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+	&::placeholder {
+		color: #444;
+	}
+	&:focus {
+		background: #fff;
 		&::placeholder {
-			color: #444;
-		}
-		&:focus {
-			background: #fff;
-			&::placeholder {
-				color: #777;
-			}
+			color: #777;
 		}
 	}
-	span {
-		color: red;
-		text-shadow: 1px 1px 2px #000;
-	}
-	.error {
+	&.error {
 		border: 2px solid red;
 	}
 }

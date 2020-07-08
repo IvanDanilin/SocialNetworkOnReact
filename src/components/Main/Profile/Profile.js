@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './Profile.module.scss';
 import PageInfoWrap from './PageInfoWrap';
 import NewPostBlock from './NewPostBlock';
 import ExistingPostsBlock from './ExistingPostsBlock';
+import PageInfoForm from './PageInfoForm';
 
 const Profile = ({
 	topImage,
@@ -18,7 +19,16 @@ const Profile = ({
 	userId,
 	changeUserData,
 }) => {
-	return (
+	// Переключатель режима редактирования информации пользователя
+	const [pageEditMode, setPageEditMode] = useState(false);
+
+	return pageEditMode ? (
+		<PageInfoForm
+			setPageEditMode={setPageEditMode}
+			profile={profile}
+			changeUserData={changeUserData}
+		/>
+	) : (
 		<div className={styles.profile}>
 			<div className={styles.topImage}>
 				<img src={topImage} alt='cover' />
@@ -33,7 +43,7 @@ const Profile = ({
 						updateUserStatus={updateUserStatus}
 						changeMyPhoto={changeMyPhoto}
 						userId={userId}
-						changeUserData={changeUserData}
+						setPageEditMode={setPageEditMode}
 					/>
 					<div className={styles.postsBlock}>
 						{isAuth ? <NewPostBlock addPost={addPost} /> : ''}

@@ -1,0 +1,66 @@
+.pageInfoFormWrap {
+	background: mediumslateblue;
+	padding: 20px;
+	form {
+		font-size: 15px;
+		max-width: 500px;
+		margin: 0 auto;
+		fieldset {
+			border: 1px solid #000;
+			border-radius: 5px;
+			padding: 10px;
+		}
+		.inputItem {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			.nameItem {
+				text-transform: capitalize;
+				min-width: 130px;
+			}
+			.checkboxField,
+			.textField {
+				min-width: 150px;
+				max-width: 250px;
+				width: 100%;
+				margin: 5px;
+			}
+			.textField {
+				textarea,
+				input {
+					width: 100%;
+					font-size: 15px;
+					padding: 2px;
+				}
+			}
+		}
+		.contactsTitle {
+			background: rgb(106, 81, 194);
+			font-size: 22px;
+			margin: 7px 0;
+		}
+		.buttons {
+			text-align: center;
+			button {
+				margin: 10px;
+				padding: 3px 5px;
+				border-radius: 3px;
+				background: rgb(64, 82, 179);
+				color: #fff;
+			}
+		}
+	}
+	.errorsWrap {
+		min-height: 50px;
+		.errors {
+			color: #ddd;
+			line-height: 17px;
+			padding: 5px;
+			background: rgb(165, 0, 0);
+			border-radius: 3px;
+		}
+		.blinkError {
+			background: rgb(177, 0, 0);
+		}
+	}
+}

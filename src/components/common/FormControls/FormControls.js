@@ -29,12 +29,12 @@ const FormControl = ({ error, touched, serverError, ...props }) => {
 	}, [serverError]);
 
 	return (
-		<div className={styles.defaultForm}>
-			<Element
-				{...props}
-				className={cn([styles.defaultElement], { [styles.error]: errorStyle })}
-			/>
-		</div>
+		<Element
+			{...props}
+			className={cn([styles.defaultElement], {
+				[styles.error]: errorStyle,
+			})}
+		/>
 	);
 };
 
