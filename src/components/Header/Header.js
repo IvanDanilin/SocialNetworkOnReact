@@ -17,7 +17,7 @@ const AuthUserInfo = (props) => {
 		<>
 			<div className={login}>{props.fullName}</div>
 			<div className={avatar}>
-				<img src={ props.avatar || props.defaultAvatar} alt='' />
+				<img src={props.avatar || props.defaultAvatar} alt='' />
 			</div>
 		</>
 	);
@@ -33,9 +33,9 @@ const Header = ({
 	isAuth,
 	signOut,
 	userId,
-}) => {	
+}) => {
 	const onClick = () => {
-		toggleDropDownMenu();
+		toggleDropDownMenu(true);
 	};
 	return (
 		<header className={header}>

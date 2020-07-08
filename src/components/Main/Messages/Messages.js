@@ -9,8 +9,9 @@ import styles from './Messages.module.scss';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
+
 const MessageFormValidationSchema = yup.object().shape({
-	newMessage: yup.string().max(100),
+	newMessage: yup.string(),
 });
 
 const CurrentMessages = (props) =>
@@ -35,8 +36,9 @@ const NewMessageForm = (props) => (
 					as={Textarea}
 					name='newMessage'
 					placeholder='Enter your message...'
-					error={errors.newMessage}
+					serverError={errors.newMessage}
 					touched={touched.newMessage}
+					maxLength='500'
 				/>
 				{values.newMessage && <button type='submit'>Send</button>}
 			</form>
