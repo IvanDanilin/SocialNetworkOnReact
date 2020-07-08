@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Profile.module.scss';
-import { Form, Field } from 'react-final-form';
+import { Formik, Field } from 'formik';
 
 const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 	const [editMode, setEditMode] = useState(false);
@@ -11,33 +11,31 @@ const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 		<>
 			{editMode ? (
 				<div className={styles.status}>
-					<Form
+					<Formik
 						initialValues={{
 							status: status,
 						}}
 						onSubmit={({ status }, form) => {
-							if (status !== form.getState().initialValues.status) {
 								updateUserStatus(status);
-							}
 							setEditMode(false);
 						}}
-						render={({ handleSubmit }) => (
-							<Field
-								onBlur={handleSubmit}
-								autoFocus
-								component='input'
-								name='status'
-								maxLength='300'
-								parse={(value) => value}
-							/>
+					>
+						{({ handleSubmit }) => (
+								<Field
+									onBlur={handleSubmit}
+									autoFocus
+									component='input'
+									name='status'
+									maxLength='300'
+								/>
 						)}
-					/>
+					</Formik>
 				</div>
 			) : status || isMyProfile ? (
 				<div className={styles.status}>
 					<span
-						onDoubleClick={isMyProfile ? activateEditMode : undefined}
-						title={isMyProfile ? 'Double click to change your status' : ''}
+						onClick={isMyProfile ? activateEditMode : undefined}
+						title={isMyProfile ? 'Click to change your status' : ''}
 						className={
 							isMyProfile ? (status ? styles.myStatus : styles.enterStatus) : ''
 						}
