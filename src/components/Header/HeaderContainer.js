@@ -2,11 +2,14 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
 import logo from '../../assets/image/logo.svg';
-import { signOut } from '../../redux/reducers/authReducer';
+import {
+	signOut,
+	toggleSignOutInProcess,
+} from '../../redux/reducers/authReducer';
 import { getMyUserProfile } from '../../redux/reducers/profileReducer';
 import Header from './Header';
 
-const HeaderContainer = (props) => {	
+const HeaderContainer = (props) => {
 	// Выпадающее меню справа. false - скрыто
 	const [dropDownMenu, setDropDownMenu] = useState(false);
 	// Переключатель выпадающего меню. Принимает значения True, False
@@ -23,6 +26,7 @@ const HeaderContainer = (props) => {
 			{...props}
 			toggleDropDownMenu={toggleDropDownMenu}
 			dropDownMenu={dropDownMenu}
+			toggleSignOutInProcess={props.toggleSignOutInProcess}
 		/>
 	);
 };
@@ -36,6 +40,8 @@ const mapStateToProps = (state) => ({
 	logo,
 });
 
-export default connect(mapStateToProps, { signOut, getMyUserProfile })(
-	HeaderContainer
-);
+export default connect(mapStateToProps, {
+	signOut,
+	getMyUserProfile,
+	toggleSignOutInProcess,
+})(HeaderContainer);

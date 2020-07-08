@@ -19,11 +19,16 @@ const DropDownMenu = (props) => {
 	useOutsideClick(dropDownMenuMenuRef, hideDropDownMenu);
 
 	// Клик на Sign out
-	const onClickSignOut = () => {
-		props.signOut();
+	const onClickSignOut = async () => {
 		hideDropDownMenu();
+		props.toggleSignOutInProcess(true);
+		try {
+			await props.signOut();
+		} catch (error) {
+			props.toggleSignOutInProcess(false);
+		}
+		props.toggleSignOutInProcess(false);
 	};
-
 
 	return (
 		<div ref={dropDownMenuMenuRef} className={styles.dropDownMenu}>

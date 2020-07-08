@@ -33,6 +33,7 @@ const Header = ({
 	isAuth,
 	signOut,
 	userId,
+	toggleSignOutInProcess,
 }) => {
 	const onClick = () => {
 		toggleDropDownMenu(true);
@@ -67,6 +68,7 @@ const Header = ({
 						signOut={signOut}
 						toggleDropDownMenu={toggleDropDownMenu}
 						userId={userId}
+						toggleSignOutInProcess={toggleSignOutInProcess}
 					/>
 				)}
 			</div>

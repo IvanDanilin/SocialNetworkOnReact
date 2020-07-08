@@ -8,6 +8,7 @@ let initialState = {
 	login: null,
 	isAuth: false,
 	captchaUrl: null,
+	signOutInProcess: false,
 };
 
 const { actions, reducer } = createSlice({
@@ -28,10 +29,13 @@ const { actions, reducer } = createSlice({
 		setCaptcha(state, action) {
 			state.captchaUrl = action.payload;
 		},
+		toggleSignOutInProcess(state, { payload }) {
+			state.signOutInProcess = payload;
+		},
 	},
 });
 
-const { setAuthUserData, setCaptcha } = actions;
+export const { setAuthUserData, setCaptcha, toggleSignOutInProcess } = actions;
 
 export default reducer;
 
