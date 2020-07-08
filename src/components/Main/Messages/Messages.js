@@ -1,13 +1,17 @@
 import React from 'react';
-import { Field, Form } from 'react-final-form';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { sendMessage } from '../../../redux/reducers/dialogsReducer';
-import { fullValidation } from '../../../utilities/validators/validators';
 import { Textarea } from '../../common/FormControls/FormControls';
 import styles from './Messages.module.scss';
+import { Formik, Field } from 'formik';
+import * as yup from 'yup';
+
+const MessageFormValidationSchema = yup.object().shape({
+	newMessage: yup.string().max(100),
+});
 
 const CurrentMessages = (props) =>
 	props.messages.map((messageEl) => (
@@ -17,23 +21,27 @@ const CurrentMessages = (props) =>
 	));
 
 const NewMessageForm = (props) => (
-	<Form
-		onSubmit={(value, form) => {
+	<Formik
+		initialValues={{ newMessage: '' }}
+		validationSchema={MessageFormValidationSchema}
+		onSubmit={(value, actions) => {
 			props.sendMessage(value.newMessage, props.userId);
-			setTimeout(form.reset);
+			actions.resetForm();
 		}}
-		render={({ handleSubmit, values }) => (
+	>
+		{({ handleSubmit, values, errors, touched }) => (
 			<form className={styles.newMessage} onSubmit={handleSubmit}>
 				<Field
-					component={Textarea}
-					name="newMessage"
-					placeholder="Enter your message..."
-					validate={fullValidation(0, 100)}
+					as={Textarea}
+					name='newMessage'
+					placeholder='Enter your message...'
+					error={errors.newMessage}
+					touched={touched.newMessage}
 				/>
-				{values.newMessage && <button>Send</button>}
+				{values.newMessage && <button type='submit'>Send</button>}
 			</form>
 		)}
-	/>
+	</Formik>
 );
 
 const Messages = (props) => {

@@ -9,23 +9,27 @@ const FormControl = ({ error, touched, serverError, ...props }) => {
 	const Element = props.element;
 
 	const [errorStyle, setErrorStyle] = useState(false);
-
 	useEffect(() => {
+		let errorStyleTimeout;
 		if (error && touched) {
 			setErrorStyle(true);
-			setTimeout(() => {
+			errorStyleTimeout = setTimeout(() => {
 				setErrorStyle(false);
 			}, 1000);
 		}
+		return () => clearTimeout(errorStyleTimeout);
 	}, [error, touched]);
 
 	useEffect(() => {
+		let errorStyleTimeout;
 		if (serverError) {
 			setErrorStyle(true);
-			setTimeout(() => {
+			errorStyleTimeout = setTimeout(() => {
+				console.log('oh');
 				setErrorStyle(false);
 			}, 1000);
 		}
+		return () => clearTimeout(errorStyleTimeout);
 	}, [serverError]);
 
 	return (

@@ -30,8 +30,9 @@ const ProfileContainer = (props) => {
 		errorDownloadProfile,
 		setErrorDownloadProfile,
 		setUserProfile,
-	} = props;
+	} = props
 
+	// Id текущей страницы пользователя из адресной строки
 	const userIdInAddressBar = +userId;
 
 	// Индикатор профиля авторизованного пользователя
@@ -74,7 +75,7 @@ const ProfileContainer = (props) => {
 			<>
 				{errorDownloadProfile && <SomeError />}
 				{profile ? (
-					<Profile {...props} userId={authUserId} isMyProfile={isMyProfile} />
+					<Profile {...props} isMyProfile={isMyProfile} />
 				) : (
 					// Если идет получение данных
 					<Preloader />
