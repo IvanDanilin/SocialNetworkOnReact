@@ -3,7 +3,7 @@ import ProfileStatus from './ProfileStatus';
 import { render, screen } from '@testing-library/react';
 
 const someStatus = 'some status';
-const enterStatusTitle = 'Double click to change your status';
+const enterStatusTitle = 'Click to change your status';
 
 describe('ProfileStatus component', () => {
 	it('render of my profile without status text', () => {
@@ -33,7 +33,7 @@ describe('ProfileStatus component', () => {
 			<ProfileStatus status={someStatus} isMyProfile={true} />
 		);
 		const statusElement = getByText(someStatus);
-		// В профиле пользователя с имеющимся текстом статуса,
+		// В профиле пользователя с имеющимся текстом статуса
 		// елемент статуса имеет title с подсказкой для изменения статуса
 		expect(statusElement.title).toBe(enterStatusTitle);
 	});

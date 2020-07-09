@@ -129,7 +129,12 @@ const PageInfoWrap = ({
 					src={photos ? photos.large || defaultAvatar : defaultAvatar}
 					alt='avatar'
 				/>
-				{isMyProfile && <input type='file' onChange={onMyPhotoSelected} />}
+				{isMyProfile && (
+					<>
+						<input id='setPhoto' type='file' onChange={onMyPhotoSelected} />
+						<label htmlFor='setPhoto'>Set photo</label>
+					</>
+				)}
 			</div>
 			{/* Page info */}
 			<div className={styles.pageInfoWrap}>
