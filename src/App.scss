@@ -1,12 +1,18 @@
 .app-wrapper {
-    position: relative;
-    display: grid;
-    grid-template-rows: 60px 1fr;
-    grid-template-columns: 160px 1fr;
-    grid-template-areas:
-        "header header"
-        "sidebar main";
+	position: relative;
+	display: grid;
+	grid-template-rows: 60px 1fr;
+	grid-template-columns: 160px 1fr;
+	grid-template-areas:
+		'header header'
+		'sidebar main';
     max-width: 1000px;
-    margin: 0 auto;
-    min-height: 100vh;
+	margin: 0 auto;
+	min-height: 100vh;
+	@media screen and (max-width: 500px) {
+        grid-template-areas:
+		'header'
+		'main';
+		grid-template-columns: 1fr;
+	}
 }

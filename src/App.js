@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect, Provider } from 'react-redux';
 import { compose } from 'redux';
 import './App.scss';
@@ -12,14 +12,16 @@ import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
 
 export const AppPure = ({ initializeApp, initialized }) => {
+	const [mainMenuIsActive, setMainMenuIsActive] = useState(false)
+
 	useEffect(() => {
 		initializeApp();
 	}, [initializeApp]);
 
 	return initialized ? (
 		<div className='app-wrapper'>
-			<HeaderContainer />
-			<Sidebar />
+			<HeaderContainer setMainMenuIsActive={setMainMenuIsActive} />
+			<Sidebar mainMenuIsActive={mainMenuIsActive} setMainMenuIsActive={setMainMenuIsActive} />
 			<Main />
 		</div>
 	) : (

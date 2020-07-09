@@ -9,6 +9,7 @@ import {
 	logoImage,
 	logoName,
 	loginBlock,
+	menuButton,
 } from './Header.module.scss';
 import DropDownMenu from './DropDownMenu';
 
@@ -34,14 +35,22 @@ const Header = ({
 	signOut,
 	userId,
 	toggleSignOutInProcess,
+	menuButtonImg,
+	setMainMenuIsActive,
 }) => {
-	const onClick = () => {
+	const onClickProfileMenuButton = () => {
 		toggleDropDownMenu(true);
+	};
+	const onClickMainMenuButton = () => {
+		setMainMenuIsActive(true);
 	};
 	return (
 		<header className={header}>
 			<div className={headerContent}>
 				<div className={logoBlock}>
+					<div className={menuButton} onClick={onClickMainMenuButton}>
+						<img src={menuButtonImg} alt='button' />
+					</div>
 					<div className={logoImage}>
 						<img src={logo} alt='logo' />
 					</div>
@@ -50,7 +59,7 @@ const Header = ({
 					</NavLink>
 				</div>
 				{isAuth ? (
-					<div className={loginBlock} onClick={onClick}>
+					<div className={loginBlock} onClick={onClickProfileMenuButton}>
 						<AuthUserInfo
 							fullName={fullName}
 							avatar={avatar}

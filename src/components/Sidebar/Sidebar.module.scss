@@ -1,45 +1,53 @@
 .sidebar {
-  grid-area: sidebar;
-  position: fixed;
-  width: 160px;
-  background: darkcyan;
-  height: calc(100vh - 60px);
-  top: 60px;
-  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 5px 5px 10px rgba(0, 0, 0, 1);
-  z-index: 3;
-  .nav {
-    height: 100%;
-    width: 160px;
-    .list {
-      margin: 10px 0 0 20px;
-      font-size: 25px;
-      li {
-        margin: 10px 0;
-        font-family: cursive;
-        a {
-          text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.9);
-          color: rgb(153, 0, 255);
-          &.active {
-            color: springgreen;
-            &:hover {
-              cursor: default;
-              color: springgreen;
-              text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.9);
-            }
-          }
-          &:hover {
-            color: navy;
-            text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.5);
-          }
-          &:active {
-            color: gold;
-            text-shadow: 1.5px 1.5px 1px rgb(0, 0, 0);
-          }
-        }
-      }
-      li:last-child {
-        margin-top: 30px;
-      }
-    }
-  }
+	&.menuIsActive {
+    left: 0;
+    transition: 0.5s;
+	}
+	grid-area: sidebar;
+	position: fixed;
+	width: 160px;
+	background: darkcyan;
+	height: 500vh;
+	top: 60px;
+	box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8), 5px 5px 10px rgba(0, 0, 0, 1);
+	z-index: 3;
+	@media screen and (max-width: 500px) {
+    left: -500px;
+    transition: 0.5s;
+	}
+	.nav {
+		height: 100%;
+		width: 160px;
+		.list {
+			margin: 10px 0 0 20px;
+			font-size: 25px;
+			li {
+				margin: 10px 0;
+				font-family: cursive;
+				a {
+					text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.9);
+					color: rgb(153, 0, 255);
+					&.active {
+						color: springgreen;
+						&:hover {
+							cursor: default;
+							color: springgreen;
+							text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.9);
+						}
+					}
+					&:hover {
+						color: navy;
+						text-shadow: 1.5px 1.5px 1px rgba(0, 0, 0, 0.5);
+					}
+					&:active {
+						color: gold;
+						text-shadow: 1.5px 1.5px 1px rgb(0, 0, 0);
+					}
+				}
+			}
+			li:last-child {
+				margin-top: 30px;
+			}
+		}
+	}
 }

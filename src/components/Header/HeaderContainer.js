@@ -8,6 +8,7 @@ import {
 } from '../../redux/reducers/authReducer';
 import { getMyUserProfile } from '../../redux/reducers/profileReducer';
 import Header from './Header';
+import menuButtonImg from '../../assets/image/menu-button.svg' 
 
 const HeaderContainer = (props) => {
 	// Выпадающее меню справа. false - скрыто
@@ -27,6 +28,8 @@ const HeaderContainer = (props) => {
 			toggleDropDownMenu={toggleDropDownMenu}
 			dropDownMenu={dropDownMenu}
 			toggleSignOutInProcess={props.toggleSignOutInProcess}
+			menuButtonImg={menuButtonImg}
+			setMainMenuIsActive={props.setMainMenuIsActive}
 		/>
 	);
 };

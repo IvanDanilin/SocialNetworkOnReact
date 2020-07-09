@@ -5,7 +5,7 @@ import { Formik, Field } from 'formik';
 import * as yup from 'yup';
 
 const NewPostValidatioSchema = yup.object().shape({
-	newPostInput: yup.string().required().max(30),
+	newPostInput: yup.string().required(),
 });
 
 const NewPostBlock = (props) => (
@@ -27,6 +27,7 @@ const NewPostBlock = (props) => (
 					placeholder={`What's up?`}
 					error={errors.newPostInput}
 					touched={touched.newPostInput}
+					maxLength='1000'
 				/>
 				<div className={styles.buttonWrap}>
 					<button type='submit'>Add post</button>

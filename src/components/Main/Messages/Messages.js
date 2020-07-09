@@ -59,7 +59,7 @@ const Messages = (props) => {
 				/>
 			</div>
 			<div className={styles.newMessageWrap}>
-				<div></div>
+				<div className={styles.emptyBlock}></div>
 				<NewMessageForm sendMessage={props.sendMessage} userId={userId} />
 			</div>
 		</div>

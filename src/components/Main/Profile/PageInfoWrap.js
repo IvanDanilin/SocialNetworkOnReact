@@ -11,8 +11,8 @@ const Contacts = ({ contacts }) => {
 				itemExist = true;
 				return (
 					<div key={contact[0]} className={styles.contactsItem}>
-						<span>{`${contact[0]}: `}</span>
-						{contact[1]}
+						<span className={styles.contactName}>{`${contact[0]}: `}</span>
+						<span className={styles.contact}>{contact[1]}</span>
 					</div>
 				);
 			} else {
@@ -123,30 +123,35 @@ const PageInfoWrap = ({
 
 	return (
 		<div className={styles.pageWrap}>
-			{/* User photo */}
-			<div className={styles.avatar}>
-				<img
-					src={photos ? photos.large || defaultAvatar : defaultAvatar}
-					alt='avatar'
-				/>
-				{isMyProfile && (
-					<>
-						<input id='setPhoto' type='file' onChange={onMyPhotoSelected} />
-						<label htmlFor='setPhoto'>Set photo</label>
-					</>
-				)}
-			</div>
-			{/* Page info */}
-			<div className={styles.pageInfoWrap}>
-				{/* User name */}
-				<div className={styles.pageName}>{fullName}</div>
-
-				{/* User status */}
-				<ProfileStatus
-					isMyProfile={isMyProfile}
-					status={status}
-					updateUserStatus={updateUserStatus}
-				/>
+			<div className={styles.page}>
+				<div className={styles.pageHead}>
+					{/* User photo */}
+					<div className={styles.avatar}>
+						<img
+							src={photos ? photos.large || defaultAvatar : defaultAvatar}
+							alt='avatar'
+						/>
+						{isMyProfile && (
+							<>
+								<input id='setPhoto' type='file' onChange={onMyPhotoSelected} />
+								<label htmlFor='setPhoto'>Set photo</label>
+							</>
+						)}
+					</div>
+					{/* Page info */}
+					<div className={styles.mainInfo}>
+						{/* User name */}
+						<div className={styles.pageName}>{fullName}</div>
+	
+						{/* User status */}
+						<ProfileStatus
+							isMyProfile={isMyProfile}
+							status={status}
+							updateUserStatus={updateUserStatus}
+						/>
+					</div>
+					
+				</div>
 				{/* User info */}
 				<PersonalInfoWrap
 					isMyProfile={isMyProfile}
