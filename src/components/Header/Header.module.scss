@@ -21,7 +21,7 @@
 			display: flex;
 			align-items: center;
 			height: 100%;
-			width: fit-content;
+			justify-content: start;
 			.menuButton {
 				height: 100%;
 				padding: 15px 10px;
@@ -42,6 +42,7 @@
 				}
 				img {
 					height: 100%;
+					width: 50px;
 				}
 			}
 			.logoName {
@@ -62,7 +63,7 @@
 			align-items: center;
 			position: relative;
 			padding: 0 30px 0 0;
-			&::before {
+			&.isExist::before {
 				content: '';
 				position: absolute;
 				width: 10px;

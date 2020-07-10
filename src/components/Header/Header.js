@@ -10,8 +10,10 @@ import {
 	logoName,
 	loginBlock,
 	menuButton,
+	isExist
 } from './Header.module.scss';
 import DropDownMenu from './DropDownMenu';
+import cn from 'classnames';
 
 const AuthUserInfo = (props) => {
 	return (
@@ -59,7 +61,10 @@ const Header = ({
 					</NavLink>
 				</div>
 				{isAuth ? (
-					<div className={loginBlock} onClick={onClickProfileMenuButton}>
+					<div
+						className={cn(loginBlock, { [isExist]: isAuth })}
+						onClick={onClickProfileMenuButton}
+					>
 						<AuthUserInfo
 							fullName={fullName}
 							avatar={avatar}
