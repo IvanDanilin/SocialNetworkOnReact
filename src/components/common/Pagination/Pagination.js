@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Pagination.module.scss';
 
 const Pagination = ({
@@ -37,48 +37,74 @@ const Pagination = ({
 	const leftPortionPageNumber = (portionNumber - 1) * portionSize + 1;
 	// Вычисление последнего номера в текущей порции
 	const rightPortionPageNumber = portionNumber * portionSize;
+	// Вычисление текущей порции и запись порции в state,
+	// при смене страницы.
+	useEffect(() => {
+		const portionNumberCurrentPage = Math.ceil(currentPage / portionSize);
+		setPortionNumber(portionNumberCurrentPage);
+	}, [currentPage, portionSize]);
 	// *----------------------------------------------------------
 
 	// Отображение пагинации если страниц больше одной
 	return pages.length > 1 ? (
 		<div className={styles.pagination}>
 			{/* Кнопка переключения порции влево */}
-			{portionNumber > 1 && (
-				<button
-					onClick={() => {
-						setPortionNumber(portionNumber - 1);
-					}}
-				>
-					Prev
-				</button>
-			)}
+			<div className={styles.buttons}>
+				{portionNumber > 1 && (
+					<>
+						<button
+							className={styles.firstPageButton}
+							onClick={() => {
+								onPageChanged(1);
+							}}
+						></button>
+						<button
+							className={styles.prevButton}
+							onClick={() => {
+								onPageChanged(leftPortionPageNumber - 1);
+							}}
+						></button>
+					</>
+				)}
+			</div>
 			{/* Номера страниц */}
-			{pages
-				// Возвращает из всего массива номеров страниц, номера текущей порции
-				// выбирая только страницы от первого номера порции до последнего
-				.filter(
-					(page) =>
-						page >= leftPortionPageNumber && page <= rightPortionPageNumber
-				)
-				.map((page) => (
-					<span
-						className={currentPage === page ? styles.selectedPage : ''}
-						onClick={() => onPageChanged(page)}
-						key={page}
-					>
-						{page}
-					</span>
-				))}
+			<div className={styles.pageNumbers}>
+				{pages
+					// Возвращает из всего массива номеров страниц, номера текущей порции
+					// выбирая только страницы от первого номера порции до последнего
+					.filter(
+						(page) =>
+							page >= leftPortionPageNumber && page <= rightPortionPageNumber
+					)
+					.map((page) => (
+						<span
+							className={currentPage === page ? styles.selectedPage : ''}
+							onClick={currentPage !== page ? () => onPageChanged(page) : null}
+							key={page}
+						>
+							{page}
+						</span>
+					))}
+			</div>
 			{/* Кнопка переключения порции вправо */}
-			{portionCount > portionNumber && (
-				<button
-					onClick={() => {
-						setPortionNumber(portionNumber + 1);
-					}}
-				>
-					Next
-				</button>
-			)}
+			<div className={styles.buttons}>
+				{portionCount > portionNumber && (
+					<>
+						<button
+							className={styles.nextButton}
+							onClick={() => {
+								onPageChanged(rightPortionPageNumber + 1);
+							}}
+						></button>
+						<button
+							className={styles.endPageButton}
+							onClick={() => {
+								onPageChanged(pagesCount);
+							}}
+						></button>
+					</>
+				)}
+			</div>
 		</div>
 	) : (
 		''

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
@@ -8,7 +8,6 @@ import { Textarea } from '../../common/FormControls/FormControls';
 import styles from './Messages.module.scss';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
-
 
 const MessageFormValidationSchema = yup.object().shape({
 	newMessage: yup.string(),
@@ -25,29 +24,46 @@ const NewMessageForm = (props) => (
 	<Formik
 		initialValues={{ newMessage: '' }}
 		validationSchema={MessageFormValidationSchema}
-		onSubmit={(value, actions) => {
-			props.sendMessage(value.newMessage, props.userId);
-			actions.resetForm();
+		onSubmit={async (value, actions) => {
+			if (value.newMessage) {
+				await props.sendMessage(value.newMessage, props.userId);
+				actions.resetForm();
+				props.scrollToBottom();
+			}
 		}}
 	>
-		{({ handleSubmit, values, errors, touched }) => (
-			<form className={styles.newMessage} onSubmit={handleSubmit}>
-				<Field
-					as={Textarea}
-					name='newMessage'
-					placeholder='Enter your message...'
-					serverError={errors.newMessage}
-					touched={touched.newMessage}
-					maxLength='500'
-				/>
-				{values.newMessage && <button type='submit'>Send</button>}
-			</form>
-		)}
+		{({ handleSubmit, values, errors, touched }) => {
+			const onKeyDown = (e) => {
+				if ((e.ctrlKey || e.altKey) && e.key === 'Enter') {
+					handleSubmit();
+				}
+			};
+			return (
+				<form className={styles.newMessage} onSubmit={handleSubmit}>
+					<Field
+						as={Textarea}
+						name='newMessage'
+						placeholder='Enter your message...'
+						serverError={errors.newMessage}
+						touched={touched.newMessage}
+						maxLength='500'
+						onKeyDown={onKeyDown}
+					/>
+					{values.newMessage && <button type='submit'>Send</button>}
+				</form>
+			);
+		}}
 	</Formik>
 );
 
 const Messages = (props) => {
 	const userId = props.match.params.userId;
+	const scrollToBottom = () => {
+		window.scrollTo(0, document.body.scrollHeight);
+	};
+	useEffect(() => {
+		scrollToBottom();
+	}, []);
 	return (
 		<div className={styles.messages}>
 			<div className={styles.openMessages}>
@@ -60,7 +76,11 @@ const Messages = (props) => {
 			</div>
 			<div className={styles.newMessageWrap}>
 				<div className={styles.emptyBlock}></div>
-				<NewMessageForm sendMessage={props.sendMessage} userId={userId} />
+				<NewMessageForm
+					scrollToBottom={scrollToBottom}
+					sendMessage={props.sendMessage}
+					userId={userId}
+				/>
 			</div>
 		</div>
 	);

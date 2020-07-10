@@ -7,7 +7,6 @@ import {
 	getUsers,
 	setUsers,
 } from '../../../redux/reducers/usersReducer';
-import Preloader from '../../common/Preloader/Preloader';
 import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 
 const UsersContainer = ({
@@ -34,23 +33,17 @@ const UsersContainer = ({
 		getUsers(pageNumber, pageSize);
 	};
 	return (
-		<>
-			{users ? (
-				<Users
-					totalUsersCount={totalUsersCount}
-					pageSize={pageSize}
-					currentPage={currentPage}
-					onPageChanged={onPageChanged}
-					users={users}
-					defaultAvatar={defaultAvatar}
-					followingInProgress={followingInProgress}
-					follow={follow}
-					unfollow={unfollow}
-				/>
-			) : (
-				<Preloader />
-			)}
-		</>
+		<Users
+			totalUsersCount={totalUsersCount}
+			pageSize={pageSize}
+			currentPage={currentPage}
+			onPageChanged={onPageChanged}
+			users={users}
+			defaultAvatar={defaultAvatar}
+			followingInProgress={followingInProgress}
+			follow={follow}
+			unfollow={unfollow}
+		/>
 	);
 };
 

@@ -9,8 +9,10 @@ import {
 import styles from './Login.module.scss';
 import LoginForm from './LoginForm';
 import refreshImg from '../../../assets/image/refresh.svg';
+import useScrollToTop from '../../../utilities/useScrollToTop';
 
 const Login = (props) => {
+	useScrollToTop()
 	const [loading, setLoading] = useState(false);
 	const onSubmit = async (values, actions) => {
 		actions.setStatus();

@@ -1,5 +1,4 @@
 .dialogs {
-	background: darkcyan;
 	min-height: calc(100vh - 60px);
 	.dialogItem {
 		border-bottom: 1px solid #000;
@@ -34,7 +33,7 @@
 						background: rgb(226, 234, 253);
 						line-height: 15px;
 						padding: 4px;
-						max-height: 36px;
+						max-height: 35px;
 						overflow: hidden;
 						border-radius: 5px;
 						box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);

@@ -1,13 +1,16 @@
-import React from 'react'
-import s from './News.module.scss'
-import { withAuthRedirect } from '../../../hoc/withAuthRedirect'
+import React from 'react';
+import s from './News.module.scss';
+import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
+import PageInDevelopment from '../../common/PageInDevelopment/PageInDevelopment';
+import useScrollToTop from '../../../utilities/useScrollToTop';
 
 const News = () => {
-    return (
-        <div className={s.news}>
-            News
-        </div>
-    )
-}
+	useScrollToTop()
+	return (
+		<div className={s.news}>
+			<PageInDevelopment />
+		</div>
+	);
+};
 
-export default withAuthRedirect(News)
+export default withAuthRedirect(News);

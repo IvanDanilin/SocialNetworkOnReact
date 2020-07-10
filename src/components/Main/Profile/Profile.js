@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styles from './Profile.module.scss';
-import PageInfoWrap from './PageInfoWrap';
+import PageInfo from './PageInfo/PageInfo';
 import NewPostBlock from './NewPostBlock';
 import ExistingPostsBlock from './ExistingPostsBlock';
-import PageInfoForm from './PageInfoForm';
+import PageInfoForm from './PageInfoForm/PageInfoForm';
+import useScrollToTop from '../../../utilities/useScrollToTop';
 
 const Profile = ({
 	topImage,
@@ -21,6 +22,8 @@ const Profile = ({
 }) => {
 	// Переключатель режима редактирования информации пользователя
 	const [pageEditMode, setPageEditMode] = useState(false);
+	
+	useScrollToTop();
 
 	return pageEditMode ? (
 		<PageInfoForm
@@ -35,7 +38,7 @@ const Profile = ({
 			</div>
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
-					<PageInfoWrap
+					<PageInfo
 						isMyProfile={isMyProfile}
 						profile={profile}
 						defaultAvatar={defaultAvatar}

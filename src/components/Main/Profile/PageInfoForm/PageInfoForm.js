@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styles from './PageInfoForm.module.scss';
-import { Textarea, Input } from '../../common/FormControls/FormControls';
+import { Textarea, Input } from '../../../common/FormControls/FormControls';
 import { Formik, Field } from 'formik';
 import cn from 'classnames';
+import useScrollToTop from '../../../../utilities/useScrollToTop';
 
 const ErrorOutput = ({ errors }) => {
 	const [errorIndex, setErrorIndex] = useState(0);
@@ -61,6 +62,7 @@ const PageInfoForm = ({
 	},
 	changeUserData,
 }) => {
+	useScrollToTop()
 	return (
 		<Formik
 			initialValues={{

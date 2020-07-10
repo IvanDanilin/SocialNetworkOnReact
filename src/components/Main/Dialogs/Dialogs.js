@@ -5,8 +5,10 @@ import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
 import styles from './Dialogs.module.scss';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import useScrollToTop from '../../../utilities/useScrollToTop';
 
 const Dialogs = (props) => {
+	useScrollToTop();
 	return (
 		<div className={styles.dialogs}>
 			<ul>

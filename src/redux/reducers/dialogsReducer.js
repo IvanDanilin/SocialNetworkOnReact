@@ -7,7 +7,7 @@ let initialState = [
 		messagesAll: [
 			{
 				id: 0,
-				message: 'Lorem ipsum dolor sit amet.',
+				message: 'Lorem ipsum \n dolor sit amet.',
 			},
 			{
 				id: 1,

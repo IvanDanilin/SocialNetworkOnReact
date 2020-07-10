@@ -1,0 +1,220 @@
+.pageWrap {
+	background: mediumslateblue;
+	box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+	padding: 0 30px 30px;
+	.page {
+		margin: 0 auto;
+		max-width: 790px;
+		position: relative;
+		.pageHead {
+			display: flex;
+			.avatar {
+				margin: -37px 30px 0 0;
+				text-align: center;
+				position: relative;
+				min-width: 150px;
+				max-width: 150px;
+				img:hover ~ label {
+					visibility: visible;
+				}
+				img {
+					width: 100%;
+					border: 2px solid #000;
+					box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.8);
+				}
+				img {
+					&.isExist {
+						&:hover {
+							cursor: zoom-in;
+						}
+					}
+				}
+				input {
+					width: 0.1px;
+					height: 0.1px;
+					opacity: 0;
+					overflow: hidden;
+					position: absolute;
+					z-index: -1;
+				}
+				label {
+					visibility: hidden;
+					display: block;
+					text-align: center;
+					width: calc(100% - 4px);
+					line-height: 20px;
+					margin: -22px 2px 0;
+					position: relative;
+					background: rgba(0, 0, 0, 0.5);
+					cursor: pointer;
+					font-weight: 700;
+					font-size: 10pt;
+					color: #ddd;
+					&:hover {
+						background: rgba(0, 0, 0, 0.8);
+						visibility: visible;
+					}
+				}
+			}
+			.mainInfo {
+				margin: 20px auto 0;
+				font-family: sans-serif;
+				max-width: 70%;
+				width: 100%;
+				.pageName {
+					font-size: 25px;
+					border-bottom: 1px solid #000;
+					padding-bottom: 10px;
+					padding-left: 20px;
+				}
+				.status {
+					margin-top: 5px;
+					height: fit-content;
+					.myStatus {
+						border: 1px dashed transparent;
+						display: block;
+						&:hover {
+							border: 1px dashed #000;
+							cursor: pointer;
+						}
+					}
+					.enterStatus {
+						border: 1px dashed transparent;
+						color: #444;
+						display: block;
+						&:hover {
+							border: 1px dashed #000;
+							cursor: pointer;
+						}
+					}
+				}
+			}
+		}
+		.personalInfoWrap {
+			margin: 0 auto;
+			.topBorder {
+				margin-top: 10px;
+				position: relative;
+				line-height: 17px;
+				background: rgb(106, 81, 194);
+				padding: 0 10px;
+				.editModeButton {
+					height: 100%;
+					color: #eee;
+					position: absolute;
+					right: 3px;
+					background: transparent;
+					padding: 0 5px;
+					display: none;
+					@media (pointer: coarse) {
+						display: inline;
+					}
+					&:hover {
+						color: #bbb;
+					}
+				}
+			}
+			.personalInfo {
+				display: flex;
+				justify-content: space-around;
+				.aboutMeBlock {
+					margin: 0 10px 0 15px;
+					width: 100%;
+					max-width: 50%;
+					.pageInfoRow {
+						margin: 7px 0;
+						white-space: pre-line;
+						span {
+							font-weight: 700;
+						}
+					}
+				}
+				.contactsBlock {
+					margin: 0 10px 0 15px;
+					width: 100%;
+					max-width: 50%;
+					.contactsTitle {
+						font-size: 17px;
+						margin: 7px 0;
+					}
+					.contactsItem {
+						margin: 5px 0 0 5px;
+						span {
+							text-transform: capitalize;
+							font-weight: 700;
+						}
+					}
+				}
+			}
+			&:hover {
+				.topBorder {
+					.editModeButton {
+						display: inline;
+					}
+				}
+			}
+		}
+	}
+}
+
+.pageWrap {
+	@media screen and (max-width: 800px) {
+		.page {
+			max-width: 400px;
+			.pageHead {
+				.mainInfo {
+					max-width: 60%;
+				}
+			}
+			.personalInfoWrap {
+				.personalInfo {
+					flex-wrap: wrap;
+					.aboutMeBlock {
+						max-width: 100%;
+					}
+					.contactsBlock {
+						max-width: 100%;
+					}
+				}
+			}
+		}
+	}
+	@media screen and (max-width: 700px) {
+		.page {
+			max-width: 300px;
+			.pageHead {
+				flex-wrap: wrap;
+				.mainInfo {
+					max-width: 100%;
+				}
+			}
+		}
+	}
+}
+
+.photoWrap {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 6;
+	background: rgba(0, 0, 0, 0.493);
+	&:hover {
+		cursor: zoom-out;
+	}
+	.photoFullwindow {
+		position: fixed;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto auto;
+		width: fit-content;
+		height: fit-content;
+		img {
+			max-height: 100%;
+			max-width: 100%;
+		}
+	}
+}

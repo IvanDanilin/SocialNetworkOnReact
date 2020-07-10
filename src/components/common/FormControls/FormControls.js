@@ -25,7 +25,6 @@ const FormControl = ({ error, touched, serverError, ...props }) => {
 		if (serverError) {
 			setErrorStyle(true);
 			errorStyleTimeout = setTimeout(() => {
-				console.log('oh');
 				setErrorStyle(false);
 			}, 1000);
 		}

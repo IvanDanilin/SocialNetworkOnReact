@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Profile.module.scss';
+import styles from '../Profile.module.scss';
 import { Formik, Field } from 'formik';
 
 const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
@@ -16,18 +16,18 @@ const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 							status: status,
 						}}
 						onSubmit={({ status }, form) => {
-								updateUserStatus(status);
+							updateUserStatus(status);
 							setEditMode(false);
 						}}
 					>
 						{({ handleSubmit }) => (
-								<Field
-									onBlur={handleSubmit}
-									autoFocus
-									component='input'
-									name='status'
-									maxLength='300'
-								/>
+							<Field
+								onBlur={handleSubmit}
+								autoFocus
+								component='input'
+								name='status'
+								maxLength='300'
+							/>
 						)}
 					</Formik>
 				</div>

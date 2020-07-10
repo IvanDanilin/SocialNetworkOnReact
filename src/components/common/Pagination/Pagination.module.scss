@@ -1,22 +1,117 @@
 .pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    height: 25px;
-    flex-wrap: wrap;
-    span {
-        flex-basis: 20px;
-        color: #333;
-        font-size: 14px;
-        &.selectedPage {
-            font-size: 17px;
-            font-weight: 700;
-            color: #000;
-        }
-        &:hover {
-            font-size: 17px;
-            cursor: pointer;
-        }
-    }
+	display: flex;
+	justify-content: center;
+	align-content: center;
+	max-width: 100%;
+	margin: 20px auto;
+	.pageNumbers {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
+		min-width: 250px;
+		margin: 0 5px;
+		@media screen and (max-width: 600px) and (min-width: 500px) {
+			min-width: 200px;
+		}
+		@media screen and (max-width: 370px){
+			min-width: 160px;
+			width: 160px;
+		}
+		span {
+			text-align: center;
+			flex-basis: 22px;
+			color: #333;
+			font-size: 14px;
+			&.selectedPage {
+				font-size: 17px;
+				line-height: 21px;
+				font-weight: 700;
+				color: #000;
+				border-radius: 50%;
+				background: #aaa;
+				&:hover {
+					cursor: default;
+				}
+			}
+			&:hover {
+				font-size: 17px;
+				font-weight: 700;
+				cursor: pointer;
+				border-radius: 50%;
+				background: #aaa;
+				line-height: 21px;
+			}
+		}
+	}
+	.buttons {
+		width: 39px;
+		margin: auto 0;
+		position: relative;
+		button {
+			width: 18px;
+			height: 18px;
+			border-radius: 50%;
+			position: relative;
+			box-shadow: 1px 1px 3px #333;
+			background: #fff;
+			&:hover {
+				background: #bbb;
+			}
+			&::before {
+				content: '';
+				position: absolute;
+				width: 8px;
+				height: 8px;
+				border-right: 3px solid #000;
+				border-bottom: 3px solid #000;
+				top: 5px;
+			}
+			&.nextButton {
+				margin: 0 3px 0 0;
+				&::before {
+					transform: rotate(-45deg);
+					left: 4px;
+				}
+			}
+			&.prevButton {
+				&::before {
+					transform: rotate(135deg);
+					left: 6px;
+				}
+			}
+			&.firstPageButton,
+			&.endPageButton {
+				&::after {
+					content: '';
+					position: absolute;
+					width: 8px;
+					height: 8px;
+					border-right: 3px solid #000;
+					border-bottom: 3px solid #000;
+					top: 5px;
+				}
+			}
+			&.firstPageButton {
+				margin: 0 3px 0 0;
+				&::before {
+					transform: rotate(135deg);
+					left: 3px;
+				}
+				&::after {
+					transform: rotate(135deg);
+					left: 10px;
+				}
+			}
+			&.endPageButton {
+				&::before {
+					transform: rotate(-45deg);
+					left: 0px;
+				}
+				&::after {
+					transform: rotate(-45deg);
+					left: 7px;
+				}
+			}
+		}
+	}
 }
