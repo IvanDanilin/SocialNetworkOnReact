@@ -1,1 +1,0 @@
-{"version":3,"sources":["PageInDevelopment.module.scss"],"names":[],"mappings":"AAAA,kCACC,gBAAiB,CACjB,iBAAkB,CAClB,cAAe","file":"6.bf494083.chunk.css","sourcesContent":[".message {\n\tpadding-top: 50px;\n\ttext-align: center;\n\tfont-size: 25px;\n}\n"]}
