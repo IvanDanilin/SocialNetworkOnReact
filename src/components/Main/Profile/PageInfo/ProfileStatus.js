@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import styles from '../Profile.module.scss';
+import styles from './PageInfo.module.scss';
 import { Formik, Field } from 'formik';
+import cn from 'classnames';
 
 const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 	const [editMode, setEditMode] = useState(false);
@@ -24,9 +25,9 @@ const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 							<Field
 								onBlur={handleSubmit}
 								autoFocus
-								component='input'
-								name='status'
-								maxLength='300'
+								component="input"
+								name="status"
+								maxLength="300"
 							/>
 						)}
 					</Formik>
@@ -36,9 +37,10 @@ const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 					<span
 						onClick={isMyProfile ? activateEditMode : undefined}
 						title={isMyProfile ? 'Click to change your status' : ''}
-						className={
-							isMyProfile ? (status ? styles.myStatus : styles.enterStatus) : ''
-						}
+						className={cn({
+							[styles.myStatus]: isMyProfile,
+							[styles.enterStatus]: !status,
+						})}
 					>
 						{status || 'Enter your status...'}
 					</span>

@@ -11,7 +11,7 @@ const PhotoFullWindow = ({ photo, setIsPhotoFullWindow }) => {
 
 	return (
 		<div
-			className={styles.photoWrap}
+			className={styles.photoFullWindowWrap}
 			onClick={() => setIsPhotoFullWindow(false)}
 		>
 			<div className={styles.photoFullwindow}>

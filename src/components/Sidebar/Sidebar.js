@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styles from './Sidebar.module.scss';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as cn from 'classnames';
+import cn from 'classnames';
 import useOutsideClick from '../../utilities/useOutsideClick';
 
 const Sidebar = (props) => {

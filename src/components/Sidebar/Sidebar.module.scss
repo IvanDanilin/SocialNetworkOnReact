@@ -1,7 +1,7 @@
 .sidebar {
 	&.menuIsActive {
     left: 0;
-    transition: 0.5s;
+    transition: 0.3s;
 	}
 	grid-area: sidebar;
 	position: fixed;
@@ -13,7 +13,7 @@
 	z-index: 3;
 	@media screen and (max-width: 500px) {
     left: -500px;
-    transition: 0.5s;
+    transition: 0.3s;
 	}
 	.nav {
 		height: 100%;
