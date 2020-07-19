@@ -1,43 +1,30 @@
 .pageInfoFormWrap {
-	background: mediumslateblue;
 	padding: 20px;
 	form {
 		font-size: 15px;
 		max-width: 500px;
 		margin: 0 auto;
-		fieldset {
-			border: 1px solid #000;
-			border-radius: 5px;
-			padding: 10px;
+		.nameItem {
+			text-transform: capitalize;
+			min-width: 130px;
 		}
-		.inputItem {
-			display: flex;
-			justify-content: space-between;
-			flex-wrap: wrap;
-			.nameItem {
-				text-transform: capitalize;
-				min-width: 130px;
-			}
-			.checkboxField,
-			.textField {
-				min-width: 150px;
-				max-width: 250px;
-				width: 100%;
-				margin: 5px;
-			}
-			.textField {
-				textarea,
-				input {
-					width: 100%;
-					font-size: 15px;
-					padding: 2px;
-				}
-			}
+		.checkboxField,
+		.textField {
+			min-width: 150px;
+			width: 100%;
+			margin: 7px 5px;
+		}
+		.checkboxField {
+			margin-left: -6px;
 		}
 		.contactsTitle {
-			background: rgb(106, 81, 194);
 			font-size: 17px;
-			margin: 7px 0;
+			margin: 7px 0 3px;
+			background: #f0f2f5;
+			color: #828282;
+			padding: 5px;
+			margin: 5px;
+			width: 100%;
 		}
 		.buttons {
 			text-align: center;
@@ -45,8 +32,6 @@
 				margin: 10px;
 				padding: 3px 5px;
 				border-radius: 3px;
-				background: rgb(64, 82, 179);
-				color: #fff;
 			}
 		}
 	}

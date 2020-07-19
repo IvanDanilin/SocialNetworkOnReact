@@ -1,6 +1,5 @@
 .pageWrap {
-	background: mediumslateblue;
-	box-shadow: 5px 5px 15px rgba(0, 0, 0, 1);
+	background: #fff;
 	padding: 0 30px 30px;
 	.page {
 		margin: 0 auto;
@@ -9,11 +8,12 @@
 		.pageHead {
 			display: flex;
 			.avatar {
-				margin: -37px 30px 0 0;
+				margin: -47px 30px 0 0;
 				text-align: center;
 				position: relative;
 				min-width: 150px;
 				max-width: 150px;
+				background: #fff;
 				img:hover ~ label {
 					visibility: visible;
 				}
@@ -64,13 +64,14 @@
 				width: 100%;
 				.pageName {
 					font-size: 25px;
-					border-bottom: 1px solid #000;
-					padding-bottom: 10px;
+					line-height: 30px;
 					padding-left: 20px;
 				}
 				.status {
 					margin-top: 5px;
 					height: fit-content;
+					background: #f0f2f5;
+					border-radius: 5px;
 					.myStatus,
 					.enterStatus {
 						border: 1px dashed transparent;
@@ -81,22 +82,44 @@
 						}
 					}
 					.enterStatus {
-						color: #444;
+						color: #555;
+					}
+					.statusField {
+						width: 100%;
+						input {
+							height: 20px;
+							padding: 1px;
+						}
+					}
+					.myStatus,
+					.enterStatus {
+						padding: 3px;
 					}
 				}
 			}
 		}
 		.personalInfoWrap {
 			margin: 0 auto;
-			.topBorder {
+			.topBorder,
+			.infoTitle {
 				margin-top: 10px;
-				position: relative;
-				line-height: 17px;
-				background: rgb(106, 81, 194);
 				padding: 0 10px;
+			}
+			.topBorder {
+				font-size: 13px;
+				line-height: 17px;
+				background: #f0f2f5;
+				color: #828282;
+			}
+			.infoTitle {
+				font-size: 17px;
+				line-height: 20px;
+				border-bottom: 1px solid #aaa;
+				font-weight: 700;
+				position: relative;
 				.editModeButton {
 					height: 100%;
-					color: #eee;
+					color: #000;
 					position: absolute;
 					right: 3px;
 					background: transparent;
@@ -106,27 +129,33 @@
 						display: inline;
 					}
 					&:hover {
-						color: #bbb;
+						text-decoration: underline;
 					}
 				}
 			}
 			.personalInfo {
+				line-height: 17px;
 				display: flex;
 				justify-content: space-around;
 				.aboutMeBlock {
 					margin: 0 10px 0 15px;
 					width: 100%;
 					max-width: 50%;
-					.pageInfoRow {
+					.pageInfoRow,
+					.checkboxRow {
 						margin: 7px 0;
 						white-space: pre-line;
 						span {
 							font-weight: 700;
 						}
 					}
+					.checkboxRow {
+						svg {
+							vertical-align: middle;
+						}
+					}
 				}
 				.contactsBlock {
-					margin: 0 10px 0 15px;
 					width: 100%;
 					max-width: 50%;
 					.contactsTitle {
@@ -134,7 +163,10 @@
 						margin: 7px 0;
 					}
 					.contactsItem {
-						margin: 5px 0 0 5px;
+						margin: 7px 10px 7px 15px;
+						a {
+							color: #2a5885;
+						}
 						span {
 							text-transform: capitalize;
 							font-weight: 700;
@@ -143,7 +175,7 @@
 				}
 			}
 			&:hover {
-				.topBorder {
+				.infoTitle {
 					.editModeButton {
 						display: inline;
 					}

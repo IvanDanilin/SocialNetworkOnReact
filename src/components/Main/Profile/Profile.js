@@ -19,10 +19,12 @@ const Profile = ({
 	changeMyPhoto,
 	userId,
 	changeUserData,
+	avatar,
+	fullName,
 }) => {
 	// Переключатель режима редактирования информации пользователя
 	const [pageEditMode, setPageEditMode] = useState(false);
-	
+
 	useScrollToTop();
 
 	return pageEditMode ? (
@@ -34,7 +36,7 @@ const Profile = ({
 	) : (
 		<div className={styles.profile}>
 			<div className={styles.topImage}>
-				<img src={topImage} alt='cover' />
+				<img src={topImage} alt="cover" />
 			</div>
 			<div className={styles.contentBlockWrapper}>
 				<div className={styles.contentBlock}>
@@ -50,7 +52,12 @@ const Profile = ({
 					/>
 					<div className={styles.postsBlock}>
 						{isAuth ? <NewPostBlock addPost={addPost} /> : ''}
-						<ExistingPostsBlock posts={existingPosts} />
+						<ExistingPostsBlock
+							posts={existingPosts}
+							defaultAvatar={defaultAvatar}
+							avatar={avatar}
+							name={fullName}
+						/>
 					</div>
 				</div>
 			</div>

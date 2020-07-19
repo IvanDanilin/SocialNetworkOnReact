@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
-import { NavLink } from 'react-router-dom';
 import styles from './Header.module.scss';
 import useOutsideClick from '../../utilities/useOutsideClick';
+import { Box } from '@material-ui/core';
+import LinkItem from '../common/LinkItem/LinkItem';
 
 const DropDownMenu = (props) => {
 	// Ссылка на выпадающее меню
@@ -30,22 +31,30 @@ const DropDownMenu = (props) => {
 		props.toggleSignOutInProcess(false);
 	};
 
+	const CustomLink = (props) => (
+		<li>
+			<LinkItem
+				{...props}
+				activeClassName={styles.active}
+				onClick={hideDropDownMenu}
+			/>
+		</li>
+	);
+
 	return (
-		<div ref={dropDownMenuMenuRef} className={styles.dropDownMenu}>
+		<Box
+			color="primary.dark"
+			ref={dropDownMenuMenuRef}
+			className={styles.dropDownMenu}
+		>
 			<ul>
+				<CustomLink to={`/profile/${props.userId}`} linkName="Profile" />
+				<CustomLink to={'/settings'} linkName="Settings" />
 				<li>
-					<NavLink to={`/profile/${props.userId}`} onClick={hideDropDownMenu}>
-						Profile
-					</NavLink>
+					<div onClick={onClickSignOut}>Sign out</div>
 				</li>
-				<li>
-					<NavLink to='/settings' onClick={hideDropDownMenu}>
-						Settings
-					</NavLink>
-				</li>
-				<li onClick={onClickSignOut}>Sign out</li>
 			</ul>
-		</div>
+		</Box>
 	);
 };
 

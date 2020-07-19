@@ -7,7 +7,7 @@ import {
 	getUsers,
 	setUsers,
 } from '../../../redux/reducers/usersReducer';
-import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
+import defaultAvatar from '../../../assets/image/defaultAvatar.png';
 
 const UsersContainer = ({
 	getUsers,

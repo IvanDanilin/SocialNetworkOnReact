@@ -12,7 +12,7 @@ import refreshImg from '../../../assets/image/refresh.svg';
 import useScrollToTop from '../../../utilities/useScrollToTop';
 
 const Login = (props) => {
-	useScrollToTop()
+	useScrollToTop();
 	const [loading, setLoading] = useState(false);
 	const onSubmit = async (values, actions) => {
 		actions.setStatus();
@@ -29,7 +29,17 @@ const Login = (props) => {
 		});
 		setLoading(false);
 		if (error) {
+			const errors = {};
 			actions.setStatus(error);
+			if (error === 'Incorrect Email or Password') {
+				errors.emailServer = 'Incorrect Email or Password';
+				errors.passwordServer = 'Incorrect Email or Password';
+				actions.setErrors(errors);
+			}
+			if (error === 'Incorrect anti-bot symbols') {
+				errors.captchaServer = 'Incorrect anti-bot symbols';
+				actions.setErrors(errors);
+			}
 		}
 	};
 

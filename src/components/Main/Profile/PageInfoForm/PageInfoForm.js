@@ -1,55 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styles from './PageInfoForm.module.scss';
-import { Textarea, Input } from '../../../common/FormControls/FormControls';
 import { Formik, Field } from 'formik';
-import cn from 'classnames';
 import useScrollToTop from '../../../../utilities/useScrollToTop';
+import {
+	TextField,
+	Box,
+	Checkbox,
+	FormControlLabel,
+	Button,
+} from '@material-ui/core';
+import * as yup from 'yup';
 
-const ErrorOutput = ({ errors }) => {
-	const [errorIndex, setErrorIndex] = useState(0);
-	const [blinkError, setBlinkError] = useState(false);
-
-	useEffect(() => {
-		let mainTimeout;
-		let blinkTumeout;
-		if (errors && errors.any && errors.any.length > 1) {
-			mainTimeout = setTimeout(() => {
-				if (errors && errors.any && errorIndex < errors.any.length - 1) {
-					setErrorIndex(errorIndex + 1);
-					setBlinkError(true);
-					blinkTumeout = setTimeout(() => {
-						setBlinkError(false);
-					}, 500);
-				} else {
-					setErrorIndex(0);
-					setBlinkError(true);
-					blinkTumeout = setTimeout(() => {
-						setBlinkError(false);
-					}, 500);
-				}
-			}, 2000);
-		}
-		return () => {
-			clearTimeout(mainTimeout);
-			clearTimeout(blinkTumeout);
-		};
-	}, [errors, errorIndex]);
-	return (
-		<div className={styles.errorsWrap}>
-			{errors.any ? (
-				<div
-					className={cn(styles.errors, {
-						[styles.blinkError]: blinkError,
-					})}
-				>
-					{errors.any[errorIndex]}
-				</div>
-			) : (
-				''
-			)}
-		</div>
-	);
-};
+const PageInfoFormValidatioSchema = yup.object().shape({
+	fullName: yup.string().required().max(100),
+	aboutMe: yup.string().required().max(1000),
+	lookingForAJobDescription: yup.string().required().max(1000),
+});
 
 const PageInfoForm = ({
 	setPageEditMode,
@@ -62,7 +28,7 @@ const PageInfoForm = ({
 	},
 	changeUserData,
 }) => {
-	useScrollToTop()
+	useScrollToTop();
 	return (
 		<Formik
 			initialValues={{
@@ -78,109 +44,101 @@ const PageInfoForm = ({
 					actions.setErrors(error);
 				}
 			}}
+			validationSchema={PageInfoFormValidatioSchema}
 		>
 			{({ handleSubmit, errors, touched, values }) => (
 				<div className={styles.pageInfoFormWrap}>
 					<form onSubmit={handleSubmit}>
-						<fieldset>
-							<legend>Personal info</legend>
-							<div className={cn(styles.fullName, styles.inputItem)}>
-								<div className={styles.nameItem}>Your name: </div>
-								<div className={styles.textField}>
+						<Field
+							className={styles.textField}
+							as={TextField}
+							name="fullName"
+							error={Boolean(errors.fullName)}
+							label="Your name"
+							variant="outlined"
+							helperText={errors.fullName}
+						/>
+
+						<div className={styles.aboutMeBlock}>
+							<Field
+								className={styles.textField}
+								as={TextField}
+								name="aboutMe"
+								error={Boolean(errors.aboutMe)}
+								multiline
+								label="About me"
+								variant="outlined"
+								helperText={errors.aboutMe}
+							/>
+
+							<div>
+								<FormControlLabel
+									className={styles.checkboxField}
+									label="Looking for a job"
+									control={
+										<Field
+											name="lookingForAJob"
+											color="primary"
+											as={Checkbox}
+											checked={values.lookingForAJob ? true : false}
+										/>
+									}
+								/>
+							</div>
+
+							<Field
+								className={styles.textField}
+								as={TextField}
+								name="lookingForAJobDescription"
+								error={Boolean(errors.lookingForAJobDescription)}
+								multiline
+								label="Your skills"
+								variant="outlined"
+								helperText={errors.lookingForAJobDescription}
+							/>
+						</div>
+
+						<div className={styles.contactsBlock}>
+							<Box className={styles.contactsTitle}>Contacts:</Box>
+							{Object.entries(contacts).map((contact) => {
+								const contactName = contact[0];
+								const label =
+									contactName[0].toUpperCase() + contactName.slice(1);
+								return (
 									<Field
-										as={Input}
-										name='fullName'
-										placeholder='Your name'
-										error={errors.fullName}
-										touched={touched.fullName}
+										className={styles.textField}
+										key={contactName}
+										as={TextField}
+										name={`contacts.${contactName}`}
+										value={values.contacts[contactName] || ''}
+										error={Boolean(
+											errors.contacts &&
+												errors.contacts[contactName] &&
+												touched.contacts &&
+												touched.contacts[contactName]
+										)}
+										label={label}
+										variant="outlined"
+										helperText={errors.contacts && errors.contacts[contactName]}
 									/>
-								</div>
-							</div>
+								);
+							})}
+						</div>
 
-							<div className={styles.aboutMeBlock}>
-								<div className={styles.inputItem}>
-									<div className={styles.nameItem}>About me: </div>
-									<div className={styles.textField}>
-										<Field
-											as={Textarea}
-											name='aboutMe'
-											placeholder='About me'
-											error={errors.aboutMe}
-											touched={touched.aboutMe}
-										/>
-									</div>
-								</div>
-
-								<div className={styles.inputItem}>
-									<label className={styles.nameItem} htmlFor='lookingForAJob'>
-										Looking for a job:{' '}
-									</label>
-									<div className={styles.checkboxField}>
-										<Field type='checkbox' name='lookingForAJob' />
-									</div>
-								</div>
-
-								<div className={styles.inputItem}>
-									<div className={styles.nameItem}>Your skills: </div>
-									<div className={styles.textField}>
-										<Field
-											as={Textarea}
-											name='lookingForAJobDescription'
-											placeholder='Description'
-											error={errors.lookingForAJobDescription}
-											touched={touched.lookingForAJobDescription}
-										/>
-									</div>
-								</div>
-							</div>
-
-							<div className={styles.contactsBlock}>
-								<div className={styles.contactsTitle}>Contacts:</div>
-								{Object.entries(contacts).map((contact) => {
-									return (
-										<div
-											key={contact[0]}
-											className={cn(styles.contactsItem, styles.inputItem)}
-										>
-											<div className={styles.nameItem}>{`${contact[0]}: `}</div>
-											<div className={styles.textField}>
-												<Field
-													as={Input}
-													name={`contacts.${contact[0]}`}
-													value={values.contacts[contact[0]] || ''}
-													error={
-														errors &&
-														errors.contacts &&
-														errors.contacts[contact[0]]
-													}
-													touched={
-														touched &&
-														touched.contacts &&
-														touched.contacts[contact[0]]
-													}
-												/>
-											</div>
-										</div>
-									);
-								})}
-							</div>
-
-							{/* Кнопки */}
-							<div className={styles.buttons}>
-								<button type='submit' className={styles.saveButton}>
-									Save
-								</button>
-								<button
-									onClick={() => setPageEditMode(false)}
-									className={styles.cancelButton}
-									type='button'
-								>
-									Cancel
-								</button>
-							</div>
-						</fieldset>
-
-						<ErrorOutput errors={errors} />
+						{/* Кнопки */}
+						<div className={styles.buttons}>
+							<Button color="primary" type="submit" variant="contained">
+								Save
+							</Button>
+							<Button
+								onClick={() => setPageEditMode(false)}
+								type="button"
+								variant="outlined"
+								color="primary"
+							>
+								Cancel
+							</Button>
+						</div>
 					</form>
 				</div>
 			)}

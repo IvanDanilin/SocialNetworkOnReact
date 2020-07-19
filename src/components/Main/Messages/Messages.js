@@ -4,18 +4,24 @@ import { Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import { withAuthRedirect } from '../../../hoc/withAuthRedirect';
 import { sendMessage } from '../../../redux/reducers/dialogsReducer';
-import { Textarea } from '../../common/FormControls/FormControls';
 import styles from './Messages.module.scss';
 import { Formik, Field } from 'formik';
 import * as yup from 'yup';
+import cn from 'classnames';
+import { Box, TextField } from '@material-ui/core';
 
 const MessageFormValidationSchema = yup.object().shape({
-	newMessage: yup.string(),
+	newMessage: yup.string().max(10),
 });
 
 const CurrentMessages = (props) =>
 	props.messages.map((messageEl) => (
-		<div key={messageEl.id} className={styles.message}>
+		<div
+			key={messageEl.id}
+			className={cn(styles.message, {
+				[styles.myMessage]: messageEl.myMessage,
+			})}
+		>
 			{messageEl.message}
 		</div>
 	));
@@ -39,18 +45,26 @@ const NewMessageForm = (props) => (
 				}
 			};
 			return (
-				<form className={styles.newMessage} onSubmit={handleSubmit}>
+				<Box
+					component="form"
+					className={styles.newMessage}
+					onSubmit={handleSubmit}
+					bgcolor="primary.main"
+				>
 					<Field
-						as={Textarea}
-						name='newMessage'
-						placeholder='Enter your message...'
-						serverError={errors.newMessage}
+						className={styles.newMessageField}
+						as={TextField}
+						name="newMessage"
+						placeholder="Enter your message..."
+						error={errors.newMessage}
 						touched={touched.newMessage}
-						maxLength='500'
 						onKeyDown={onKeyDown}
+						multiline
+						rowsMax={4}
+						variant="outlined"
 					/>
-					{values.newMessage && <button type='submit'>Send</button>}
-				</form>
+					{values.newMessage && <button type="submit">Send</button>}
+				</Box>
 			);
 		}}
 	</Formik>
@@ -65,15 +79,13 @@ const Messages = (props) => {
 		scrollToBottom();
 	}, []);
 	return (
-		<div className={styles.messages}>
-			<div className={styles.openMessages}>
-				<Route
-					path={`/dialog/${userId}`}
-					render={() => (
-						<CurrentMessages messages={props.dialogs[userId].messagesAll} />
-					)}
-				/>
-			</div>
+		<Box className={styles.messages} bgcolor="primary.light">
+			<Route
+				path={`/dialog/${userId}`}
+				render={() => (
+					<CurrentMessages messages={props.dialogs[userId].messagesAll} />
+				)}
+			/>
 			<div className={styles.newMessageWrap}>
 				<div className={styles.emptyBlock}></div>
 				<NewMessageForm
@@ -82,7 +94,7 @@ const Messages = (props) => {
 					userId={userId}
 				/>
 			</div>
-		</div>
+		</Box>
 	);
 };
 

@@ -1,22 +1,37 @@
 import React, { useRef } from 'react';
 import styles from './Sidebar.module.scss';
-import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import cn from 'classnames';
 import useOutsideClick from '../../utilities/useOutsideClick';
+import { Box } from '@material-ui/core';
+import LinkItem from '../common/LinkItem/LinkItem';
 
 const Sidebar = (props) => {
+	// Ссылка на сайдбар
 	const mainMenuRef = useRef();
-	useOutsideClick(mainMenuRef, () => {
-		if (props.mainMenuIsActive) {
-			props.setMainMenuIsActive(false);
-		}
-	});
-	const onCklickToLink = () => {
+
+	// Скрыть сайдбар если он активен
+	const hideSidebar = () => {
 		if (props.mainMenuIsActive) {
 			props.setMainMenuIsActive(false);
 		}
 	};
+
+	// Выполнить переданную функцию при клике вокруг элемента переданного через реф
+	useOutsideClick(mainMenuRef, () => {
+		hideSidebar();
+	});
+
+	const CustomLink = (props) => (
+		<li>
+			<LinkItem
+				{...props}
+				onClick={hideSidebar}
+				activeClassName={styles.active}
+			/>
+		</li>
+	);
+
 	return (
 		<aside
 			ref={mainMenuRef}
@@ -25,40 +40,20 @@ const Sidebar = (props) => {
 			})}
 		>
 			<nav className={styles.nav}>
-				<ul className={styles.list}>
+				<Box component="ul" color="primary.dark" className={styles.list}>
 					{props.isAuth && (
 						<>
-							<li onClick={onCklickToLink}>
-								<NavLink
-									to={`/profile/${props.userId}`}
-									activeClassName={styles.active}
-								>
-									Profile
-								</NavLink>
-							</li>
-							<li onClick={onCklickToLink}>
-								<NavLink to='/dialogs' activeClassName={styles.active}>
-									Dialogs
-								</NavLink>
-							</li>
-							<li onClick={onCklickToLink}>
-								<NavLink to='/news' activeClassName={styles.active}>
-									News
-								</NavLink>
-							</li>
-							<li onClick={onCklickToLink}>
-								<NavLink to='/music' activeClassName={styles.active}>
-									Music
-								</NavLink>
-							</li>
+							<CustomLink
+								to={`/profile/${props.userId}`}
+								linkName={'Profile'}
+							/>
+							<CustomLink to={'/dialogs'} linkName={'Dialogs'} />
+							<CustomLink to={'/news'} linkName={'News'} />
+							<CustomLink to={'/music'} linkName={'Music'} />
 						</>
 					)}
-					<li onClick={onCklickToLink}>
-						<NavLink to='/users' activeClassName={styles.active}>
-							Users
-						</NavLink>
-					</li>
-				</ul>
+					<CustomLink to={'/users'} linkName={'Users'} />
+				</Box>
 			</nav>
 		</aside>
 	);

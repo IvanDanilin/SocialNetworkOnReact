@@ -10,17 +10,19 @@ import {
 	logoName,
 	loginBlock,
 	menuButton,
-	isExist
+	isExist,
 } from './Header.module.scss';
 import DropDownMenu from './DropDownMenu';
 import cn from 'classnames';
+import { Box, Avatar } from '@material-ui/core';
+import LinkItem from '../common/LinkItem/LinkItem';
 
 const AuthUserInfo = (props) => {
 	return (
 		<>
 			<div className={login}>{props.fullName}</div>
 			<div className={avatar}>
-				<img src={props.avatar || props.defaultAvatar} alt='' />
+				<Avatar src={props.avatar || props.defaultAvatar} alt="" />
 			</div>
 		</>
 	);
@@ -47,18 +49,20 @@ const Header = ({
 		setMainMenuIsActive(true);
 	};
 	return (
-		<header className={header}>
+		<Box component="header" className={header} bgcolor="primary.dark">
 			<div className={headerContent}>
 				<div className={logoBlock}>
 					<div className={menuButton} onClick={onClickMainMenuButton}>
-						<img src={menuButtonImg} alt='button' />
+						<img src={menuButtonImg} alt="button" />
 					</div>
 					<div className={logoImage}>
-						<img src={logo} alt='logo' />
+						<img src={logo} alt="logo" />
 					</div>
-					<NavLink to={`/profile/${userId}`} className={logoName}>
-						WhoIAm
-					</NavLink>
+					<LinkItem
+						to={`/profile/${userId}`}
+						className={logoName}
+						linkName={'WhoIAm0'}
+					/>
 				</div>
 				{isAuth ? (
 					<div
@@ -86,7 +90,7 @@ const Header = ({
 					/>
 				)}
 			</div>
-		</header>
+		</Box>
 	);
 };
 

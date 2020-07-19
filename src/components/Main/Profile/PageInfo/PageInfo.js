@@ -2,6 +2,10 @@ import React, { useState, useEffect } from 'react';
 import styles from './PageInfo.module.scss';
 import ProfileStatus from './ProfileStatus';
 import cn from 'classnames';
+import EditIcon from '@material-ui/icons/Edit';
+import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import CheckCircleOutlineIcon from '@material-ui/icons/CheckCircleOutline';
+import { red, green } from '@material-ui/core/colors';
 
 const PhotoFullWindow = ({ photo, setIsPhotoFullWindow }) => {
 	useEffect(() => {
@@ -15,7 +19,7 @@ const PhotoFullWindow = ({ photo, setIsPhotoFullWindow }) => {
 			onClick={() => setIsPhotoFullWindow(false)}
 		>
 			<div className={styles.photoFullwindow}>
-				<img src={photo} alt='' />
+				<img src={photo} alt="" />
 			</div>
 		</div>
 	);
@@ -31,7 +35,9 @@ const Contacts = ({ contacts }) => {
 				return (
 					<div key={contact[0]} className={styles.contactsItem}>
 						<span className={styles.contactName}>{`${contact[0]}: `}</span>
-						{contact[1]}
+						<a href={contact[1]} rel="noopener noreferrer" target="_blank">
+							{contact[1]}
+						</a>
 					</div>
 				);
 			} else {
@@ -44,7 +50,7 @@ const Contacts = ({ contacts }) => {
 		<div className={styles.contactsBlock}>
 			{itemExist ? (
 				<>
-					<div className={styles.contactsTitle}>Contacts:</div>
+					<div className={styles.topBorder}>Contacts</div>
 					{items}
 				</>
 			) : (
@@ -60,7 +66,7 @@ const AboutMe = ({ aboutMe, lookingForAJob, lookingForAJobDescription }) => {
 			{/* About me */}
 			{aboutMe ? (
 				<div className={styles.pageInfoRow}>
-					<span>About me:</span>
+					<span>About me: </span>
 					{aboutMe}
 				</div>
 			) : (
@@ -68,9 +74,13 @@ const AboutMe = ({ aboutMe, lookingForAJob, lookingForAJobDescription }) => {
 			)}
 
 			{/* Looking for a job */}
-			<div className={styles.pageInfoRow}>
-				<span>Looking for a job: </span>
-				{lookingForAJob ? 'Yes' : 'No'}
+			<div className={styles.checkboxRow}>
+				<span>Looking for a job </span>
+				{lookingForAJob ? (
+					<CheckCircleOutlineIcon style={{ color: green[400] }} />
+				) : (
+					<HighlightOffIcon style={{ color: red[400] }} />
+				)}
 			</div>
 
 			{/* Looking for a job description */}
@@ -126,16 +136,16 @@ const PageInfo = ({
 								onClick={photos.large && (() => setIsPhotoFullWindow(true))}
 								src={photos && (photos.large || defaultAvatar)}
 								className={cn({ [styles.isExist]: photos.large })}
-								alt='avatar'
+								alt="avatar"
 							/>
 							{isMyProfile && (
 								<>
 									<input
-										id='setPhoto'
-										type='file'
+										id="setPhoto"
+										type="file"
 										onChange={onMyPhotoSelected}
 									/>
-									<label htmlFor='setPhoto'>Set photo</label>
+									<label htmlFor="setPhoto">Set photo</label>
 								</>
 							)}
 						</div>
@@ -154,16 +164,16 @@ const PageInfo = ({
 					</div>
 					{/* User info */}
 					<div className={styles.personalInfoWrap}>
-						<div className={styles.topBorder}>
+						<div className={styles.infoTitle}>
 							Personal information
 							{/* Edit mode button */}
 							{isMyProfile && (
 								<button
 									onClick={() => setPageEditMode(true)}
 									className={styles.editModeButton}
-									type='button'
+									type="button"
 								>
-									Edit
+									<EditIcon color="primary" />
 								</button>
 							)}
 						</div>

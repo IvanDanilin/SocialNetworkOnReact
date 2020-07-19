@@ -2,6 +2,13 @@ import React, { useState } from 'react';
 import styles from './PageInfo.module.scss';
 import { Formik, Field } from 'formik';
 import cn from 'classnames';
+import { FormControl, Input, FormHelperText } from '@material-ui/core';
+
+const validateStatus = (value) => {
+	if (value.length > 300) {
+		return 'Must be 300 characters or less';
+	}
+};
 
 const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 	const [editMode, setEditMode] = useState(false);
@@ -16,19 +23,23 @@ const ProfileStatus = ({ status, updateUserStatus, isMyProfile }) => {
 						initialValues={{
 							status: status,
 						}}
-						onSubmit={({ status }, form) => {
-							updateUserStatus(status);
+						onSubmit={({ status }) => {
 							setEditMode(false);
+							updateUserStatus(status);
 						}}
 					>
-						{({ handleSubmit }) => (
-							<Field
-								onBlur={handleSubmit}
-								autoFocus
-								component="input"
-								name="status"
-								maxLength="300"
-							/>
+						{({ handleSubmit, errors }) => (
+							<FormControl className={styles.statusField} error={errors.status}>
+								<Field
+									onBlur={handleSubmit}
+									autoFocus
+									as={Input}
+									name="status"
+									placeholder="Status"
+									validate={validateStatus}
+								/>
+								<FormHelperText>{errors.status}</FormHelperText>
+							</FormControl>
 						)}
 					</Formik>
 				</div>

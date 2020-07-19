@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Redirect } from 'react-router-dom';
 import { compose } from 'redux';
-import defaultAvatar from '../../../assets/image/defaultAvatar.jpg';
-import topImage from '../../../assets/image/les_tuman_derevia.jpg';
+import defaultAvatar from '../../../assets/image/defaultAvatar.png';
+import topImage from '../../../assets/image/topImage.jpg';
 import { getAuthUserData } from '../../../redux/reducers/authReducer';
 import {
 	addPost,
@@ -30,7 +30,7 @@ const ProfileContainer = (props) => {
 		errorDownloadProfile,
 		setErrorDownloadProfile,
 		setUserProfile,
-	} = props
+	} = props;
 
 	// Id текущей страницы пользователя из адресной строки
 	const userIdInAddressBar = +userId;
@@ -89,7 +89,7 @@ const ProfileContainer = (props) => {
 			<Redirect to={`/profile/${authUserId}`} />
 		) : (
 			// Если не авторизован, редирект на страницу логинизации
-			<Redirect to='/login' />
+			<Redirect to="/login" />
 		);
 	}
 };
@@ -105,6 +105,8 @@ const mapStateToProps = (state) => ({
 	existingPosts: state.profilePage.existingPosts,
 	errorDownloadProfile: state.profilePage.errorDownloadProfile,
 	isFetchingProfile: state.profilePage.isFetchingProfile,
+	avatar: state.profilePage.myProfile.photos.small,
+	fullName: state.profilePage.myProfile.fullName,
 });
 
 // Actions for dispatchs

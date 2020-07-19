@@ -10,18 +10,23 @@ import './null.scss';
 import { initializeApp } from './redux/reducers/appReducer';
 import { HashRouter } from 'react-router-dom';
 import store from './redux/store';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './components/common/theme';
 
 export const AppPure = ({ initializeApp, initialized }) => {
-	const [mainMenuIsActive, setMainMenuIsActive] = useState(false)
+	const [mainMenuIsActive, setMainMenuIsActive] = useState(false);
 
 	useEffect(() => {
 		initializeApp();
 	}, [initializeApp]);
 
 	return initialized ? (
-		<div className='app-wrapper'>
+		<div className="app-wrapper">
 			<HeaderContainer setMainMenuIsActive={setMainMenuIsActive} />
-			<Sidebar mainMenuIsActive={mainMenuIsActive} setMainMenuIsActive={setMainMenuIsActive} />
+			<Sidebar
+				mainMenuIsActive={mainMenuIsActive}
+				setMainMenuIsActive={setMainMenuIsActive}
+			/>
 			<Main />
 		</div>
 	) : (
@@ -40,7 +45,9 @@ export const AppWithComose = compose(
 const App = () => (
 	<HashRouter>
 		<Provider store={store}>
-			<AppWithComose />
+			<ThemeProvider theme={theme}>
+				<AppWithComose />
+			</ThemeProvider>
 		</Provider>
 	</HashRouter>
 );

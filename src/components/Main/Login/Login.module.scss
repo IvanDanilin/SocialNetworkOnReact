@@ -1,6 +1,5 @@
 .loginContainer {
 	padding: 30px 0;
-	text-shadow: 0.5px 0.5px 4px rgb(92, 92, 92);
 	.greeting {
 		margin: 0 auto 20px;
 		max-width: 300px;
@@ -11,31 +10,44 @@
 			margin-bottom: 5px;
 		}
 		mark {
+			background: #ddd;
 			margin: 5px;
 			display: block;
 			text-align: center;
 			text-shadow: 1px 1px 3px rgb(158, 158, 158);
-			box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+			box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+				0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 		}
 	}
 	form {
 		margin: 0 auto;
 		max-width: max-content;
-		input {
-			max-width: 175px;
-			margin-bottom: 10px;
-			padding: 5px;
-			box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+		.textField {
+			width: 100%;
 		}
-		label {
-			margin-left: 5px;
+		.inputWrap {
+			margin: 15px 0 0;
+			input {
+				&:-webkit-autofill,
+				&:-webkit-autofill:hover,
+				&:-webkit-autofill:focus,
+				&:-webkit-autofill:active {
+					border-radius: 0;
+					-webkit-box-shadow: 0 0 0 30px #fff inset !important;
+				}
+			}
 		}
+		.checkboxWrap {
+			padding: 0 5px;
+		}
+
 		.captcha {
 			.captchaImg {
-				max-width: 175px;
-				margin: 10px 0;
+				max-width: 120px;
+				margin: 10px auto;
 				position: relative;
-				box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
+				box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+					0px 1px 5px 0px rgba(0, 0, 0, 0.12);
 				img {
 					border-radius: 5px;
 					max-width: 100%;
@@ -43,8 +55,8 @@
 				button {
 					position: absolute;
 					right: 0;
-					width: 25px;
-					height: 25px;
+					width: 20px;
+					height: 20px;
 					background: transparent;
 				}
 			}
@@ -54,28 +66,13 @@
 		margin: 0 auto;
 		max-width: max-content;
 		button {
-			margin: 0 5px 10px;
-			text-shadow: 1px 1px 2px #000;
-			padding: 5px;
-			background: rgb(78, 19, 133);
-			border-radius: 5px;
-			color: rgb(211, 211, 211);
-			min-width: 70px;
-			box-shadow: 2px 2px 7px rgba(0, 0, 0, 0.6);
-			&:hover {
-				background: rgb(108, 25, 185);
-			}
-			&:disabled {
-				background: rgb(38, 9, 65);
-				cursor: default;
-			}
+			margin: 5px;
 		}
 	}
 
 	.error {
 		text-align: center;
-		color: red;
-		text-shadow: 1px 1px 2px #000;
+		color: #f44336;
 		min-height: 25px;
 	}
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
-import defaultAvatar from '../../assets/image/defaultAvatar.jpg';
+import defaultAvatar from '../../assets/image/defaultAvatar.png';
 import logo from '../../assets/image/logo.svg';
 import {
 	signOut,
