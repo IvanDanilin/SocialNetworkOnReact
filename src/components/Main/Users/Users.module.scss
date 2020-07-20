@@ -24,14 +24,12 @@
 				height: 70px;
 				margin: 0 auto 30px;
 				background: #fff;
-				box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.9);
 				border-radius: 7px;
 				img {
 					object-fit: cover;
 					width: 70px;
 					height: 70px;
 					overflow: scroll;
-					border: 2px solid #000;
 					border-radius: 7px;
 				}
 			}
@@ -43,7 +41,7 @@
 				border-radius: 4px;
 				top: 75px;
 				color: #ddd;
-				box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.9);
+				box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 				border: 1px solid #000;
 				min-width: 80px;
 				&.follow {
@@ -73,10 +71,10 @@
 				}
 
 				&:active {
-					box-shadow: 1px 1px 5px rgba(0, 0, 0, 1);
-					transform: translateX(2px);
-					bottom: -2px;
+					box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+					transform: translateX(1px);
 					background: darkgreen;
+					top: 76px;
 				}
 			}
 		}

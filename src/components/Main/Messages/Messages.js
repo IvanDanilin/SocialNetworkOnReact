@@ -11,7 +11,7 @@ import cn from 'classnames';
 import { Box, TextField } from '@material-ui/core';
 
 const MessageFormValidationSchema = yup.object().shape({
-	newMessage: yup.string().max(10),
+	newMessage: yup.string().max(5000),
 });
 
 const CurrentMessages = (props) =>

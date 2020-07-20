@@ -61,7 +61,7 @@ const Header = ({
 					<LinkItem
 						to={`/profile/${userId}`}
 						className={logoName}
-						linkName={'WhoIAm0'}
+						linkName={'WhoIAm'}
 					/>
 				</div>
 				{isAuth ? (
